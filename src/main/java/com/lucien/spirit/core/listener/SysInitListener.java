@@ -87,6 +87,10 @@ public class SysInitListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
     }
 
+    /**
+     * 初始化资源
+     * @param resourceRepository
+     */
     private void initResource(ResourceRepository resourceRepository) {
     	Resource resource = null;
     	Resource sysRes = new Resource("系统管理", "/", null, Resource.TYPE_MENU, 1);
@@ -97,6 +101,5 @@ public class SysInitListener implements ServletContextListener {
     	resourceRepository.save(resource);
     	resource = new Resource("资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3);
     	resourceRepository.save(resource);
-    	
     }
 }
