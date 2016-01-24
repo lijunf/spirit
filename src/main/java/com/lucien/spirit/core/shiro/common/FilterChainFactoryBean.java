@@ -26,12 +26,31 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
 		map.put("/resources/**", "anon");
 
 		List<Resource> rs = resourceRepository.findAll();
+		if (rs == null || rs.size() == 0) {
+		    initResource();
+		    rs = resourceRepository.findAll();
+		}
 		for (Resource r : rs) {
 			map.put(r.getHref(), "authc,perms[" + r.getId() + "]");
 		}
 		map.put("/home", "authc");
 		return map;
 	}
+	
+	/**
+     * 初始化资源
+     */
+    private void initResource() {
+        Resource resource = null;
+        Resource sysRes = new Resource("系统管理", "/", null, Resource.TYPE_MENU, 1);
+        resourceRepository.saveAndFlush(sysRes);
+        resource = new Resource("用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1);
+        resourceRepository.save(resource);
+        resource = new Resource("角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2);
+        resourceRepository.save(resource);
+        resource = new Resource("资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3);
+        resourceRepository.save(resource);
+    }
 
 	@Override
 	public Class<?> getObjectType() {

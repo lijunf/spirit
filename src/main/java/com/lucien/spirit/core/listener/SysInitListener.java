@@ -55,7 +55,6 @@ public class SysInitListener implements ServletContextListener {
         personRepository.save(personList);
         
         ResourceRepository resourceRepository = webApplicationContext.getBean(ResourceRepository.class);
-        initResource(resourceRepository);
         List<Resource> resources = resourceRepository.findAll();
 
         RoleRepository roleRepository = webApplicationContext.getBean(RoleRepository.class);
@@ -87,16 +86,4 @@ public class SysInitListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
     }
 
-    private void initResource(ResourceRepository resourceRepository) {
-    	Resource resource = null;
-    	Resource sysRes = new Resource("系统管理", "/", null, Resource.TYPE_MENU, 1);
-    	resourceRepository.saveAndFlush(sysRes);
-    	resource = new Resource("用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1);
-    	resourceRepository.save(resource);
-    	resource = new Resource("角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2);
-    	resourceRepository.save(resource);
-    	resource = new Resource("资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3);
-    	resourceRepository.save(resource);
-    	
-    }
 }
