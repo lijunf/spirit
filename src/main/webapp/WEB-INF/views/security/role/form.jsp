@@ -6,14 +6,14 @@
 		<script type="text/javascript">
 			function generatePermissionString() {
 				var chk_value = [];
-				$('input[name="permission"]:checked').each(function() {
+				$('input[name="resource"]:checked').each(function() {
 					chk_value.push($(this).val());
 				});
-				$('input[name="permissionStr"]').val(chk_value);
+				$('input[name="resourceStr"]').val(chk_value);
 			}
 		</script>
 		<form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/security/role/form" method="post">
-			<div align="left" style="width: 600px; margin-right: auto; margin-left: auto;">
+			<div align="left" style="max-width: 600px; margin-right: auto; margin-left: auto;">
 				<div class="form-group">
 					<label for="roleName" class="col-sm-2 control-label">角色名</label>
 					<div class="col-sm-10">
@@ -29,13 +29,13 @@
 				<div class="form-group">
 					<label for="roleDesc" class="col-sm-2 control-label">角色权限</label>
 					<div class="col-sm-10">
-						<c:forEach items="${permissions}" var="permission">
-							<label><input type="checkbox" name="permission" value="${permission.abbreviation}">${permission.description}</label>
+						<c:forEach items="${resources}" var="resource">
+							<label><input type="checkbox" name="resource" value="${resource.id}">${resource.name}</label>
 							<br />
 						</c:forEach>
 					</div>
 				</div>
-				<input type="text" name="permissionStr" hidden="true" />
+				<input type="text" name="resourceStr" hidden="true" />
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="submit" value="提交" onclick="generatePermissionString();" class="btn btn-primary" /> &nbsp;

@@ -55,7 +55,7 @@ public class Role extends BaseModel {
 	 */
 	@ManyToMany(cascade = CascadeType.DETACH)
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-	@JoinTable(name = "sys_role_resource", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = {
+	@JoinTable(name = "sys_role_resources", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "RESOURCE_ID") })
 	private List<Resource> resource;
 
@@ -120,13 +120,23 @@ public class Role extends BaseModel {
         StringBuilder sb = new StringBuilder();
 
         for (Iterator<Resource> it = getResource().iterator(); it.hasNext();) {
-        	Resource r = it.next();
-    		sb.append(r.getHref() + "=" + r.getId());
+    		sb.append(it.next().getId());
             if (it.hasNext())
                 sb.append(",");
         }
 
         return sb.toString();
     }
+    
+    public String getViewResources() {
+        StringBuilder sb = new StringBuilder();
 
+        for (Iterator<Resource> it = getResource().iterator(); it.hasNext();) {
+            sb.append(it.next().getName());
+            if (it.hasNext())
+                sb.append(",");
+        }
+
+        return sb.toString();
+    }
 }

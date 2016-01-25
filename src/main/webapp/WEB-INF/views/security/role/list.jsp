@@ -9,14 +9,14 @@
 			<tr>
 				<th>角色名称</th>
 				<th>说明</th>
-				<th>权限列表</th>
+				<th>资源列表</th>
 				<th>操作</th>
 			</tr>
 			<c:forEach items="${roleList}" var="role">
 				<tr>
 					<td>${role.name}</td>
 					<td>${role.description}</td>
-					<td>${role.viewPermissions}</td>
+					<td>${role.viewResources}</td>
 					<td>
 						<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/role/edit/${role.id}'>edit</a>&nbsp;&nbsp; 
 						<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/person/role/${role.id}'>delete</a>

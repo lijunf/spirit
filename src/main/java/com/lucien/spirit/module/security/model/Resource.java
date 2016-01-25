@@ -27,7 +27,7 @@ import com.lucien.spirit.core.model.BaseModel;
  *
  */
 @Entity
-@Table(name = "sys_resource")
+@Table(name = "sys_resources")
 public class Resource extends BaseModel {
 
 	private static final long serialVersionUID = -7699511964868984541L;
@@ -78,6 +78,9 @@ public class Resource extends BaseModel {
 	 */
 	@Column(length = 200, name = "DESCRIPTION")
 	private String description;
+	
+	@Column(length = 10, name = "ICON_CLS")
+	private String iconCls;
 
 	/**
 	 * 排序
@@ -136,8 +139,16 @@ public class Resource extends BaseModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+    public String getIconCls() {
+        return iconCls;
+    }
+ 
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls;
+    }
 
-	public Integer getOrderNo() {
+    public Integer getOrderNo() {
 		return orderNo;
 	}
 

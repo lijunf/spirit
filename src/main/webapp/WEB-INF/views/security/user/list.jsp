@@ -11,7 +11,7 @@
 		<table class="table table-hover table-bordered" style="margin-bottom: 0px;">
 			<tr>
 				<th>登录帐号</th>
-				<th>员工ID</th>
+				<!-- <th>员工ID</th> -->
 				<th>姓名</th>
 				<th>手机</th>
 				<th>最后登录时间</th>
@@ -20,7 +20,7 @@
 			<c:forEach items="${pageUser.content}" var="user">
 				<tr>
 					<td>${user.name}</td>
-					<td>${user.employeeId}</td>
+					<%-- <td>${user.employeeId}</td> --%>
 					<td>${user.realName}</td>
 					<td>${user.mobile}</td>
 					<td>${user.lastLogin}</td>

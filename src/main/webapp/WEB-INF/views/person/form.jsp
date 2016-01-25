@@ -9,7 +9,7 @@
 				});
 			</script>
 		</spring:hasBindErrors>
-		<div align="center" style="width: 600px;">
+		<div align="center" style="max-width: 600px;">
 			<form:form action="." method="post" modelAttribute="person" cssClass="form-horizontal">
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">姓名</label>

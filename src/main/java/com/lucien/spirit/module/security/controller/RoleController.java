@@ -1,8 +1,6 @@
 package com.lucien.spirit.module.security.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.lucien.spirit.core.shiro.realm.JpaRealm;
+import com.lucien.spirit.module.security.model.Resource;
 import com.lucien.spirit.module.security.model.Role;
-import com.lucien.spirit.module.security.model.enums.Permission;
+import com.lucien.spirit.module.security.service.ResourceService;
 import com.lucien.spirit.module.security.service.RoleService;
 
 @Controller
@@ -28,26 +27,23 @@ public class RoleController {
     RoleService roleService;
     
     @Autowired
+    ResourceService resourceService;
+    
+    @Autowired
     JpaRealm jpaRealm;
 
     @RequestMapping("/list")
     public String list(Model model) {
         List<Role> roleList = roleService.findAll();
         model.addAttribute("roleList", roleList);
-        List<String> permissionList = roleService.queryAllPermissions();
-        model.addAttribute("permissionList", permissionList);
         return "/security/role/list";
     }
 
     @ModelAttribute
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String initCreate(Model model) {
-        List<Permission> permissions = new ArrayList<Permission>();
-        for (Permission permission : Permission.values()) {
-            permissions.add(permission);
-        }
-        Collections.sort(permissions);
-        model.addAttribute("permissions", permissions);
+        List<Resource> resources = resourceService.findAll();
+        model.addAttribute("resources", resources);
         return "/security/role/list";
     }
 
@@ -55,12 +51,18 @@ public class RoleController {
     public String submitCreate(Model model, HttpServletRequest request) {
         String name = request.getParameter("roleName");
         String desc = request.getParameter("roleDesc");
-        String permissionStr = request.getParameter("permissionStr");
+        String resourceStr = request.getParameter("resourceStr");
         Role role = new Role();
         role.setName(name);
         role.setDescription(desc);
-        String[] permissionArray = permissionStr.split(",");
-        // TODO role.setPermissions(Arrays.asList(permissionArray));
+        
+        String[] resourceArray = resourceStr.split(",");
+        List<Resource> resources = new ArrayList<Resource>();
+        for (String resId : resourceArray) {
+            Resource resource = new Resource(Long.parseLong(resId));
+            resources.add(resource);
+        }
+        role.setResource(resources);
         roleService.save(role);
         jpaRealm.clearAllCachedAuthorizationInfo();
         return "redirect:/security/role/list";
@@ -70,12 +72,8 @@ public class RoleController {
     public String initEdit(@PathVariable("id") String id, Model model) {
         Role role = roleService.findOne(Long.parseLong(id));
         model.addAttribute("role", role);
-        List<Permission> permissions = new ArrayList<Permission>();
-        for (Permission permission : Permission.values()) {
-            permissions.add(permission);
-        }
-        Collections.sort(permissions);
-        model.addAttribute("permissions", permissions);
+        List<Resource> resources = resourceService.findAll();
+        model.addAttribute("resources", resources);
         return "/security/role/edit";
     }
 
@@ -85,16 +83,19 @@ public class RoleController {
         String id = request.getParameter("id");
         String name = request.getParameter("roleName");
         String desc = request.getParameter("roleDesc");
-        String permissionStr = request.getParameter("permissionStr");
+        String resourceStr = request.getParameter("resourceStr");
 
         Role role = this.roleService.findOne(Long.parseLong(id));
 
         role.setName(name);
         role.setDescription(desc);
-        String[] permissionArray = permissionStr.split(",");
-        List<String> list = Arrays.asList(permissionArray);
-
-        // TODO role.setPermissions(new ArrayList<>(list));
+        String[] resourceArray = resourceStr.split(",");
+        List<Resource> resources = new ArrayList<Resource>();
+        for (String resId : resourceArray) {
+            Resource resource = new Resource(Long.parseLong(resId));
+            resources.add(resource);
+        }
+        role.setResource(resources);
         this.roleService.save(role);
         jpaRealm.clearAllCachedAuthorizationInfo();
         return "redirect:/security/role/list";
