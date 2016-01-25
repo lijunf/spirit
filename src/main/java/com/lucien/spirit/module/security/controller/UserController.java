@@ -50,7 +50,7 @@ public class UserController {
     	if (bindingResult.hasErrors()) {
             log.info("Error:{}", bindingResult.getModel());
             model.addAllAttributes(bindingResult.getModel());
-            return null;	// TODO 处理异常
+            // TODO 处理异常
         }
     	user = PasswordHelper.generatePassword(user);
         userService.save(user);

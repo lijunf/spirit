@@ -47,10 +47,8 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
             for (Role role : user.getRoles()) {
 				authorization.addRole(role.getName());
 				for (Resource resource : role.getResource()) {
-					if (Resource.TYPE_MENU == resource.getResType()) {
-						setMenuPerms(permissions, resource.getParent());
-						permissions.add(resource.getResCode());
-					}
+					setMenuPerms(permissions, resource.getParent());
+					permissions.add(resource.getResCode());
 				}
             }
             authorization.addStringPermissions(permissions);
