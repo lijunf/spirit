@@ -45,7 +45,8 @@ public class Resource extends BaseModel {
 		this.id = id;
 	}
 	
-	public Resource(String name, String href, Long pid, Integer resType, Integer orderNo) {
+	public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo) {
+	    this.resCode = resCode;
 		this.name = name;
 		this.description = name;
 		this.href = href;
@@ -60,6 +61,12 @@ public class Resource extends BaseModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
+	
+	/**
+	 * 资源编码
+	 */
+	@Column(length = 20, name = "RES_CODE")
+	private String resCode;
 
 	/**
 	 * 资源类型
@@ -116,7 +123,23 @@ public class Resource extends BaseModel {
 	@Column(name = "OPT_LOCK")
 	private int versionNum = 0;
 
-	public Integer getResType() {
+	public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public String getResCode() {
+        return resCode;
+    }
+
+    public void setResCode(String resCode) {
+        this.resCode = resCode;
+    }
+
+    public Integer getResType() {
 		return resType;
 	}
 
@@ -178,14 +201,6 @@ public class Resource extends BaseModel {
 
 	public void setHref(String href) {
 		this.href = href;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Date getCreateTime() {

@@ -31,7 +31,7 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
 		    rs = resourceRepository.findAll();
 		}
 		for (Resource r : rs) {
-			map.put(r.getHref(), "authc,perms[" + r.getId() + "]");
+			map.put(r.getHref(), "authc,perms[" + r.getResCode() + "]");
 		}
 		map.put("/home", "authc");
 		return map;
@@ -42,13 +42,13 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
      */
     private void initResource() {
         Resource resource = null;
-        Resource sysRes = new Resource("系统管理", "/", null, Resource.TYPE_MENU, 1);
+        Resource sysRes = new Resource("system:manage", "系统管理", "/", null, Resource.TYPE_MENU, 1);
         resourceRepository.saveAndFlush(sysRes);
-        resource = new Resource("用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1);
+        resource = new Resource("user:query", "用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1);
         resourceRepository.save(resource);
-        resource = new Resource("角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2);
+        resource = new Resource("role:query", "角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2);
         resourceRepository.save(resource);
-        resource = new Resource("资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3);
+        resource = new Resource("resource:query", "资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3);
         resourceRepository.save(resource);
     }
 

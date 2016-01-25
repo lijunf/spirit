@@ -49,7 +49,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
 				for (Resource resource : role.getResource()) {
 					if (Resource.TYPE_MENU == resource.getResType()) {
 						setMenuPerms(permissions, resource.getParent());
-						permissions.add(resource.getId().toString());
+						permissions.add(resource.getResCode());
 					}
 				}
             }
@@ -62,7 +62,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
     
 	private void setMenuPerms(Set<String> permissions, Resource resource) {
 		if (resource != null) {
-			permissions.add(resource.getId().toString());
+			permissions.add(resource.getResCode());
 			if (resource.getParent() != null) {
 				setMenuPerms(permissions, resource.getParent());
 			}
