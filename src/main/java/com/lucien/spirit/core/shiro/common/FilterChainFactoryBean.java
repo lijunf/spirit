@@ -44,11 +44,32 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         Resource resource = null;
         Resource sysRes = new Resource("system:manage", "系统管理", "/", null, Resource.TYPE_MENU, 1);
         resourceRepository.saveAndFlush(sysRes);
-        resource = new Resource("user:query", "用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1);
+        
+        Resource userResource = new Resource("user:query", "用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1);
+        resourceRepository.saveAndFlush(userResource);
+        resource = new Resource("user:add", "添加用户", "/security/user/create", userResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
-        resource = new Resource("role:query", "角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2);
+        resource = new Resource("user:edit", "编辑用户", "/security/user/edit", userResource.getId(), Resource.TYPE_BTN, 2);
         resourceRepository.save(resource);
-        resource = new Resource("resource:query", "资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3);
+        resource = new Resource("user:delete", "删除用户", "/security/user/delete/**", userResource.getId(), Resource.TYPE_BTN, 3);
+        resourceRepository.save(resource);
+        
+        Resource roleResource = new Resource("role:query", "角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2);
+        resourceRepository.saveAndFlush(roleResource);
+        resource = new Resource("role:add", "添加角色", "/security/role/form", roleResource.getId(), Resource.TYPE_BTN, 1);
+        resourceRepository.save(resource);
+        resource = new Resource("role:edit", "编辑角色", "/security/role/edit", roleResource.getId(), Resource.TYPE_BTN, 2);
+        resourceRepository.save(resource);
+        resource = new Resource("role:delete", "删除角色", "/security/role/delete/**", roleResource.getId(), Resource.TYPE_BTN, 3);
+        resourceRepository.save(resource);
+        
+        Resource resourceResource = new Resource("resource:query", "资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3);
+        resourceRepository.saveAndFlush(resourceResource);
+        resource = new Resource("resource:add", "添加资源", "/security/resource/create", resourceResource.getId(), Resource.TYPE_BTN, 1);
+        resourceRepository.save(resource);
+        resource = new Resource("resource:edit", "编辑资源", "/security/resource/edit", resourceResource.getId(), Resource.TYPE_BTN, 2);
+        resourceRepository.save(resource);
+        resource = new Resource("resource:delete", "删除资源", "/security/resource/delete/**", resourceResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
     }
 
