@@ -1,5 +1,7 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
 	<c:param name="title" value="PersonList" />
+	<c:param name="resCode" value="customer:manage" />
+	<c:param name="url" value="/person/list" />
 	<c:param name="navigation" value="Person" />
 	<c:param name="body">
 		<p>

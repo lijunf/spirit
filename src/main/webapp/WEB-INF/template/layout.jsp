@@ -138,46 +138,42 @@
 			</ul>
 			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav side-nav">
-					<li class="active">
-						<a href="${pageContext.request.contextPath}/home"><i class="fa fa-fw fa-dashboard"></i> Home</a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/person/list"><i class="fa fa-fw fa-dashboard"></i> Person</a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/security/user/list"><i class="fa fa-fw fa-dashboard"></i> User</a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/security/role/list"><i class="fa fa-fw fa-dashboard"></i> Role</a>
-					</li>
-					<li>
-						<a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
-					</li>
-					<li>
-						<a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-					</li>
-					<li>
-						<a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-					</li>
-					<li>
-						<a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-					</li>
-					<li>
-						<a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-					</li>
-					<li>
-						<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-						<ul id="demo" class="collapse">
-							<li>
-								<a href="#">Dropdown Item</a>
-							</li>
-							<li>
-								<a href="#">Dropdown Item</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
+				<div class="nav navbar-nav side-nav">
+					<%-- 显示一级菜单 --%>
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<c:forEach items="${applicationScope.topResourceList}" var="resource">
+							<shiro:hasPermission name="${resource.resCode}">
+								<div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="heading${resource.id}">
+								      <h4 class="panel-title">
+								        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse${resource.id}" 
+								        	<c:if test="${param.resCode ne resource.resCode}">aria-expanded="false" class="collapsed"</c:if> 
+								        	aria-controls="collapse${resource.id}">
+								          	${resource.name}
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapse${resource.id}" class="panel-collapse collapse <c:if test="${param.resCode eq resource.resCode}">in</c:if>" 
+								    	role="tabpanel" aria-labelledby="heading${resource.id}">
+								      <div class="panel-body">
+								      	<ul class="nav nav-stacked">
+								      		<c:forEach items="${resource.subResource}" var="subRes">
+												<shiro:hasPermission name="${subRes.resCode}">
+													<li <c:if test="${param.url eq subRes.href}">class="active"</c:if>>
+														<a href="${pageContext.request.contextPath}${subRes.href}">
+															<i class="fa fa-fw ${resource.iconCls}"></i>${subRes.name}
+														</a>
+													</li>
+												</shiro:hasPermission>
+											</c:forEach>
+										</ul>
+								      </div>
+								    </div>
+							  	</div>
+							</shiro:hasPermission>
+						</c:forEach>
+					</div>
+				</div>
 			</div>
 			<!-- /.navbar-collapse -->
 		</nav>

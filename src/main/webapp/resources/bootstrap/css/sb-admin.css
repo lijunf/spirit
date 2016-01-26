@@ -230,3 +230,41 @@ ul.alert-dropdown {
 .panel-yellow > a:hover {
     color: #df8a13;
 }
+
+.panel-group .panel {
+    border-radius: 0;
+    background-color: #222;
+    border: 0;
+}
+
+.panel-default>.panel-heading {
+	border-radius: 0;
+    background-color: #31c7b2;
+    border: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.side-nav li a {
+	color: #566170;
+	text-decoration: none;
+}
+
+.side-nav li a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.side-nav li.active a {
+	background: #000;
+}
+
+#accordion .panel-body {
+	padding: 0;
+}

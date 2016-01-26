@@ -1,5 +1,7 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
 	<c:param name="title" value="用户管理" />
+	<c:param name="resCode" value="system:manage" />
+	<c:param name="url" value="/security/user/list" />
 	<c:param name="navigation" value="User" />
 	<c:param name="body">
 		<c:if test="${message!=null}">

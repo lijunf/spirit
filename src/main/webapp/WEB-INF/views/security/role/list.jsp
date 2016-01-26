@@ -1,5 +1,7 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
 	<c:param name="title" value="角色列表" />
+	<c:param name="resCode" value="system:manage" />
+	<c:param name="url" value="/security/role/list" />
 	<c:param name="navigation" value="Role" />
 	<c:param name="body">
 		<p>
