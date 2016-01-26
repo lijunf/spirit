@@ -12,32 +12,32 @@ import com.lucien.spirit.module.security.repository.ResourceRepository;
 
 public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> {
 
-	@Autowired
-	ResourceRepository resourceRepository;
+    @Autowired
+    ResourceRepository resourceRepository;
 
-	/**
-	 * 权限map
-	 */
-	@Override
-	public Map<String, String> getObject() throws Exception {
-		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("/login", "anon");
-		map.put("/Kaptcha.jpg", "anon");
-		map.put("/resources/**", "anon");
+    /**
+     * 权限map
+     */
+    @Override
+    public Map<String, String> getObject() throws Exception {
+        Map<String, String> map = new LinkedHashMap<String, String>();
+        map.put("/login", "anon");
+        map.put("/Kaptcha.jpg", "anon");
+        map.put("/resources/**", "anon");
 
-		List<Resource> rs = resourceRepository.findAll();
-		if (rs == null || rs.size() == 0) {
-		    initResource();
-		    rs = resourceRepository.findAll();
-		}
-		for (Resource r : rs) {
-			map.put(r.getHref(), "authc,perms[" + r.getResCode() + "]");
-		}
-		map.put("/home", "authc");
-		return map;
-	}
-	
-	/**
+        List<Resource> rs = resourceRepository.findAll();
+        if (rs == null || rs.size() == 0) {
+            initResource();
+            rs = resourceRepository.findAll();
+        }
+        for (Resource r : rs) {
+            map.put(r.getHref(), "authc,perms[" + r.getResCode() + "]");
+        }
+        map.put("/home", "authc");
+        return map;
+    }
+    
+    /**
      * 初始化资源
      */
     private void initResource() {
@@ -71,16 +71,32 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         resourceRepository.save(resource);
         resource = new Resource("resource:delete", "删除资源", "/security/resource/delete/**", resourceResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
+        
+        Resource cusRes = new Resource("customer:manage", "客户关系", "/", null, Resource.TYPE_MENU, 2);
+        resourceRepository.saveAndFlush(cusRes);
+        Resource personResource = new Resource("person:query", "客户管理", "/person/list", cusRes.getId(), Resource.TYPE_MENU, 1);
+        resourceRepository.saveAndFlush(personResource);
+        resource = new Resource("person:add", "添加客户", "/person/form", personResource.getId(), Resource.TYPE_BTN, 1);
+        resourceRepository.save(resource);
+        resource = new Resource("person:edit", "编辑客户", "/person/edit", personResource.getId(), Resource.TYPE_BTN, 2);
+        resourceRepository.save(resource);
+        resource = new Resource("person:delete", "删除客户", "/person/delete/**", personResource.getId(), Resource.TYPE_BTN, 3);
+        resourceRepository.save(resource);
+        
+        Resource testRes = new Resource("test:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 3);
+        resourceRepository.saveAndFlush(testRes);
+        Resource testResource = new Resource("test:query", "测试权限", "/test/list", testRes.getId(), Resource.TYPE_MENU, 1);
+        resourceRepository.saveAndFlush(testResource);
     }
 
-	@Override
-	public Class<?> getObjectType() {
-		return Map.class;
-	}
+    @Override
+    public Class<?> getObjectType() {
+        return Map.class;
+    }
 
-	@Override
-	public boolean isSingleton() {
-		return true;
-	}
+    @Override
+    public boolean isSingleton() {
+        return true;
+    }
 
 }

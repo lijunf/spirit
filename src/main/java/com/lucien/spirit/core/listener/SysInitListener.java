@@ -35,7 +35,11 @@ public class SysInitListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
+        ResourceRepository resourceRepository = webApplicationContext.getBean(ResourceRepository.class);
         UserRepository userRepository = webApplicationContext.getBean(UserRepository.class);
+        List<Resource> topResourceList = resourceRepository.findTopList();
+        sce.getServletContext().setAttribute("topResourceList", topResourceList);
+        
         User user = userRepository.findUserByName("admin");
         if (user != null && user.getId() != null) {
         	return;
@@ -54,7 +58,6 @@ public class SysInitListener implements ServletContextListener {
         }
         personRepository.save(personList);
         
-        ResourceRepository resourceRepository = webApplicationContext.getBean(ResourceRepository.class);
         List<Resource> resources = resourceRepository.findAll();
 
         RoleRepository roleRepository = webApplicationContext.getBean(RoleRepository.class);
