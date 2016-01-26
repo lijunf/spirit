@@ -149,7 +149,9 @@
 								        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse${resource.id}" 
 								        	<c:if test="${param.resCode ne resource.resCode}">aria-expanded="false" class="collapsed"</c:if> 
 								        	aria-controls="collapse${resource.id}">
+								        	<i class="glyphicon ${resource.iconCls}"></i>
 								          	${resource.name}
+								          	<span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
 								        </a>
 								      </h4>
 								    </div>
@@ -161,7 +163,7 @@
 												<shiro:hasPermission name="${subRes.resCode}">
 													<li <c:if test="${param.url eq subRes.href}">class="active"</c:if>>
 														<a href="${pageContext.request.contextPath}${subRes.href}">
-															<i class="fa fa-fw ${resource.iconCls}"></i>${subRes.name}
+															<i class="glyphicon ${subRes.iconCls}"></i>${subRes.name}
 														</a>
 													</li>
 												</shiro:hasPermission>

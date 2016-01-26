@@ -42,10 +42,10 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
      */
     private void initResource() {
         Resource resource = null;
-        Resource sysRes = new Resource("system:manage", "系统管理", "/", null, Resource.TYPE_MENU, 1);
+        Resource sysRes = new Resource("system:manage", "系统设置", "/", null, Resource.TYPE_MENU, 1, "glyphicon-cog");
         resourceRepository.saveAndFlush(sysRes);
         
-        Resource userResource = new Resource("user:query", "用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1);
+        Resource userResource = new Resource("user:query", "用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-user");
         resourceRepository.saveAndFlush(userResource);
         resource = new Resource("user:add", "添加用户", "/security/user/create", userResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
@@ -54,7 +54,7 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         resource = new Resource("user:delete", "删除用户", "/security/user/delete/**", userResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
         
-        Resource roleResource = new Resource("role:query", "角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2);
+        Resource roleResource = new Resource("role:query", "角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2, "glyphicon-asterisk");
         resourceRepository.saveAndFlush(roleResource);
         resource = new Resource("role:add", "添加角色", "/security/role/form", roleResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
@@ -63,7 +63,7 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         resource = new Resource("role:delete", "删除角色", "/security/role/delete/**", roleResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
         
-        Resource resourceResource = new Resource("resource:query", "资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3);
+        Resource resourceResource = new Resource("resource:query", "资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3, "glyphicon-th-list");
         resourceRepository.saveAndFlush(resourceResource);
         resource = new Resource("resource:add", "添加资源", "/security/resource/create", resourceResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
@@ -72,9 +72,9 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         resource = new Resource("resource:delete", "删除资源", "/security/resource/delete/**", resourceResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
         
-        Resource cusRes = new Resource("customer:manage", "客户关系", "/", null, Resource.TYPE_MENU, 2);
+        Resource cusRes = new Resource("customer:manage", "客户关系", "/", null, Resource.TYPE_MENU, 2, "glyphicon-star");
         resourceRepository.saveAndFlush(cusRes);
-        Resource personResource = new Resource("person:query", "客户管理", "/person/list", cusRes.getId(), Resource.TYPE_MENU, 1);
+        Resource personResource = new Resource("person:query", "客户管理", "/person/list", cusRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-user");
         resourceRepository.saveAndFlush(personResource);
         resource = new Resource("person:add", "添加客户", "/person/form", personResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
@@ -83,9 +83,9 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         resource = new Resource("person:delete", "删除客户", "/person/delete/**", personResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
         
-        Resource testRes = new Resource("test:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 3);
+        Resource testRes = new Resource("test:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 3, "glyphicon-remove");
         resourceRepository.saveAndFlush(testRes);
-        Resource testResource = new Resource("test:query", "测试权限", "/test/list", testRes.getId(), Resource.TYPE_MENU, 1);
+        Resource testResource = new Resource("test:query", "测试权限", "/test/list", testRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
         resourceRepository.saveAndFlush(testResource);
     }
 

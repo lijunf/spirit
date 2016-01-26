@@ -46,6 +46,18 @@ public class Resource extends BaseModel {
 	}
 	
 	public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo) {
+        this.resCode = resCode;
+        this.name = name;
+        this.description = name;
+        this.href = href;
+        if (pid != null) {
+            this.parent = new Resource(pid);
+        }
+        this.resType = resType;
+        this.orderNo = orderNo;
+    }
+	
+	public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo, String iconCls) {
 	    this.resCode = resCode;
 		this.name = name;
 		this.description = name;
@@ -55,6 +67,7 @@ public class Resource extends BaseModel {
 		}
 		this.resType = resType;
 		this.orderNo = orderNo;
+		this.iconCls = iconCls;
 	}
 
 	@Id
@@ -86,7 +99,7 @@ public class Resource extends BaseModel {
 	@Column(length = 200, name = "DESCRIPTION")
 	private String description;
 	
-	@Column(length = 10, name = "ICON_CLS")
+	@Column(length = 50, name = "ICON_CLS")
 	private String iconCls;
 
 	/**
