@@ -4,6 +4,7 @@
 	<c:param name="url" value="/security/user/list" />
 	<c:param name="navigation" value="User" />
 	<c:param name="body">
+		<link href="<c:url value="/resources/bootstrap/css/bootstrapValidator.min.css" />" rel="stylesheet" />
 		<c:if test="${message!=null}">
 			<div class="alert alert-success" role="alert">${message}</div>
 		</c:if>
@@ -141,7 +142,7 @@
 			</div>
 		</div>
 
-
+		<script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrapValidator.min.js" />"></script>
 	</c:param>
 </c:import>
 
