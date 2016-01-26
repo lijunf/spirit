@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,16 +42,15 @@ public class RoleController {
         return "/security/role/list";
     }
 
-    @ModelAttribute
-    @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String initCreate(Model model) {
-        List<Resource> resources = resourceService.findAll();
-        model.addAttribute("resources", resources);
-        return "/security/role/list";
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(Model model) {
+        Role role = new Role();
+        model.addAttribute(role);
+        return "/security/role/form";
     }
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String submitCreate(Model model, HttpServletRequest request) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String save(Model model, HttpServletRequest request) {
         String name = request.getParameter("roleName");
         String desc = request.getParameter("roleDesc");
         String resourceStr = request.getParameter("resourceStr");
@@ -73,26 +71,19 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String initEdit(@PathVariable("id") String id, Model model) {
-        Role role = roleService.findOne(Long.parseLong(id));
+    public String edit(@PathVariable("id") Long id, Model model) {
+        Role role = roleService.findOne(id);
         model.addAttribute("role", role);
-        List<Resource> resources = resourceService.findAll();
-        model.addAttribute("resources", resources);
-        return "/security/role/edit";
+        return "/security/role/form";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String submitEdit(Model model, HttpServletRequest request) {
-
-        String id = request.getParameter("id");
-        String name = request.getParameter("roleName");
-        String desc = request.getParameter("roleDesc");
-        String resourceStr = request.getParameter("resourceStr");
-
-        Role role = this.roleService.findOne(Long.parseLong(id));
-
-        role.setName(name);
-        role.setDescription(desc);
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String update(Model model, @PathVariable("id") Long id, 
+    		String roleName, String roleDesc, String resourceStr) {
+        Role role = this.roleService.findOne(id);
+        role.setName(roleName);
+        role.setDescription(roleDesc);
+        
         String[] resourceArray = resourceStr.split(",");
         List<Resource> resources = new ArrayList<Resource>();
         for (String resId : resourceArray) {
@@ -106,8 +97,9 @@ public class RoleController {
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public void delete(@PathVariable("id") Long id, Model model) {
+    public String delete(@PathVariable("id") Long id, Model model) {
         log.info("delete successful!");
         roleService.delete(id);
+        return "redirect:/security/role/list";
     }
 }

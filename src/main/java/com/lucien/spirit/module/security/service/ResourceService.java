@@ -19,6 +19,7 @@ public class ResourceService {
     }
 
     public void delete(Long id) {
+    	// TODO 删除资源与角色的绑定关系
         resourceRepository.delete(id);
     }
 

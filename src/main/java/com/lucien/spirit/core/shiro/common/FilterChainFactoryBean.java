@@ -31,7 +31,15 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
             rs = resourceRepository.findAll();
         }
         for (Resource r : rs) {
-            map.put(r.getHref(), "authc,perms[" + r.getResCode() + "]");
+        	String href = r.getHref();
+        	if (href.contains(";")) {
+        		String[] hrefs = href.split(";");
+        		for (String _href : hrefs) {
+        			map.put(_href, "authc,perms[" + r.getResCode() + "]");
+        		}
+        	} else {
+        		map.put(href, "authc,perms[" + r.getResCode() + "]");
+        	}
         }
         map.put("/home", "authc");
         return map;
@@ -49,16 +57,16 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         resourceRepository.saveAndFlush(userResource);
         resource = new Resource("user:add", "添加用户", "/security/user/create", userResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
-        resource = new Resource("user:edit", "编辑用户", "/security/user/edit", userResource.getId(), Resource.TYPE_BTN, 2);
+        resource = new Resource("user:edit", "编辑用户", "/security/user/edit/**;/security/user/grant/**", userResource.getId(), Resource.TYPE_BTN, 2);
         resourceRepository.save(resource);
         resource = new Resource("user:delete", "删除用户", "/security/user/delete/**", userResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
         
         Resource roleResource = new Resource("role:query", "角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2, "glyphicon-asterisk");
         resourceRepository.saveAndFlush(roleResource);
-        resource = new Resource("role:add", "添加角色", "/security/role/form", roleResource.getId(), Resource.TYPE_BTN, 1);
+        resource = new Resource("role:add", "添加角色", "/security/role/create", roleResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
-        resource = new Resource("role:edit", "编辑角色", "/security/role/edit", roleResource.getId(), Resource.TYPE_BTN, 2);
+        resource = new Resource("role:edit", "编辑角色", "/security/role/edit/**", roleResource.getId(), Resource.TYPE_BTN, 2);
         resourceRepository.save(resource);
         resource = new Resource("role:delete", "删除角色", "/security/role/delete/**", roleResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
@@ -67,18 +75,18 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         resourceRepository.saveAndFlush(resourceResource);
         resource = new Resource("resource:add", "添加资源", "/security/resource/create", resourceResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
-        resource = new Resource("resource:edit", "编辑资源", "/security/resource/edit", resourceResource.getId(), Resource.TYPE_BTN, 2);
+        resource = new Resource("resource:edit", "编辑资源", "/security/resource/edit/**", resourceResource.getId(), Resource.TYPE_BTN, 2);
         resourceRepository.save(resource);
         resource = new Resource("resource:delete", "删除资源", "/security/resource/delete/**", resourceResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);
         
-        Resource cusRes = new Resource("customer:manage", "客户关系", "/", null, Resource.TYPE_MENU, 2, "glyphicon-star");
+        Resource cusRes = new Resource("person:manage", "客户关系", "/", null, Resource.TYPE_MENU, 2, "glyphicon-star");
         resourceRepository.saveAndFlush(cusRes);
         Resource personResource = new Resource("person:query", "客户管理", "/person/list", cusRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-user");
         resourceRepository.saveAndFlush(personResource);
-        resource = new Resource("person:add", "添加客户", "/person/form", personResource.getId(), Resource.TYPE_BTN, 1);
+        resource = new Resource("person:add", "添加客户", "/person/create", personResource.getId(), Resource.TYPE_BTN, 1);
         resourceRepository.save(resource);
-        resource = new Resource("person:edit", "编辑客户", "/person/edit", personResource.getId(), Resource.TYPE_BTN, 2);
+        resource = new Resource("person:edit", "编辑客户", "/person/edit/**", personResource.getId(), Resource.TYPE_BTN, 2);
         resourceRepository.save(resource);
         resource = new Resource("person:delete", "删除客户", "/person/delete/**", personResource.getId(), Resource.TYPE_BTN, 3);
         resourceRepository.save(resource);

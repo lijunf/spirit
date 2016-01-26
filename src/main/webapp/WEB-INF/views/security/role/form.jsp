@@ -1,11 +1,13 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
-	<c:param name="title" value="Create Role" />
+	<c:param name="title" value="添加角色" />
 	<c:param name="resCode" value="system:manage" />
 	<c:param name="url" value="/security/role/list" />
-	<c:param name="navigation" value="Role" />
+	<c:param name="navigation" value="角色管理" />
 	<c:param name="body">
 
 		<script type="text/javascript">
+			var $checkableTree;
+			var chk_value = "${role.viewPermissions}".split(",");
 			$(document).ready(function() {
 				var defaultData = [
 				<c:forEach items="${applicationScope.topResourceList}" var="resource">
@@ -38,6 +40,8 @@
 	            </c:forEach>
 	            ];
 				
+				initTreeData(defaultData);
+				
 				$checkableTree = $('#treeview-checkable').treeview({
 		          data: defaultData,
 		          showIcon: false,
@@ -61,7 +65,36 @@
 		          $checkableTree.treeview('uncheckAll', { silent: true });
 		        });
 		        
+		        $('#input-search').on('keyup', function(e) {
+		            var pattern = $('#input-search').val();
+		            var options = {
+		              ignoreCase: true,
+		              exactMatch: false,
+		              revealResults: true
+		            };
+		            var results = $checkableTree.treeview('search', [ pattern, options ]);
+					console.log(results);
+	          	});
+		        
 			});
+			
+			// 初始化资源树
+			function initTreeData(data) {
+				if (chk_value && chk_value.length > 0) {
+					data.forEach(function(item) {
+						var id = item.id;
+						if (chk_value.indexOf(id) > -1) {
+							item.state = {
+								checked: true
+							};
+						}
+						if (item.nodes) {
+							initTreeData(item.nodes)
+						}
+					})
+				}
+			}
+			
 			function generatePermissionString() {
 				var chk_value = [];
 				$checkableTree.treeview('getChecked').forEach(function(item) {
@@ -70,33 +103,32 @@
 				$('input[name="resourceStr"]').val(chk_value);
 			}
 		</script>
-		<form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/security/role/form" method="post">
+		<!-- <h1 class="page-header">添加角色</h1> -->
+		<form class="form-horizontal" role="form" action="" method="post">
 			<div align="left" style="max-width: 600px; margin-right: auto; margin-left: auto;">
 				<div class="form-group">
 					<label for="roleName" class="col-sm-2 control-label">角色名</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="roleName" required>
+						<input type="text" class="form-control" name="roleName" required value="${role.name}">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="roleDesc" class="col-sm-2 control-label">角色说明</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="roleDesc" required>
+						<input type="text" class="form-control" name="roleDesc" required value="${role.description}">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="roleDesc" class="col-sm-2 control-label">角色权限</label>
 					<div class="col-sm-10">
+						<input type="text" class="form-control" id="input-search" placeholder="search..." value="">
 						<div id="treeview-checkable" class=""></div>
 						<button type="button" class="btn btn-success" id="btn-check-all">Check All</button>
 						<button type="button" class="btn btn-danger" id="btn-uncheck-all">Uncheck All</button>
-						<%-- <c:forEach items="${resources}" var="resource">
-							<label><input type="checkbox" name="resource" value="${resource.id}">${resource.name}</label>
-							<br />
-						</c:forEach> --%>
 					</div>
 				</div>
 				<input type="text" name="resourceStr" hidden="true" />
+				<input type="text" name="id" hidden="true" value="${role.id}"/>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="submit" value="提交" onclick="generatePermissionString();" class="btn btn-primary" /> &nbsp;

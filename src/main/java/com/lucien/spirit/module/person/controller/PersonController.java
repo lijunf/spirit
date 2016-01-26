@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,14 +36,14 @@ public class PersonController {
         return "/person/list";
     }
 
-    @ModelAttribute
-    @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public Person create(Model model) {
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(Model model) {
         Person person = new Person();
-        return person;
+        model.addAttribute(person);
+        return "/person/form";
     }
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String save(@Valid Person person, BindingResult bindingResult, Model model) {
         log.info("create person {}", person);
         if (bindingResult.hasErrors()) {
@@ -64,7 +63,7 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String submitEdit(@Valid Person person, BindingResult bindingResult, Model model) {
+    public String update(@Valid Person person, BindingResult bindingResult, Model model) {
         log.debug("edit person={}", person);
         if (bindingResult.hasErrors()) {
             log.warn("validation error={}", bindingResult.getModel());
