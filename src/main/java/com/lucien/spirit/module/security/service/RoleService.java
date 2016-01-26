@@ -45,4 +45,8 @@ public class RoleService {
 	public List<Role> findAll() {
 		return roleRepository.findAll();
 	}
+
+    public void delete(Long id) {
+        roleRepository.delete(id);
+    }
 }

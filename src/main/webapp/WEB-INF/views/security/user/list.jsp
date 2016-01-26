@@ -10,30 +10,30 @@
 		<p>
 			<button class="btn btn-info" data-toggle="modal" data-target="#createModal">新建用户</button>
 		</p>
-		<table class="table table-hover table-bordered" style="margin-bottom: 0px;">
-			<tr>
-				<th>登录帐号</th>
-				<!-- <th>员工ID</th> -->
-				<th>姓名</th>
-				<th>手机</th>
-				<th>最后登录时间</th>
-				<th>操作</th>
-			</tr>
-			<c:forEach items="${pageUser.content}" var="user">
+		<div class="table-responsive">
+			<table class="table table-hover table-bordered" style="margin-bottom: 0px;">
 				<tr>
-					<td>${user.name}</td>
-					<%-- <td>${user.employeeId}</td> --%>
-					<td>${user.realName}</td>
-					<td>${user.mobile}</td>
-					<td>${user.lastLogin}</td>
-					<td>
-						<button onclick="editUser('${pageContext.request.contextPath}/security/user/edit/${user.id}')" 
-							class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp;&nbsp; 
-						<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/delete/${user.id}'>delete</a>
-					</td>
-				<tr>
-			</c:forEach>
-		</table>
+					<th>登录帐号</th>
+					<th>操作</th>
+					<th>姓名</th>
+					<th>手机</th>
+					<th>最后登录时间</th>
+				</tr>
+				<c:forEach items="${pageUser.content}" var="user">
+					<tr>
+						<td>${user.name}</td>
+						<td>
+							<button onclick="editUser('${pageContext.request.contextPath}/security/user/edit/${user.id}')" 
+								class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp;&nbsp; 
+							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/delete/${user.id}'>delete</a>
+						</td>
+						<td>${user.realName}</td>
+						<td>${user.mobile}</td>
+						<td>${user.lastLogin}</td>
+					<tr>
+				</c:forEach>
+			</table>
+		</div>
 
 		<!-- Create Modal -->
 		<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">

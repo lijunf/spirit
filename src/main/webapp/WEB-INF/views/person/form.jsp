@@ -11,7 +11,7 @@
 				});
 			</script>
 		</spring:hasBindErrors>
-		<div align="center" style="max-width: 600px;">
+		<div align="center" style="max-width: 600px; margin: 0 auto;">
 			<form:form action="." method="post" modelAttribute="person" cssClass="form-horizontal">
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">姓名</label>
@@ -30,7 +30,7 @@
 				<form:hidden path="id" />
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default">提交</button>&nbsp;
+						<button type="submit" class="btn btn-primary">提交</button>&nbsp;
 						<button type="reset" class="btn">重置</button>&nbsp;
 						<a href='${pageContext.request.contextPath}/person/list' class="btn">返回</a>
 					</div>

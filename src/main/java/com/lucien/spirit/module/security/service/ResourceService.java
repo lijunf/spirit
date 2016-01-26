@@ -18,4 +18,8 @@ public class ResourceService {
         return resourceRepository.findAll();
     }
 
+    public void delete(Long id) {
+        resourceRepository.delete(id);
+    }
+
 }
