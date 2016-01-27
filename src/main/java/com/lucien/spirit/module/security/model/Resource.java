@@ -163,7 +163,7 @@ public class Resource extends BaseModel {
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -232,4 +232,19 @@ public class Resource extends BaseModel {
 		this.versionNum = versionNum;
 	}
 
+	/**
+	 * 获取资源层级显示名称
+	 * @return
+	 */
+	public String getText() {
+		if (parent == null) {
+			return name;
+		} else {
+			if (TYPE_MENU == resType) {
+				return "——" + name;
+			} else {
+				return "————" + name;
+			}
+		}
+	}
 }

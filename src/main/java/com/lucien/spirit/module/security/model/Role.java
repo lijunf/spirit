@@ -117,26 +117,30 @@ public class Role extends BaseModel {
     @Transient
     public String getViewPermissions() {
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("");
 
-        for (Iterator<Resource> it = getResource().iterator(); it.hasNext();) {
-    		sb.append(it.next().getId());
-            if (it.hasNext())
-                sb.append(",");
+        if (resource != null && resource.size() > 0) {
+        	for (Iterator<Resource> it = getResource().iterator(); it.hasNext();) {
+        		sb.append(it.next().getId());
+                if (it.hasNext())
+                    sb.append(",");
+            }
         }
 
         return sb.toString();
     }
     
     public String getViewResources() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("");
 
-        for (Iterator<Resource> it = getResource().iterator(); it.hasNext();) {
-            sb.append(it.next().getName());
-            if (it.hasNext())
-                sb.append(",");
+        if (resource != null && resource.size() > 0) {
+	        for (Iterator<Resource> it = getResource().iterator(); it.hasNext();) {
+	            sb.append(it.next().getName());
+	            if (it.hasNext())
+	                sb.append(",");
+	        }
         }
-
+        
         return sb.toString();
     }
 }

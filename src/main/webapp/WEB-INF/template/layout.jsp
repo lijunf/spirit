@@ -21,6 +21,7 @@
 
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery.js" />"></script>
 	<script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	<script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootbox.js" />"></script>
 </head>
 <body>
 	<div id="wrapper">
@@ -186,15 +187,13 @@
 					<!-- Page Heading -->
 			        <div class="row">
 			            <div class="col-lg-12">
-			                <h1 class="page-header">
-			                    ${param.navigation}
-			                </h1>
-			                <ol class="breadcrumb">
+			                <ol class="breadcrumb" style="margin-top: 5px;">
 			                    <li>
-			                        <i class="fa fa-dashboard"></i><a href="${pageContext.request.contextPath}/home">Home</a>
+			                        <i class="glyphicon glyphicon-home"></i>
+			                        <a href="${pageContext.request.contextPath}/home">首页</a>
 			                    </li>
 			                    <li class="active">
-			                        <i class="fa fa-bar-chart-o"></i> ${param.navigation}
+			                        ${param.navigation}
 			                    </li>
 			                </ol>
 			            </div>

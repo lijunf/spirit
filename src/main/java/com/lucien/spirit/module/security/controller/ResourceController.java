@@ -42,8 +42,9 @@ public class ResourceController {
     }
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public void delete(@PathVariable("id") Long id, Model model) {
-        log.info("delete successful!");
+    public String delete(@PathVariable("id") Long id, Model model) {
+		log.info("delete resource");
         resourceService.delete(id);
+        return "redirect:/security/resource/list";
     }
 }

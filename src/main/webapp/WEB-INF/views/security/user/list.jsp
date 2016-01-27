@@ -2,7 +2,7 @@
 	<c:param name="title" value="用户管理" />
 	<c:param name="resCode" value="system:manage" />
 	<c:param name="url" value="/security/user/list" />
-	<c:param name="navigation" value="User" />
+	<c:param name="navigation" value="用户管理" />
 	<c:param name="body">
 		<link href="<c:url value="/resources/bootstrap/css/bootstrapValidator.min.css" />" rel="stylesheet" />
 		<c:if test="${message!=null}">
@@ -14,7 +14,7 @@
 		<div class="table-responsive">
 			<table class="table table-hover table-bordered" style="margin-bottom: 0px;">
 				<tr>
-					<th>登录帐号</th>
+					<th>帐号</th>
 					<th>操作</th>
 					<th>姓名</th>
 					<th>手机</th>
@@ -26,7 +26,8 @@
 						<td>
 							<button onclick="editUser('${pageContext.request.contextPath}/security/user/edit/${user.id}')" 
 								class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp;&nbsp; 
-							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/delete/${user.id}'>delete</a>
+							<button onclick="deleteUser('${user.id}', '${user.name}')" class="btn btn-primary btn-xs">delete</button>&nbsp;&nbsp;
+							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/grant/${user.id}'>grant</a>
 						</td>
 						<td>${user.realName}</td>
 						<td>${user.mobile}</td>
@@ -35,11 +36,103 @@
 				</c:forEach>
 			</table>
 		</div>
+		
+		<script type="text/javascript">
+			function deleteUser(id, name) {
+				bootbox.confirm("确定删除用户<font color='red'>" + name + "</font>?", function(result) {
+					if (result == true) {
+						window.location.href = '${pageContext.request.contextPath}/security/user/delete/' + id;
+					}
+				});
+			}
+		
+			$(document).ready(function() {
+				var setting = {
+			        message: 'This value is not valid',
+			        feedbackIcons: {
+			            valid: 'glyphicon glyphicon-ok',
+			            invalid: 'glyphicon glyphicon-remove',
+			            validating: 'glyphicon glyphicon-refresh'
+			        },
+			        fields: {
+			        	name: {
+			                validators: {
+			                    notEmpty: {
+			                        message: '用户账户不能为空'
+			                    }
+			                }
+			            },
+			            employeeId: {
+			            	validators: {
+			            		notEmpty: {
+			                        message: '员工ID不能为空'
+			                    }
+			                }
+			            },
+			            realName: {
+			                validators: {
+			                    notEmpty: {
+			                        message: '真实姓名不能为空'
+			                    }
+			                }
+			            },
+			            email: {
+			                validators: {
+			                	notEmpty: {
+			                        message: '电子邮箱不能为空'
+			                    },
+			                    emailAddress: {
+			                        message: '请填写有效的邮箱地址'
+			                    }
+			                }
+			            },
+			            password: {
+			                validators: {
+			                    notEmpty: {
+			                        message: '密码不能为空'
+			                    }
+			                }
+			            },
+			            mobile: {
+			                validators: {
+			                    notEmpty: {
+			                        message: '手机不能为空'
+			                    },
+			                    regexp: {
+			                        regexp: /^(13[0-9]{9})|(15[89][0-9]{8})$/,
+			                        message: '请填写有效的手机号码'
+			                    }
+			                }
+			            }
+			        }
+			    };
+				$('#createForm').bootstrapValidator(setting);
+				$('#editForm').bootstrapValidator(setting);
+			});
+			
+			// 编辑用户
+			function editUser(path) {
+				$.ajax({
+					url : path,
+					type : 'get',
+					async : true,
+					dataType: "json",
+					success: function(user) {
+						$('#id').val(user.id);
+                        $('#name').val(user.name);
+                        $('#employeeId').val(user.employeeId);
+                        $('#realName').val(user.realName);
+                        $('#email').val(user.email);
+                        $('#mobile').val(user.mobile);
+                     }
+				});
+			}
+		</script>
 
 		<!-- Create Modal -->
 		<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
 			<div class="modal-dialog">
-				<form role="form" action="${pageContext.request.contextPath}/security/user/create" method="post">
+				<form role="form" id="createForm" action="${pageContext.request.contextPath}/security/user/create" method="post">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">
@@ -57,13 +150,13 @@
 								<input class="form-control" type="password" name="password" placeholder="密码" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="employeeId" placeholder="员工ID" required>
+								<input class="form-control" type="text" name="employeeId" placeholder="员工ID">
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" name="realName" placeholder="真实姓名" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="email" name="email" placeholder="Email" required>
+								<input class="form-control" type="email" name="email" placeholder="电子邮箱" required>
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="number" name="mobile" placeholder="手机" required>
@@ -77,27 +170,6 @@
 				</form>
 			</div>
 		</div>
-
-		<script type="text/javascript">
-			function editUser(path) {
-				// alert(path);
-				$.ajax({
-					url : path,
-					type : 'get',
-					async : true,
-					dataType: "json",
-					success: function(user){
-						// alert(user.employeeId);
-						$('#id').val(user.id);
-                        $('#name').val(user.name);
-                        $('#employeeId').val(user.employeeId);
-                        $('#realName').val(user.realName);
-                        $('#email').val(user.email);
-                        $('#mobile').val(user.mobile);
-                     }
-				});
-			}
-		</script>
 
 		<!-- Edit Modal -->
 		<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
