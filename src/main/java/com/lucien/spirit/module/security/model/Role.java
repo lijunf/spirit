@@ -44,7 +44,7 @@ public class Role extends BaseModel {
     @NaturalId
     @NotEmpty
     @Column(name = "NAME")
-    @Size(min = 3)
+    @Size(min = 2)
     private String name;
 
     @Basic(optional = true)
