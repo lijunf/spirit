@@ -293,3 +293,15 @@ a:hover {
 .collapsed .glyphicon-chevron-toggle:before {
     content: "\e114";
 }
+
+.sb-form-header {
+	max-width: 600px;
+    margin: 0 auto 16px auto;
+    padding-left: 20px;
+}
+
+.sb-form {
+	max-width: 600px; 
+	margin: 0 auto;
+	text-align: left;
+}

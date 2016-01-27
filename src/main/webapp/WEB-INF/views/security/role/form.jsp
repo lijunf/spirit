@@ -1,5 +1,5 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
-	<c:param name="title" value="添加角色" />
+	<c:param name="title" value="角色管理" />
 	<c:param name="resCode" value="system:manage" />
 	<c:param name="url" value="/security/role/list" />
 	<c:param name="navigation" value="角色管理" />
@@ -47,12 +47,16 @@
 		          showIcon: false,
 		          showCheckbox: true,
 		          onNodeChecked: function(event, node) {
-		            $checkableTree.treeview('checkNode', [ node.parentId, { silent: true } ]);
+		        	if (node.parentId != undefined) {
+			          $checkableTree.treeview('checkNode', [ node.parentId, { silent: true } ]);
+		        	}
 		          },
 		          onNodeUnchecked: function (event, node) {
-	        	  	node.nodes.forEach(function(item) {
-	        	  		$checkableTree.treeview('uncheckNode', [ item.nodeId, { silent: true } ]);
-	        	  	})
+		        	if (node.nodes) {
+		        	  node.nodes.forEach(function(item) {
+						$checkableTree.treeview('uncheckNode', [ item.nodeId, { silent: true } ]);
+					  })
+		        	}
 		          }
 		        });
 				
@@ -103,9 +107,12 @@
 				$('input[name="resourceStr"]').val(chk_value);
 			}
 		</script>
-		<!-- <h1 class="page-header">添加角色</h1> -->
+		<h3 class="page-header sb-form-header">
+			<c:if test="${role.id eq null}">添加角色</c:if>
+			<c:if test="${role.id ne null}">修改角色</c:if>
+		</h3>
 		<form class="form-horizontal" role="form" action="" method="post">
-			<div align="left" style="max-width: 600px; margin-right: auto; margin-left: auto;">
+			<div class="sb-form">
 				<div class="form-group">
 					<label for="roleName" class="col-sm-2 control-label">角色名</label>
 					<div class="col-sm-10">
@@ -139,7 +146,7 @@
 			</div>
 		</form>
 		
-		<script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap-treeview.min.js" />"></script>
+		<script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap-treeview.js" />"></script>
 	</c:param>
 </c:import>
 

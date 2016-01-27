@@ -2,6 +2,8 @@ package com.lucien.spirit.module.security.service;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +41,22 @@ public class ResourceService {
     	// TODO 删除资源与角色的绑定关系
         resourceRepository.delete(id);
     }
+
+	public void save(Resource resource) {
+		resourceRepository.save(resource);
+	}
+
+	public Resource findOne(Long id) {
+		return resourceRepository.findOne(id);
+	}
+	
+	/**
+	 * 刷新资源树全局缓存
+	 * @param context
+	 */
+	public void refreshCache(ServletContext context) {
+		List<Resource> topResourceList = findTopList();
+		context.setAttribute("topResourceList", topResourceList);
+	}
 
 }

@@ -10,9 +10,9 @@
 		        
 			});
 		</script>
-		<h3 class="page-header" style="margin:0 auto;max-width: 600px;">给用户 ${user.name} 分配角色</h3>
+		<h3 class="page-header sb-form-header">给用户 ${user.name} 分配角色</h3>
 		<form class="form-horizontal" role="form" action="" method="post">
-			<div align="left" style="max-width: 600px; margin-right: auto; margin-left: auto;">
+			<div class="sb-form">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">选择角色</label>
 					<div class="col-sm-10">

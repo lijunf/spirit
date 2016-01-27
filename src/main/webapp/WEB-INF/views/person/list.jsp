@@ -4,9 +4,11 @@
 	<c:param name="url" value="/person/list" />
 	<c:param name="navigation" value="客户管理" />
 	<c:param name="body">
+		<shiro:hasPermission name="person:add">
 		<p>
 			<a href='${pageContext.request.contextPath}/person/create' class="btn btn-info">CREATE</a>
 		</p>
+		</shiro:hasPermission>
 		<div class="table-responsive">
 			<table class="table table-hover table-condensed table-bordered" style="margin-bottom: 0px;">
 				<tr>
@@ -19,8 +21,12 @@
 					<tr>
 						<td>${person.id}</td>
 						<td>
-							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/person/edit/${person.id}'>edit</a>&nbsp;&nbsp; 
-							<button onclick="deletePerson('${person.id}', '${person.name}')" class="btn btn-primary btn-xs">delete</button>
+							<shiro:hasPermission name="person:edit">
+								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/person/edit/${person.id}'>edit</a>&nbsp;&nbsp; 
+							</shiro:hasPermission>
+							<shiro:hasPermission name="person:delete">
+								<button onclick="deletePerson('${person.id}', '${person.name}')" class="btn btn-primary btn-xs">delete</button>
+							</shiro:hasPermission>
 						</td>
 						<td>${person.name}</td>
 						<td>${person.age}</td>

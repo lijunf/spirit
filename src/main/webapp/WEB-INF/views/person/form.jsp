@@ -1,5 +1,5 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
-	<c:param name="title" value="添加客户" />
+	<c:param name="title" value="客户管理" />
 	<c:param name="resCode" value="person:manage" />
 	<c:param name="url" value="/person/list" />
 	<c:param name="navigation" value="客户管理" />
@@ -11,7 +11,11 @@
 				});
 			</script>
 		</spring:hasBindErrors>
-		<div align="left" style="max-width: 600px; margin: 0 auto;">
+		<h3 class="page-header sb-form-header">
+			<c:if test="${person.id eq null}">添加客户</c:if>
+			<c:if test="${person.id ne null}">修改客户</c:if>
+		</h3>
+		<div class="sb-form">
 			<form:form action="" method="post" modelAttribute="person" cssClass="form-horizontal">
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">姓名</label>

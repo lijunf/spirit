@@ -8,9 +8,11 @@
 		<c:if test="${message!=null}">
 			<div class="alert alert-success" role="alert">${message}</div>
 		</c:if>
+		<shiro:hasPermission name="user:add">
 		<p>
 			<button class="btn btn-info" data-toggle="modal" data-target="#createModal">新建用户</button>
 		</p>
+		</shiro:hasPermission>
 		<div class="table-responsive">
 			<table class="table table-hover table-bordered" style="margin-bottom: 0px;">
 				<tr>
@@ -24,10 +26,14 @@
 					<tr>
 						<td>${user.name}</td>
 						<td>
-							<button onclick="editUser('${pageContext.request.contextPath}/security/user/edit/${user.id}')" 
-								class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp;&nbsp; 
-							<button onclick="deleteUser('${user.id}', '${user.name}')" class="btn btn-primary btn-xs">delete</button>&nbsp;&nbsp;
-							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/grant/${user.id}'>grant</a>
+							<shiro:hasPermission name="user:edit">
+								<button onclick="editUser('${pageContext.request.contextPath}/security/user/edit/${user.id}')" 
+									class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp;&nbsp; 
+								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/grant/${user.id}'>grant</a>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="user:delete">
+								<button onclick="deleteUser('${user.id}', '${user.name}')" class="btn btn-primary btn-xs">delete</button>&nbsp;&nbsp;
+							</shiro:hasPermission>
 						</td>
 						<td>${user.realName}</td>
 						<td>${user.mobile}</td>

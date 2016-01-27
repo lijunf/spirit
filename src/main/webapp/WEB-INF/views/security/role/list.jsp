@@ -4,9 +4,11 @@
 	<c:param name="url" value="/security/role/list" />
 	<c:param name="navigation" value="角色管理" />
 	<c:param name="body">
+		<shiro:hasPermission name="role:add">
 		<p>
 			<a href='${pageContext.request.contextPath}/security/role/create' class="btn btn-info">CREATE</a>
 		</p>
+		</shiro:hasPermission>
 		<div class="table-responsive">
 			<table class="table table-hover table-condensed table-bordered" style="margin-bottom: 0px;">
 				<tr>
@@ -18,8 +20,12 @@
 					<tr>
 						<td>${role.name}</td>
 						<td>
-							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/role/edit/${role.id}'>edit</a>&nbsp;&nbsp; 
-							<button onclick="deleteRole('${role.id}', '${role.name}')" class="btn btn-primary btn-xs">delete</button>
+							<shiro:hasPermission name="role:edit">
+								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/role/edit/${role.id}'>edit</a>&nbsp;&nbsp; 
+							</shiro:hasPermission>
+							<shiro:hasPermission name="role:delete">
+								<button onclick="deleteRole('${role.id}', '${role.name}')" class="btn btn-primary btn-xs">delete</button>
+							</shiro:hasPermission>
 						</td>
 						<td>${role.viewResources}</td>
 					<tr>

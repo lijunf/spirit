@@ -95,6 +95,21 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         resourceRepository.saveAndFlush(testRes);
         Resource testResource = new Resource("test:query", "测试权限", "/test/list", testRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
         resourceRepository.saveAndFlush(testResource);
+        
+        Resource test2Res = new Resource("test2:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 4, "glyphicon-remove");
+        resourceRepository.saveAndFlush(test2Res);
+        Resource test2Resource = new Resource("test2:query", "测试权限", "/test2/list", test2Res.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
+        resourceRepository.saveAndFlush(test2Resource);
+        
+        Resource test3Res = new Resource("test3:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 5, "glyphicon-remove");
+        resourceRepository.saveAndFlush(test3Res);
+        Resource test3Resource = new Resource("test3:query", "测试权限", "/test3/list", test3Res.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
+        resourceRepository.saveAndFlush(test3Resource);
+        
+        Resource test4Res = new Resource("test4:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 5, "glyphicon-remove");
+        resourceRepository.saveAndFlush(test4Res);
+        Resource test4Resource = new Resource("test4:query", "测试权限", "/test4/list", test4Res.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
+        resourceRepository.saveAndFlush(test4Resource);
     }
 
     @Override
