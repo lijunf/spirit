@@ -147,10 +147,10 @@
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
-								<input class="form-control" type="text" name="name" placeholder="用户账户" required>
+								<input class="form-control" type="text" name="name" placeholder="用户账户"	autocomplete="off" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="password" name="password" placeholder="密码" required>
+								<input class="form-control" type="password" name="password" placeholder="密码" autocomplete="off" required>
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" name="employeeId" placeholder="员工ID">
@@ -190,10 +190,10 @@
 						<div class="modal-body">
 							<div class="form-group">
 								<input id="id" name="id" type="hidden">
-								<input class="form-control" id="name" type="text" name="name" placeholder="用户账户" required>
+								<input class="form-control" id="name" type="text" name="name" placeholder="用户账户" autocomplete="off" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="password" name="password" placeholder="密码" required>
+								<input class="form-control" type="password" name="password" placeholder="密码" autocomplete="off" required>
 							</div>
 							<div class="form-group">
 								<input class="form-control" id="employeeId" type="text" name="employeeId" placeholder="员工ID" required>

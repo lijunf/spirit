@@ -54,14 +54,14 @@ public class PersonController {
         return "redirect:/person/list";
     }
 
-    @RequestMapping(value = "/edit/{id}")
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable("id") String id, Model model) {
         Person person = psersonService.findOne(id);
         model.addAttribute(person);
         return "/person/form";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String update(@Valid Person person, BindingResult bindingResult, Model model) {
         log.debug("edit person={}", person);
         if (bindingResult.hasErrors()) {

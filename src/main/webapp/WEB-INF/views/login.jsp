@@ -32,8 +32,9 @@
 		border-radius: 0;
 	}
 	.col-sm-4 {
-	    background: rgba(0,0,0,0.2);
-    	border-radius: 1px;
+	    background: #fff;
+    	border-radius: 10px;
+    	box-shadow: 0 5px 15px rgba(0,0,0,.5);
     }
 	.login {
 		max-width: 320px;
@@ -57,9 +58,6 @@
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 				<div class="container-fluid login">
-					<c:if test="${message!=null}">
-						<div class="alert alert-danger" role="alert">${message}</div>
-					</c:if>
 					<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/login">
 						<h2 class="form-signin-heading">Please sign in</h2>
 						<div class="form-group">
@@ -69,7 +67,7 @@
 							<input class="form-control" type="password" name="password" placeholder="Password" required> 
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="code"	placeholder="Verification code" required>
+							<input class="form-control" type="text" name="code"	autocomplete="off" placeholder="Verification code" required>
 						</div>
 						<div class="form-group">
 							<div style="float: left; margin-top: 5px;">
@@ -84,10 +82,22 @@
 						<div class="form-group">
 							<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 						</div>
+						<div class="form-group">
+							<c:if test="${message!=null}">
+								<div class="alert alert-danger alert-dismissible" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>	
+									${message}
+								</div>
+							</c:if>
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	<c:if test="${message!=null}">
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery.js" />"></script>
+		<script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	</c:if>
 </body>
 </html>
