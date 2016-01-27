@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lucien.spirit.core.constants.PageConstants;
 import com.lucien.spirit.module.person.model.Person;
 import com.lucien.spirit.module.person.service.PersonService;
 
 @Controller
 @RequestMapping("/person")
 public class PersonController {
-    private static final int DEFAULT_PAGE_NUM = 0;
-    private static final int DEFAULT_PAGE_SIZE = 10;
 
     @Autowired
     PersonService psersonService;
@@ -30,9 +29,9 @@ public class PersonController {
 
     @RequestMapping("/list")
     public String list(@RequestParam(value = "page", required = false) Integer page, Model model) {
-        int pageNumber = page != null ? page : DEFAULT_PAGE_NUM;
-        Page<Person> pagingPerson = psersonService.findAllForPagination(pageNumber, DEFAULT_PAGE_SIZE);
-        model.addAttribute("pagingPerson", pagingPerson);
+        int pageNumber = page != null ? page : PageConstants.DEFAULT_PAGE_NUM;
+        Page<Person> paging = psersonService.findAllForPagination(pageNumber, PageConstants.DEFAULT_PAGE_SIZE);
+        model.addAttribute("paging", paging);
         return "/person/list";
     }
 

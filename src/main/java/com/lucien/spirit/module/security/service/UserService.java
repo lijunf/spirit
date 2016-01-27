@@ -1,5 +1,6 @@
 package com.lucien.spirit.module.security.service;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,7 +38,7 @@ public class UserService {
 		userTemp.setRealName(user.getRealName());
 		userTemp.setPassword(user.getPassword());
 		userTemp = PasswordHelper.generatePassword(userTemp);
-		userRepository.saveAndFlush(userTemp);
+		userRepository.save(userTemp);
 	}
 	
 	public User findOne(long id) {
@@ -51,4 +52,16 @@ public class UserService {
 	public void delete(long id) {
 		userRepository.delete(id);
 	}
+
+	/**
+	 * 查询单个用户，并加载角色列表
+	 * @param id
+	 * @return
+	 */
+	@Transactional
+    public User findOneAndRole(Long id) {
+        User user = userRepository.findOne(id);
+        Hibernate.initialize(user); // 强制加载用户角色列表
+        return user;
+    }
 }

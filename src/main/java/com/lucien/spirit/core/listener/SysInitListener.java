@@ -14,13 +14,13 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.lucien.spirit.module.person.model.Person;
-import com.lucien.spirit.module.person.repository.PersonRepository;
+import com.lucien.spirit.module.person.service.PersonService;
 import com.lucien.spirit.module.security.model.Resource;
 import com.lucien.spirit.module.security.model.Role;
 import com.lucien.spirit.module.security.model.User;
-import com.lucien.spirit.module.security.repository.ResourceRepository;
 import com.lucien.spirit.module.security.repository.RoleRepository;
-import com.lucien.spirit.module.security.repository.UserRepository;
+import com.lucien.spirit.module.security.service.ResourceService;
+import com.lucien.spirit.module.security.service.UserService;
 
 /**
  * 系统初始化数据,数据库不限.登录账户为 admin 密码admin
@@ -35,17 +35,18 @@ public class SysInitListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
-        ResourceRepository resourceRepository = webApplicationContext.getBean(ResourceRepository.class);
-        UserRepository userRepository = webApplicationContext.getBean(UserRepository.class);
-        List<Resource> topResourceList = resourceRepository.findTopList();
+        ResourceService resourceService = webApplicationContext.getBean(ResourceService.class);
+        UserService userService = webApplicationContext.getBean(UserService.class);
+        List<Resource> topResourceList = resourceService.findTopList();
+        
         sce.getServletContext().setAttribute("topResourceList", topResourceList);
         
-        User user = userRepository.findUserByName("admin");
+        User user = userService.findUserByName("admin");
         if (user != null && user.getId() != null) {
         	return;
         }
         
-        PersonRepository personRepository = webApplicationContext.getBean(PersonRepository.class);
+        PersonService personService = webApplicationContext.getBean(PersonService.class);
 
         List<Person> personList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
@@ -56,9 +57,9 @@ public class SysInitListener implements ServletContextListener {
             person.setAge((i % 100) + 1);
             personList.add(person);
         }
-        personRepository.save(personList);
+        personService.save(personList);
         
-        List<Resource> resources = resourceRepository.findAll();
+        List<Resource> resources = resourceService.findAll();
 
         RoleRepository roleRepository = webApplicationContext.getBean(RoleRepository.class);
         Role role = new Role();
@@ -82,7 +83,7 @@ public class SysInitListener implements ServletContextListener {
         String passwordHash = new Sha512Hash(user.getPassword(), user.getName() + new String(passwordSalt), 99)
                 .toString();
         user.setPasswordHash(passwordHash);
-        userRepository.save(user);
+        userService.save(user);
     }
 
     @Override

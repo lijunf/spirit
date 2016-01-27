@@ -83,7 +83,7 @@ public class User extends BaseModel {
     @Column(name = "EXPIRATION_DATE")
     private Date expirationDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "sys_user_roles", 
         joinColumns = { @JoinColumn(name = "USER_ID") }, 
         inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })

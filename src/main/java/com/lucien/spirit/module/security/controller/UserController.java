@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.alibaba.fastjson.JSON;
+import com.lucien.spirit.core.constants.PageConstants;
 import com.lucien.spirit.core.shiro.authc.PasswordHelper;
 import com.lucien.spirit.core.shiro.realm.JpaRealm;
 import com.lucien.spirit.module.security.model.Role;
@@ -46,9 +47,9 @@ public class UserController {
     @RequestMapping("/list")
     public String list(@RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "message", required = false) String message, Model model) {
-        int pageNumber = page != null ? page : 0;
-        Page<User> pageUser = userService.findAllForPagination(pageNumber, 10);
-        model.addAttribute("pageUser", pageUser);
+        int pageNumber = page != null ? page : PageConstants.DEFAULT_PAGE_NUM;
+        Page<User> paging = userService.findAllForPagination(pageNumber, PageConstants.DEFAULT_PAGE_SIZE);
+        model.addAttribute("paging", paging);
         if (message != null) {
             model.addAttribute("message", message);
         }
@@ -103,7 +104,7 @@ public class UserController {
     
     @RequestMapping(value = "/grant/{id}", method = RequestMethod.GET)
     public String grant(Model model, @PathVariable("id") Long id) {
-        User user = userService.findOne(id);
+        User user = userService.findOneAndRole(id);
         model.addAttribute(user);
         List<Role> roles = roleService.findAll();
         model.addAttribute("roles", roles);

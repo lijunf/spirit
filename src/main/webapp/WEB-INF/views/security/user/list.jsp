@@ -20,7 +20,7 @@
 					<th>手机</th>
 					<th>最后登录时间</th>
 				</tr>
-				<c:forEach items="${pageUser.content}" var="user">
+				<c:forEach items="${paging.content}" var="user">
 					<tr>
 						<td>${user.name}</td>
 						<td>
@@ -35,6 +35,9 @@
 					<tr>
 				</c:forEach>
 			</table>
+		</div>
+		<div style="text-align:right;padding: 0 5px 0 0;">
+			<jsp:include page="/WEB-INF/template/pagination.jsp"/>
 		</div>
 		
 		<script type="text/javascript">

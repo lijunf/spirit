@@ -8,6 +8,7 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,7 +54,7 @@ public class Role extends BaseModel {
     /**
 	 * 拥有权限
 	 */
-	@ManyToMany(cascade = CascadeType.DETACH)
+	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	@JoinTable(name = "sys_role_resources", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "RESOURCE_ID") })

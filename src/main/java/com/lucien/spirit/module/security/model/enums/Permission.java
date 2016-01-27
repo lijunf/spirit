@@ -1,5 +1,6 @@
 package com.lucien.spirit.module.security.model.enums;
 
+@Deprecated
 public enum Permission {
 	// user role
 	USER("user:*", "user query,view,edit,add,delete"), 

@@ -15,7 +15,7 @@
 					<th>NAME</th>
 					<th>AGE</th>
 				</tr>
-				<c:forEach items="${pagingPerson.content}" var="person">
+				<c:forEach items="${paging.content}" var="person">
 					<tr>
 						<td>${person.id}</td>
 						<td>

@@ -16,7 +16,7 @@
 					<th>地址</th>
 				</tr>
 				<c:forEach items="${resourceList}" var="resource">
-					<tr <c:if test="${resource.parent eq null}">class="success"</c:if>>
+					<tr <c:if test="${resource.href eq '/'}">class="success"</c:if>>
 						<td>${resource.text}</td>
 						<td>
 							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${role.id}'>edit</a>&nbsp;&nbsp; 

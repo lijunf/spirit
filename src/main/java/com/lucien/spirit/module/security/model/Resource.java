@@ -37,39 +37,6 @@ public class Resource extends BaseModel {
 	/** 资源类型-按钮级别 */
 	public static int TYPE_BTN = 2;
 	
-	public Resource() {
-		
-	}
-	
-	public Resource(Long id) {
-		this.id = id;
-	}
-	
-	public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo) {
-        this.resCode = resCode;
-        this.name = name;
-        this.description = name;
-        this.href = href;
-        if (pid != null) {
-            this.parent = new Resource(pid);
-        }
-        this.resType = resType;
-        this.orderNo = orderNo;
-    }
-	
-	public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo, String iconCls) {
-	    this.resCode = resCode;
-		this.name = name;
-		this.description = name;
-		this.href = href;
-		if (pid != null) {
-			this.parent = new Resource(pid);
-		}
-		this.resType = resType;
-		this.orderNo = orderNo;
-		this.iconCls = iconCls;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -111,14 +78,14 @@ public class Resource extends BaseModel {
 	/**
 	 * 父节点
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PARENT_ID")
 	private Resource parent;
 
 	/**
 	 * 子节点
 	 */
-	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	@OrderBy("orderNo")
 	private List<Resource> subResource;
 
@@ -135,6 +102,39 @@ public class Resource extends BaseModel {
 	@Version
 	@Column(name = "OPT_LOCK")
 	private int versionNum = 0;
+	
+	public Resource() {
+        
+    }
+    
+    public Resource(Long id) {
+        this.id = id;
+    }
+    
+    public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo) {
+        this.resCode = resCode;
+        this.name = name;
+        this.description = name;
+        this.href = href;
+        if (pid != null) {
+            this.parent = new Resource(pid);
+        }
+        this.resType = resType;
+        this.orderNo = orderNo;
+    }
+    
+    public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo, String iconCls) {
+        this.resCode = resCode;
+        this.name = name;
+        this.description = name;
+        this.href = href;
+        if (pid != null) {
+            this.parent = new Resource(pid);
+        }
+        this.resType = resType;
+        this.orderNo = orderNo;
+        this.iconCls = iconCls;
+    }
 
 	public Long getId() {
         return id;
