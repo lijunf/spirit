@@ -8,6 +8,7 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.ContextLoader;
 
 import com.lucien.spirit.module.security.model.Resource;
 import com.lucien.spirit.module.security.repository.ResourceRepository;
@@ -27,10 +28,14 @@ public class ResourceService {
         List<Resource> topResourceList = resourceRepository.findTopList();
         for (Resource resource : topResourceList) {
             List<Resource> subReses = resource.getSubResource();
-            for (Resource subRes : subReses) {
-                List<Resource> subReses2 = subRes.getSubResource();
-                for (Resource subRes2 : subReses2) {
-                    Hibernate.initialize(subRes2);     // 强制刷新整棵资源数，只支持三层结构
+            if (subReses != null) {
+                for (Resource subRes : subReses) {
+                    List<Resource> subReses2 = subRes.getSubResource();
+                    if (subReses2 != null) {
+                        for (Resource subRes2 : subReses2) {
+                            Hibernate.initialize(subRes2);     // 强制刷新整棵资源数，只支持三层结构
+                        }
+                    }
                 }
             }
         }
@@ -55,9 +60,18 @@ public class ResourceService {
 	 * 刷新资源树全局缓存
 	 * @param context
 	 */
-	public void refreshCache(ServletContext context) {
-		List<Resource> topResourceList = findTopList();
-		context.setAttribute("topResourceList", topResourceList);
+    public void refreshResourceCache() {
+	    ServletContext context = ContextLoader.getCurrentWebApplicationContext().getServletContext();
+	    context.setAttribute("topResourceList", findTopList());
+		/*List<Resource> topResourceList = (List<Resource>) context.getAttribute("topResourceList");
+		for (Resource resource : topResourceList) {
+		    if (resource.getId() == id) {
+		        topResourceList.remove(resource);
+		        resource = findOne(id);
+		        topResourceList.add(resource);
+		        return;
+		    }
+		}*/
 	}
 
 }

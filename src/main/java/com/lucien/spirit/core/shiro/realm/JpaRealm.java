@@ -38,8 +38,8 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = principals.getPrimaryPrincipal().toString();
-        User user = this.userRepository.findUserByName(username);
+        String userid = principals.getPrimaryPrincipal().toString();
+        User user = this.userRepository.findOne(Long.parseLong(userid));
 
         if (null != user) {
         	Set<String>  permissions = new HashSet<String>();
@@ -80,7 +80,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
             throw new UnknownAccountException();
         }
 
-        String principal = username;
+        String principal = String.valueOf(user.getId());
         String hashedCredentials = user.getPasswordHash();
         ByteSource credentialsSalt = ByteSource.Util.bytes(user.getName() + new String(user.getPasswordSalt()));
         String realmName = getName();
