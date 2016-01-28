@@ -142,10 +142,23 @@
 				<div class="nav navbar-nav side-nav">
 					<%-- 显示一级菜单 --%>
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<c:if test="${param.resCode eq null}">
+							<div class="panel panel-default">
+							    <div class="panel-heading current" role="tab" id="heading-home">
+							      <h4 class="panel-title">
+							        <a role="button">
+							        	<i class="glyphicon glyphicon-home"></i>
+							        	首页
+							        	<span class="pull-right glyphicon glyphicon-chevron-right"></span>
+							        </a>
+							      </h4>
+							    </div>
+							</div>
+						</c:if>
 						<c:forEach items="${applicationScope.topResourceList}" var="resource">
 							<shiro:hasPermission name="${resource.resCode}">
 								<div class="panel panel-default">
-								    <div class="panel-heading" role="tab" id="heading${resource.id}">
+								    <div class="panel-heading <c:if test="${param.resCode eq resource.resCode}">current</c:if>" role="tab" id="heading${resource.id}">
 								      <h4 class="panel-title">
 								        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse${resource.id}" 
 								        	<c:if test="${param.resCode ne resource.resCode}">aria-expanded="false" class="collapsed"</c:if> 
@@ -164,7 +177,8 @@
 												<shiro:hasPermission name="${subRes.resCode}">
 													<li <c:if test="${param.url eq subRes.href}">class="active"</c:if>>
 														<a href="${pageContext.request.contextPath}${subRes.href}">
-															<i class="glyphicon ${subRes.iconCls}"></i>${subRes.name}
+															<i class="glyphicon ${subRes.iconCls}"></i>
+															${subRes.name}
 														</a>
 													</li>
 												</shiro:hasPermission>

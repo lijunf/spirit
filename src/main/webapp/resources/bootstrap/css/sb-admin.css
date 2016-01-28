@@ -17,6 +17,10 @@ body {
     font-family: 'Microsoft Yahei', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+a, button, input {
+	outline: none;
+}
+
 @media(min-width:768px) {
     body {
         margin-top: 50px;
@@ -284,6 +288,14 @@ a:hover {
 
 #accordion .panel-body {
 	padding: 0;
+}
+
+#accordion .current {
+    background: #31c7b2;
+}
+
+#accordion .current a {
+	color: white;
 }
 
 .collapse .glyphicon-chevron-toggle, .glyphicon-chevron-toggle:before {
