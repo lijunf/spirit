@@ -14,10 +14,17 @@
 		<h3 class="page-header sb-form-header">
 			<c:if test="${resource.id eq null}">添加资源</c:if>
 			<c:if test="${resource.id ne null}">修改资源</c:if>
-			<c:if test="${parent.id ne null}">&nbsp;&nbsp;上级：${parent.name}（${parent.resCode}）</c:if>
 		</h3>
 		<div class="sb-form">
 			<form:form action="" method="post" modelAttribute="resource" cssClass="form-horizontal">
+				<c:if test="${parent.id ne null}">
+					<div class="form-group">
+						<label for="resType" class="col-sm-2 control-label">上级</label>
+						<div class="col-sm-10">
+							<label class="control-label">${parent.name}（${parent.resCode}）</label>
+						</div>
+					</div>
+				</c:if>
 				<div class="form-group">
 					<label for="resType" class="col-sm-2 control-label">资源类型</label>
 					<div class="col-sm-10">
