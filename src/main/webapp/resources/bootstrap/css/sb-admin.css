@@ -119,7 +119,7 @@ li.message-footer {
 }
 
 ul.alert-dropdown {
-    width: 200px;
+    width: 208px;
 }
 
 /* Side Navigation */
@@ -311,7 +311,7 @@ a:hover {
 .sb-form-header {
 	max-width: 600px;
     margin: 0 auto 16px auto;
-    padding-left: 20px;
+    /* padding-left: 20px; */
 }
 
 .sb-form {
