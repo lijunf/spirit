@@ -1,6 +1,6 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
 	<c:param name="title" value="客户管理" />
-	<c:param name="resCode" value="person:manage" />
+	<c:param name="permission" value="person:manage" />
 	<c:param name="url" value="/person/list" />
 	<c:param name="navigation" value="客户管理" />
 	<c:param name="body">

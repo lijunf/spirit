@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -21,11 +22,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.lucien.spirit.core.shiro.ShiroUser;
 import com.lucien.spirit.module.security.model.User;
 import com.lucien.spirit.module.security.repository.UserRepository;
 
 @Controller
 public class LoginController {
+    
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
@@ -41,14 +44,12 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(Model model, HttpServletRequest request) {
+    public String login(Model model, HttpServletRequest request, String username, String password) {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated() || subject.isRemembered()) {
             return "redirect:/home";
         }
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
         String loginKaptchaCode = request.getParameter("code");
 
         Session shiroSession = subject.getSession();
@@ -62,22 +63,26 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, false, request.getRemoteHost());
         try {
             subject.login(token);
-            User user = userRepository.findOne(Long.parseLong(subject.getPrincipal().toString()));
+            ShiroUser principal = (ShiroUser) subject.getPrincipal();
+            User user = userRepository.findOne(principal.getId());
             user.setLastLogin(new Date());
             userRepository.save(user);
 
             return "redirect:/home";
         } catch (UnknownAccountException uae) {
-            model.addAttribute("message", "Unknown User!");
+            model.addAttribute("message", "用户不存在");
             log.info("Unknown User!");
         } catch (IncorrectCredentialsException ice) {
-            model.addAttribute("message", "Incorrect Password!");
+            model.addAttribute("message", "密码不正确");
             log.info("Incorrect Password!");
         } catch (LockedAccountException lae) {
-            model.addAttribute("message", "User Locked!");
+            model.addAttribute("message", "用户被锁定");
             log.info("User Locked!");
-        } catch (AuthenticationException ae) {
-            model.addAttribute("message", "Authentication Failed!");
+        } catch (AccountException ae) {
+        	model.addAttribute("message", ae.getMessage());
+            log.info(ae.getMessage());
+		} catch (AuthenticationException ae) {
+            model.addAttribute("message", "登录失败");
             log.info("Authentication Failed!");
         }
         return "/login";

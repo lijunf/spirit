@@ -16,6 +16,7 @@ import com.lucien.spirit.module.security.repository.UserRepository;
 
 @Service
 public class UserService {
+    
     @Autowired
     UserRepository userRepository;
 

@@ -1,6 +1,6 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
 	<c:param name="title" value="资源管理" />
-	<c:param name="resCode" value="system:manage" />
+	<c:param name="permission" value="system:manage" />
 	<c:param name="url" value="/security/resource/list" />
 	<c:param name="navigation" value="资源管理" />
 	<c:param name="body">
@@ -27,7 +27,7 @@
 							</c:if>
 							<a class="btn btn-primary btn-xs" title="添加子资源" href='${pageContext.request.contextPath}/security/resource/create?pId=${resource.id}'>add</a>
 						</td>
-						<td>${resource.resCode}</td>
+						<td>${resource.permission}</td>
 						<td>${resource.href}</td>
 					</tr>
 					<c:forEach items="${resource.subResource}" var="subRes">
@@ -40,7 +40,7 @@
 								</c:if>
 								<a class="btn btn-primary btn-xs" title="添加子资源" href='${pageContext.request.contextPath}/security/resource/create?pId=${subRes.id}'>add</a>
 							</td>
-							<td>${subRes.resCode}</td>
+							<td>${subRes.permission}</td>
 							<td>${subRes.href}</td>
 						</tr>
 						<c:forEach items="${subRes.subResource}" var="subRes2">
@@ -50,7 +50,7 @@
 									<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${subRes2.id}'>edit</a>&nbsp;&nbsp;
 									<button onclick="deleteResource('${subRes2.id}', '${subRes2.name}')" class="btn btn-primary btn-xs">delete</button>
 								</td>
-								<td>${subRes2.resCode}</td>
+								<td>${subRes2.permission}</td>
 								<td>${subRes2.href}</td>
 							</tr>
 						</c:forEach>

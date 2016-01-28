@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.alibaba.fastjson.JSON;
 import com.lucien.spirit.core.constants.PageConstants;
+import com.lucien.spirit.core.constants.UserConstants;
 import com.lucien.spirit.core.shiro.authc.PasswordHelper;
 import com.lucien.spirit.core.shiro.realm.JpaRealm;
 import com.lucien.spirit.module.security.model.Role;
@@ -56,7 +58,7 @@ public class UserController {
         return "/security/user/list";
     }
 
-    @RequestMapping("/create")
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid User user, BindingResult bindingResult, Model model) {
     	String message = null;
     	Map<String, String> map = new HashMap<>();
@@ -64,6 +66,7 @@ public class UserController {
     	if (temp != null && temp.getId() != null) {
     		message = "用户 " + user.getName() + " 已经存在!";
     	} else {
+    	    user.setStatus(UserConstants.STATUS_ENABLE);
     		user = PasswordHelper.generatePassword(user);
             userService.save(user);
             message = "用户 " + user.getName() + " 创建成功!";
@@ -123,7 +126,7 @@ public class UserController {
     		User user = userService.findOne(id);
     		user.setRoles(roles);
     		userService.save(user);
-    		jpaRealm.clearAllCachedAuthorizationInfo();
+    		jpaRealm.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
     	}
     	return "redirect:/security/user/list";
     }

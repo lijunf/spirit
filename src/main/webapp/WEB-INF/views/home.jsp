@@ -6,8 +6,8 @@
 			${f:h(serverTime)}<br>
 		</p>
 		<ul>
-			<li><a href='${pageContext.request.contextPath}/person/list/'>PERSON LIST</a></li>
-			<li><a href='${pageContext.request.contextPath}/person/form/'>PERSON CREATE</a></li>
+			<li><a href='${pageContext.request.contextPath}/person/list'>PERSON LIST</a></li>
+			<li><a href='${pageContext.request.contextPath}/person/create'>PERSON CREATE</a></li>
 		</ul>
 	</c:param>
 </c:import>
