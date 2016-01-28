@@ -7,7 +7,7 @@
 
 	<!-- 缓存管理器 使用Ehcache实现 -->
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-		<property name="cacheManagerConfigFile" value="classpath:META-INF/ehcache.xml" />
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
 	</bean>
 
 	<!-- 凭证匹配器 -->
@@ -94,27 +94,23 @@
 				<entry key="authc" value-ref="formAuthenticationFilter" />
 			</util:map>
 		</property>
-		<property name="filterChainDefinitionMap" ref="filterChainFactoryBean" />
-		<!-- 
-			1、authc 表示需要认证的链接
-			2、perms[/url] 表示该链接需要拥有对应的资源/权限才能访问
-			3、roles[admin] 表示需要对应的角色才能访问
-			4、perms[admin:url] 表示需要对应角色的资源才能访问 
-		-->
-		<!-- <property name="filterChainDefinitions">
-			<value>
-				/login = anon
-				/Kaptcha.jpg = anon
-				/resources/** = anon
-				/home = authc
-				/security/user/list=authc,perms["user:view"]
-				/security/role/list=authc,perms["role:view"]
-				/person/list = authc,perms["person:view"]
-			</value>
-		</property> -->
+		<!-- shiro连接约束配置,在这里使用自定义的动态获取资源类 -->  
+		<property name="filterChainDefinitionMap" ref="chainDefinitionSectionMetaSource" />
 	</bean>
 	
-	<bean id ="filterChainFactoryBean" class ="com.lucien.spirit.core.shiro.common.FilterChainFactoryBean"/>
+	<!-- shiro自定义的动态获取资源类 -->
+	<bean id="chainDefinitionSectionMetaSource" 
+		class="com.lucien.spirit.core.shiro.spring.ChainDefinitionSectionMetaSource">
+		<property name="filterChainDefinitions">  
+	        <value>  
+	            /login = anon  
+	            /logout = anon  
+	            /resource/** = anon 
+	            /Kaptcha.jpg = anon 
+	            /home = authc
+	        </value>  
+	    </property> 
+	</bean>
 
 	<!-- Shiro生命周期处理器 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />

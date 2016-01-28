@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,11 +15,10 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lucien.spirit.module.security.controller.LoginController;
+import com.lucien.spirit.core.constants.UserConstants;
+import com.lucien.spirit.core.shiro.ShiroUser;
 import com.lucien.spirit.module.security.model.Resource;
 import com.lucien.spirit.module.security.model.Role;
 import com.lucien.spirit.module.security.model.User;
@@ -28,8 +28,6 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
 
     private static final long serialVersionUID = 2053039661926394526L;
 
-    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
-
     @Autowired
     UserRepository userRepository;
 
@@ -38,8 +36,8 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String userid = principals.getPrimaryPrincipal().toString();
-        User user = this.userRepository.findOne(Long.parseLong(userid));
+    	ShiroUser principal = (ShiroUser) principals.getPrimaryPrincipal();
+        User user = this.userRepository.findOne(principal.getId());
 
         if (null != user) {
         	Set<String>  permissions = new HashSet<String>();
@@ -48,7 +46,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
 				authorization.addRole(role.getName());
 				for (Resource resource : role.getResource()) {
 					setMenuPerms(permissions, resource.getParent());
-					permissions.add(resource.getResCode());
+					permissions.add(resource.getPermission());
 				}
             }
             authorization.addStringPermissions(permissions);
@@ -60,7 +58,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
     
 	private void setMenuPerms(Set<String> permissions, Resource resource) {
 		if (resource != null) {
-			permissions.add(resource.getResCode());
+			permissions.add(resource.getPermission());
 			if (resource.getParent() != null) {
 				setMenuPerms(permissions, resource.getParent());
 			}
@@ -73,14 +71,19 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = token.getPrincipal().toString();
+        if (username == null) {  
+            throw new AccountException("用户名不能为空");  
+        }  
+        
         User user = this.userRepository.findUserByName(username);
-
-        if (null == user) {
-            log.error("没有相关用户!");
+        if (user == null) {
             throw new UnknownAccountException();
         }
+        if (UserConstants.STATUS_ENABLE != user.getStatus()) {
+        	throw new AccountException("用户名状态不正常");
+        }
 
-        String principal = String.valueOf(user.getId());
+        ShiroUser principal = new ShiroUser(user.getId(), user.getName(), user.getRealName(), user.getErrorNum());
         String hashedCredentials = user.getPasswordHash();
         ByteSource credentialsSalt = ByteSource.Util.bytes(user.getName() + new String(user.getPasswordSalt()));
         String realmName = getName();

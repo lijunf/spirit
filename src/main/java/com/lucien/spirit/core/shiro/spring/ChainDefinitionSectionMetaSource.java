@@ -1,48 +1,72 @@
-package com.lucien.spirit.core.shiro.common;
+package com.lucien.spirit.core.shiro.spring;
 
+import java.text.MessageFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.config.Ini;
+import org.apache.shiro.config.Ini.Section;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lucien.spirit.module.security.model.Resource;
 import com.lucien.spirit.module.security.repository.ResourceRepository;
 
-public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> {
+/**
+ * @Title: ChainDefinitionSectionMetaSource.java 
+ * @Package com.lucien.spirit.core.shiro.spring 
+ * @Description: 动态创建filterchaindefinitions 
+ * @author lucien   
+ * @date 2016年1月28日 下午10:43:04 
+ * @version V1.0
+ */
+public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section> {
 
     @Autowired
     ResourceRepository resourceRepository;
+    
+    private String filterChainDefinitions;
+    
+    /** 
+     * 默认premission字符串 
+     */  
+    public static final String PREMISSION_STRING="perms[\"{0}\"]";  
 
     /**
      * 权限map
      */
     @Override
-    public Map<String, String> getObject() throws Exception {
+    public Section getObject() throws Exception {
         Map<String, String> map = new LinkedHashMap<String, String>();
         map.put("/login", "anon");
         map.put("/Kaptcha.jpg", "anon");
         map.put("/resources/**", "anon");
+        map.put("/home", "authc");
+        
+        Ini ini = new Ini();  
+        //加载默认的url  
+        ini.load(filterChainDefinitions);  
+        Ini.Section section = ini.getSection(Ini.DEFAULT_SECTION_NAME);
 
-        List<Resource> rs = resourceRepository.findAll();
-        if (rs == null || rs.size() == 0) {
+        List<Resource> resources = resourceRepository.findAll();
+        if (resources == null || resources.size() == 0) {
             initResource();
-            rs = resourceRepository.findAll();
+            resources = resourceRepository.findAll();
         }
-        for (Resource r : rs) {
-        	String href = r.getHref();
-        	if (href.contains(";")) {
-        		String[] hrefs = href.split(";");
-        		for (String _href : hrefs) {
-        			map.put(_href, "authc,perms[" + r.getResCode() + "]");
+        for (Resource resource : resources) {
+        	String url = resource.getHref();
+        	if (url.contains(";")) {
+        		// 如果资源权限中保护分号，则代表多个权限
+        		String[] urls = url.split(";");
+        		for (String _url : urls) {
+        			section.put(_url, MessageFormat.format(PREMISSION_STRING, resource.getPermission()));
         		}
         	} else {
-        		map.put(href, "authc,perms[" + r.getResCode() + "]");
+        		section.put(url, MessageFormat.format(PREMISSION_STRING, resource.getPermission()));
         	}
         }
-        map.put("/home", "authc");
-        return map;
+        return section;
     }
     
     /**
@@ -111,6 +135,14 @@ public class FilterChainFactoryBean implements FactoryBean<Map<String, String>> 
         Resource test4Resource = new Resource("test4:query", "测试权限", "/test4/list", test4Res.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
         resourceRepository.saveAndFlush(test4Resource);
     }
+    
+    /** 
+     * 通过filterChainDefinitions对默认的url过滤定义 
+     * @param filterChainDefinitions 默认的url过滤定义 
+     */  
+    public void setFilterChainDefinitions(String filterChainDefinitions) {  
+        this.filterChainDefinitions = filterChainDefinitions;  
+    } 
 
     @Override
     public Class<?> getObjectType() {

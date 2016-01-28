@@ -49,10 +49,10 @@ public class Resource extends BaseModel {
 	private Long id;
 	
 	/**
-	 * 资源编码
+	 * shiro权限
 	 */
-	@Column(length = 20, name = "RES_CODE")
-	private String resCode;
+	@Column(length = 20, name = "PERMISSION")
+	private String permission;
 
 	/**
 	 * 资源类型
@@ -117,8 +117,8 @@ public class Resource extends BaseModel {
         this.id = id;
     }
     
-    public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo) {
-        this.resCode = resCode;
+    public Resource(String permission, String name, String href, Long pid, Integer resType, Integer orderNo) {
+        this.permission = permission;
         this.name = name;
         this.description = name;
         this.href = href;
@@ -129,8 +129,8 @@ public class Resource extends BaseModel {
         this.orderNo = orderNo;
     }
     
-    public Resource(String resCode, String name, String href, Long pid, Integer resType, Integer orderNo, String iconCls) {
-        this.resCode = resCode;
+    public Resource(String permission, String name, String href, Long pid, Integer resType, Integer orderNo, String iconCls) {
+        this.permission = permission;
         this.name = name;
         this.description = name;
         this.href = href;
@@ -150,15 +150,15 @@ public class Resource extends BaseModel {
         this.id = id;
     }
     
-    public String getResCode() {
-        return resCode;
-    }
+    public String getPermission() {
+		return permission;
+	}
 
-    public void setResCode(String resCode) {
-        this.resCode = resCode;
-    }
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
 
-    public Integer getResType() {
+	public Integer getResType() {
 		return resType;
 	}
 

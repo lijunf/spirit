@@ -119,7 +119,11 @@
 					</ul>
 				</li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-user"></i>
+						<shiro:principal />
+						<b class="caret"></b>
+					</a>
 					<ul class="dropdown-menu">
 						<li>
 							<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -142,7 +146,7 @@
 				<div class="nav navbar-nav side-nav">
 					<%-- 显示一级菜单 --%>
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-						<c:if test="${param.resCode eq null}">
+						<c:if test="${param.permission eq null}">
 							<div class="panel panel-default">
 							    <div class="panel-heading current" role="tab" id="heading-home">
 							      <h4 class="panel-title">
@@ -156,12 +160,12 @@
 							</div>
 						</c:if>
 						<c:forEach items="${applicationScope.topResourceList}" var="resource">
-							<shiro:hasPermission name="${resource.resCode}">
+							<shiro:hasPermission name="${resource.permission}">
 								<div class="panel panel-default">
-								    <div class="panel-heading <c:if test="${param.resCode eq resource.resCode}">current</c:if>" role="tab" id="heading${resource.id}">
+								    <div class="panel-heading <c:if test="${param.permission eq resource.permission}">current</c:if>" role="tab" id="heading${resource.id}">
 								      <h4 class="panel-title">
 								        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse${resource.id}" 
-								        	<c:if test="${param.resCode ne resource.resCode}">aria-expanded="false" class="collapsed"</c:if> 
+								        	<c:if test="${param.permission ne resource.permission}">aria-expanded="false" class="collapsed"</c:if> 
 								        	aria-controls="collapse${resource.id}">
 								        	<i class="glyphicon ${resource.iconCls}"></i>
 								          	${resource.name}
@@ -169,12 +173,12 @@
 								        </a>
 								      </h4>
 								    </div>
-								    <div id="collapse${resource.id}" class="panel-collapse collapse <c:if test="${param.resCode eq resource.resCode}">in</c:if>" 
+								    <div id="collapse${resource.id}" class="panel-collapse collapse <c:if test="${param.permission eq resource.permission}">in</c:if>" 
 								    	role="tabpanel" aria-labelledby="heading${resource.id}">
 								      <div class="panel-body">
 								      	<ul class="nav nav-stacked">
 								      		<c:forEach items="${resource.subResource}" var="subRes">
-												<shiro:hasPermission name="${subRes.resCode}">
+												<shiro:hasPermission name="${subRes.permission}">
 													<li <c:if test="${param.url eq subRes.href}">class="active"</c:if>>
 														<a href="${pageContext.request.contextPath}${subRes.href}">
 															<i class="glyphicon ${subRes.iconCls}"></i>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -21,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.lucien.spirit.core.shiro.ShiroUser;
 import com.lucien.spirit.module.security.model.User;
 import com.lucien.spirit.module.security.repository.UserRepository;
 
@@ -62,7 +64,8 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, false, request.getRemoteHost());
         try {
             subject.login(token);
-            User user = userRepository.findOne(Long.parseLong(subject.getPrincipal().toString()));
+            ShiroUser principal = (ShiroUser) subject.getPrincipal();
+            User user = userRepository.findOne(principal.getId());
             user.setLastLogin(new Date());
             userRepository.save(user);
 
@@ -76,7 +79,10 @@ public class LoginController {
         } catch (LockedAccountException lae) {
             model.addAttribute("message", "User Locked!");
             log.info("User Locked!");
-        } catch (AuthenticationException ae) {
+        } catch (AccountException ae) {
+        	model.addAttribute("message", ae.getMessage());
+            log.info(ae.getMessage());
+		} catch (AuthenticationException ae) {
             model.addAttribute("message", "Authentication Failed!");
             log.info("Authentication Failed!");
         }

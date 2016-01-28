@@ -1,6 +1,6 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
 	<c:param name="title" value="资源管理" />
-	<c:param name="resCode" value="system:manage" />
+	<c:param name="permission" value="system:manage" />
 	<c:param name="url" value="/security/resource/list" />
 	<c:param name="navigation" value="资源管理" />
 	<c:param name="body">
@@ -21,7 +21,7 @@
 					<div class="form-group">
 						<label for="resType" class="col-sm-2 control-label">上级</label>
 						<div class="col-sm-10">
-							<label class="control-label">${parent.name}（${parent.resCode}）</label>
+							<label class="control-label">${parent.name}（${parent.permission}）</label>
 						</div>
 					</div>
 				</c:if>
@@ -43,10 +43,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="resCode" class="col-sm-2 control-label">权限编码</label>
+					<label for="permission" class="col-sm-2 control-label">权限编码</label>
 					<div class="col-sm-10">
-						<form:input path="resCode" cssClass="form-control" />
-						<form:errors path="resCode" element="span" cssStyle="color:red;" />
+						<form:input path="permission" cssClass="form-control" />
+						<form:errors path="permission" element="span" cssStyle="color:red;" />
 					</div>
 				</div>
 				<div class="form-group">

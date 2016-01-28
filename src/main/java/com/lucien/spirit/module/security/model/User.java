@@ -82,6 +82,18 @@ public class User extends BaseModel {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "EXPIRATION_DATE")
     private Date expirationDate;
+    
+    /**
+     * 用户状态
+     */
+    @Column(name = "STATUS")
+    private int status;
+    
+    /**
+     * 密码出错次数
+     */
+    @Column(name = "ERROR_NUM")
+    private int errorNum;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "sys_user_roles", 
@@ -211,8 +223,24 @@ public class User extends BaseModel {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
+    
+    public int getStatus() {
+		return status;
+	}
 
-    public Set<Role> getRoles() {
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	public int getErrorNum() {
+		return errorNum;
+	}
+
+	public void setErrorNum(int errorNum) {
+		this.errorNum = errorNum;
+	}
+
+	public Set<Role> getRoles() {
         return roles;
     }
 

@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,7 +124,7 @@ public class UserController {
     		User user = userService.findOne(id);
     		user.setRoles(roles);
     		userService.save(user);
-    		jpaRealm.clearAllCachedAuthorizationInfo();
+    		jpaRealm.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
     	}
     	return "redirect:/security/user/list";
     }

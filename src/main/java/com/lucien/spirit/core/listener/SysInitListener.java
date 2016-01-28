@@ -13,6 +13,7 @@ import org.apache.shiro.crypto.hash.Sha512Hash;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.lucien.spirit.core.constants.UserConstants;
 import com.lucien.spirit.module.person.model.Person;
 import com.lucien.spirit.module.person.service.PersonService;
 import com.lucien.spirit.module.security.model.Resource;
@@ -73,6 +74,7 @@ public class SysInitListener implements ServletContextListener {
         
         byte[] passwordSalt = UUID.randomUUID().toString().getBytes();
         user = new User();
+        // TODO 改到配置文件中去
         user.setRoles(roles);
         user.setName("admin");
         user.setPasswordSalt(passwordSalt);
@@ -80,6 +82,7 @@ public class SysInitListener implements ServletContextListener {
         user.setRealName("李俊锋");
         user.setMobile("13524595283");
         user.setEmail("lijunf@163.com");
+        user.setStatus(UserConstants.STATUS_ENABLE);
         String passwordHash = new Sha512Hash(user.getPassword(), user.getName() + new String(passwordSalt), 99)
                 .toString();
         user.setPasswordHash(passwordHash);
