@@ -14,7 +14,7 @@
 		<h3 class="page-header sb-form-header">
 			<c:if test="${resource.id eq null}">添加资源</c:if>
 			<c:if test="${resource.id ne null}">修改资源</c:if>
-			<c:if test="${parent.id ne null}">，上级：${parent.name}（${parent.resCode}）</c:if>
+			<c:if test="${parent.id ne null}">&nbsp;&nbsp;上级：${parent.name}（${parent.resCode}）</c:if>
 		</h3>
 		<div class="sb-form">
 			<form:form action="" method="post" modelAttribute="resource" cssClass="form-horizontal">
@@ -52,7 +52,7 @@
 				<div class="form-group">
 					<label for="orderNo" class="col-sm-2 control-label">排序编号</label>
 					<div class="col-sm-10">
-						<form:input path="orderNo" cssClass="form-control" />
+						<form:input path="orderNo" cssClass="form-control" type="number"/>
 						<form:errors path="orderNo" element="span" cssStyle="color:red;" />
 					</div>
 				</div>

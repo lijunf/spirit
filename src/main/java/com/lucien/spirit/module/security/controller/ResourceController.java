@@ -60,7 +60,7 @@ public class ResourceController {
         Resource parent = new Resource(pId);
         resource.setParent(parent);
         resourceService.save(resource);
-        // resourceService.refreshCache(servletContext);
+        resourceService.refreshResourceCache();
         return "redirect:/security/resource/list";
     }
     
@@ -84,7 +84,7 @@ public class ResourceController {
         Resource parent = new Resource(pId);
         resource.setParent(parent);
         resourceService.save(resource);
-        // resourceService.refreshCache(servletContext);
+        resourceService.refreshResourceCache();
         return "redirect:/security/resource/list";
     }
 	
@@ -92,7 +92,7 @@ public class ResourceController {
     public String delete(@PathVariable("id") Long id, Model model) {
 		log.info("delete resource");
         resourceService.delete(id);
-        // resourceService.refreshCache(servletContext);
+        resourceService.refreshResourceCache();
         return "redirect:/security/resource/list";
     }
 }

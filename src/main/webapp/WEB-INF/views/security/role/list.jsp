@@ -19,7 +19,7 @@
 				<c:forEach items="${roleList}" var="role">
 					<tr>
 						<td>${role.name}</td>
-						<td>
+						<td nowrap>
 							<shiro:hasPermission name="role:edit">
 								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/role/edit/${role.id}'>edit</a>&nbsp;&nbsp; 
 							</shiro:hasPermission>

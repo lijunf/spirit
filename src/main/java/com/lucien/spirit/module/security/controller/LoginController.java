@@ -62,7 +62,7 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, false, request.getRemoteHost());
         try {
             subject.login(token);
-            User user = userRepository.findUserByName(username);
+            User user = userRepository.findOne(Long.parseLong(subject.getPrincipal().toString()));
             user.setLastLogin(new Date());
             userRepository.save(user);
 
