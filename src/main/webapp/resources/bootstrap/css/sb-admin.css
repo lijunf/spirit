@@ -21,6 +21,8 @@ a, button, input {
 	outline: none;
 }
 
+a:focus { outline:none; }
+
 @media(min-width:768px) {
     body {
         margin-top: 50px;

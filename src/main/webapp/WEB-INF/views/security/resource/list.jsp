@@ -19,7 +19,7 @@
 				</tr>
 				<c:forEach items="${applicationScope.topResourceList}" var="resource">
 					<tr class="success">
-						<td>${resource.name}</td>
+						<td nowrap>${resource.name}</td>
 						<td nowrap>
 							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${resource.id}'>edit</a>&nbsp;&nbsp;
 							<c:if test="${resource.subResource eq null || resource.subResource.size() eq 0}">
@@ -29,11 +29,11 @@
 						</td>
 						<td>${resource.resCode}</td>
 						<td>${resource.href}</td>
-					<tr>
+					</tr>
 					<c:forEach items="${resource.subResource}" var="subRes">
 						<tr>
-							<td>——${subRes.name}</td>
-							<td>
+							<td nowrap>——${subRes.name}</td>
+							<td nowrap>
 								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${subRes.id}'>edit</a>&nbsp;&nbsp;
 								<c:if test="${subRes.subResource eq null || subRes.subResource.size() eq 0}">
 									<button onclick="deleteResource('${subRes.id}', '${subRes.name}')" class="btn btn-primary btn-xs">delete</button>&nbsp;&nbsp;
@@ -42,17 +42,17 @@
 							</td>
 							<td>${subRes.resCode}</td>
 							<td>${subRes.href}</td>
-						<tr>
+						</tr>
 						<c:forEach items="${subRes.subResource}" var="subRes2">
 							<tr>
-								<td>————${subRes2.name}</td>
-								<td>
+								<td nowrap>————${subRes2.name}</td>
+								<td nowrap>
 									<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${subRes2.id}'>edit</a>&nbsp;&nbsp;
 									<button onclick="deleteResource('${subRes2.id}', '${subRes2.name}')" class="btn btn-primary btn-xs">delete</button>
 								</td>
 								<td>${subRes2.resCode}</td>
 								<td>${subRes2.href}</td>
-							<tr>
+							</tr>
 						</c:forEach>
 					</c:forEach>
 				</c:forEach>
