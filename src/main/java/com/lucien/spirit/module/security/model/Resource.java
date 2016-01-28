@@ -231,8 +231,8 @@ public class Resource extends BaseModel {
 	public void setVersionNum(int versionNum) {
 		this.versionNum = versionNum;
 	}
-
-	/**
+	
+    /**
 	 * 获取资源层级显示名称
 	 * @return
 	 */

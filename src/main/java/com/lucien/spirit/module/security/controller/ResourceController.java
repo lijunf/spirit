@@ -26,8 +26,6 @@ public class ResourceController {
 
 	@RequestMapping("/list")
     public String list(Model model) {
-        // List<Resource> resourceList = resourceService.findAll();
-        // model.addAttribute("resourceList", resourceList);
         return "/security/resource/list";
     }
 	

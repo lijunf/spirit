@@ -37,8 +37,9 @@ public class ResourceService {
         return topResourceList;
     }
 
+    @Transactional
     public void delete(Long id) {
-    	// TODO 删除资源与角色的绑定关系
+        resourceRepository.deleteRoleById(id);
         resourceRepository.delete(id);
     }
 
