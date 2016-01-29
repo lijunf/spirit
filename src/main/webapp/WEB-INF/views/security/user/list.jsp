@@ -28,8 +28,8 @@
 						<td nowrap>
 							<shiro:hasPermission name="user:edit">
 								<button onclick="editUser('${pageContext.request.contextPath}/security/user/edit/${user.id}')" 
-									class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp;&nbsp; 
-								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/grant/${user.id}'>grant</a>&nbsp;&nbsp;
+									class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp; 
+								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/grant/${user.id}'>grant</a>&nbsp;
 							</shiro:hasPermission>
 							<shiro:hasPermission name="user:delete">
 								<button onclick="deleteUser('${user.id}', '${user.name}')" class="btn btn-primary btn-xs">delete</button>

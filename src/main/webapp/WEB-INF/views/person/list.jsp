@@ -22,7 +22,7 @@
 						<td>${person.id}</td>
 						<td>
 							<shiro:hasPermission name="person:edit">
-								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/person/edit/${person.id}'>edit</a>&nbsp;&nbsp; 
+								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/person/edit/${person.id}'>edit</a>&nbsp; 
 							</shiro:hasPermission>
 							<shiro:hasPermission name="person:delete">
 								<button onclick="deletePerson('${person.id}', '${person.name}')" class="btn btn-primary btn-xs">delete</button>

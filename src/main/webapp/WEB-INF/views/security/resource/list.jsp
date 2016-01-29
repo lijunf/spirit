@@ -21,9 +21,9 @@
 					<tr class="success">
 						<td nowrap>${resource.name}</td>
 						<td nowrap>
-							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${resource.id}'>edit</a>&nbsp;&nbsp;
+							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${resource.id}'>edit</a>&nbsp;
 							<c:if test="${resource.subResource eq null || resource.subResource.size() eq 0}">
-								<button onclick="deleteResource('${resource.id}', '${resource.name}')" class="btn btn-primary btn-xs">delete</button>&nbsp;&nbsp;
+								<button onclick="deleteResource('${resource.id}', '${resource.name}')" class="btn btn-primary btn-xs">delete</button>&nbsp;
 							</c:if>
 							<a class="btn btn-primary btn-xs" title="添加子资源" href='${pageContext.request.contextPath}/security/resource/create?pId=${resource.id}'>add</a>
 						</td>
@@ -34,9 +34,9 @@
 						<tr>
 							<td nowrap>——${subRes.name}</td>
 							<td nowrap>
-								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${subRes.id}'>edit</a>&nbsp;&nbsp;
+								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${subRes.id}'>edit</a>&nbsp;
 								<c:if test="${subRes.subResource eq null || subRes.subResource.size() eq 0}">
-									<button onclick="deleteResource('${subRes.id}', '${subRes.name}')" class="btn btn-primary btn-xs">delete</button>&nbsp;&nbsp;
+									<button onclick="deleteResource('${subRes.id}', '${subRes.name}')" class="btn btn-primary btn-xs">delete</button>&nbsp;
 								</c:if>
 								<a class="btn btn-primary btn-xs" title="添加子资源" href='${pageContext.request.contextPath}/security/resource/create?pId=${subRes.id}'>add</a>
 							</td>
@@ -47,7 +47,7 @@
 							<tr>
 								<td nowrap>————${subRes2.name}</td>
 								<td nowrap>
-									<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${subRes2.id}'>edit</a>&nbsp;&nbsp;
+									<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${subRes2.id}'>edit</a>&nbsp;
 									<button onclick="deleteResource('${subRes2.id}', '${subRes2.name}')" class="btn btn-primary btn-xs">delete</button>
 								</td>
 								<td>${subRes2.permission}</td>

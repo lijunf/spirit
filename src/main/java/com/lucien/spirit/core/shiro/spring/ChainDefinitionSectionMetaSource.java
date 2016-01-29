@@ -74,7 +74,7 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
      */
     private void initResource() {
         Resource resource = null;
-        Resource sysRes = new Resource("system:manage", "系统设置", "/", null, Resource.TYPE_MENU, 1, "glyphicon-cog");
+        Resource sysRes = new Resource("system:manage", "权限管理", "/", null, Resource.TYPE_MENU, 1, "glyphicon-cog");
         resourceRepository.saveAndFlush(sysRes);
         
         Resource userResource = new Resource("user:query", "用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-user");

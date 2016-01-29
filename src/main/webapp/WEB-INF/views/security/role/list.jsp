@@ -21,7 +21,7 @@
 						<td>${role.name}</td>
 						<td nowrap>
 							<shiro:hasPermission name="role:edit">
-								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/role/edit/${role.id}'>edit</a>&nbsp;&nbsp; 
+								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/role/edit/${role.id}'>edit</a>&nbsp; 
 							</shiro:hasPermission>
 							<shiro:hasPermission name="role:delete">
 								<button onclick="deleteRole('${role.id}', '${role.name}')" class="btn btn-primary btn-xs">delete</button>
