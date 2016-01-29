@@ -1,5 +1,7 @@
 package com.lucien.spirit.module.security.service;
 
+import java.util.Date;
+
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -64,5 +66,13 @@ public class UserService {
         User user = userRepository.findOne(id);
         Hibernate.initialize(user); // 强制加载用户角色列表
         return user;
+    }
+
+	/**
+	 * 根据客户id更新最后登录时间
+	 * @param id
+	 */
+    public void updateLastLogin(Long id) {
+        userRepository.updateLastLogin(id, new Date());
     }
 }

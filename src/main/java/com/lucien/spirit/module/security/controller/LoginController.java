@@ -1,7 +1,5 @@
 package com.lucien.spirit.module.security.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -23,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.lucien.spirit.core.shiro.ShiroUser;
-import com.lucien.spirit.module.security.model.User;
-import com.lucien.spirit.module.security.repository.UserRepository;
+import com.lucien.spirit.module.security.service.UserService;
 
 @Controller
 public class LoginController {
@@ -32,7 +29,7 @@ public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
@@ -64,9 +61,7 @@ public class LoginController {
         try {
             subject.login(token);
             ShiroUser principal = (ShiroUser) subject.getPrincipal();
-            User user = userRepository.findOne(principal.getId());
-            user.setLastLogin(new Date());
-            userRepository.save(user);
+            userService.updateLastLogin(principal.getId());
 
             return "redirect:/home";
         } catch (UnknownAccountException uae) {
@@ -88,10 +83,4 @@ public class LoginController {
         return "/login";
     }
     
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout() {
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
-        return "redirect:/login";
-    }
 }

@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
-import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +92,9 @@ public class UserController {
     		message = "用户 " + user.getName() + " 已经存在!";
     	} else {
     		userService.update(user);
+    		// TODO 如果用户名称修改，需要更新待shiro缓存的用户名
+    		// TODO 不生效 jpaRealm.clearCachedAuthenticationInfo(SecurityUtils.getSubject().getPrincipals());
+    		// TODO 成功 jpaRealm.clearAllCachedAuthenticationInfo();
     		message = "用户 " + user.getName() + " 编辑成功!";
     	}
         map.put("message", message);
@@ -126,7 +128,7 @@ public class UserController {
     		User user = userService.findOne(id);
     		user.setRoles(roles);
     		userService.save(user);
-    		jpaRealm.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+    		jpaRealm.clearAllCachedAuthorizationInfo();
     	}
     	return "redirect:/security/user/list";
     }
