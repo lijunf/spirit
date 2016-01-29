@@ -31,7 +31,7 @@
 						<td>${resource.href}</td>
 					</tr>
 					<c:forEach items="${resource.subResource}" var="subRes">
-						<tr>
+						<tr class="info">
 							<td nowrap>——${subRes.name}</td>
 							<td nowrap>
 								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/resource/edit/${subRes.id}'>edit</a>&nbsp;

@@ -104,8 +104,8 @@
 		<property name="filterChainDefinitions">  
 	        <value>  
 	            /login = anon  
-	            /logout = anon  
-	            /resource/** = anon 
+	            /logout = logout
+	            /resources/** = anon 
 	            /Kaptcha.jpg = anon 
 	            /** = authc
 	        </value>  

@@ -3,7 +3,6 @@ package com.lucien.spirit.module.security.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,9 +18,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.lucien.spirit.core.model.BaseModel;
 
 /**
@@ -32,8 +28,8 @@ import com.lucien.spirit.core.model.BaseModel;
  */
 @Entity
 @Table(name = "sys_resources")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
+// @Cacheable
+// @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
 public class Resource extends BaseModel {
 
 	private static final long serialVersionUID = -7699511964868984541L;

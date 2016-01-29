@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +20,6 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -30,8 +27,8 @@ import com.lucien.spirit.core.model.BaseModel;
 
 @Entity
 @Table(name = "sys_roles", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
+// @Cacheable
+// @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
 public class Role extends BaseModel {
 
     private static final long serialVersionUID = 7788827369928527248L;
@@ -55,7 +52,7 @@ public class Role extends BaseModel {
 	 * 拥有权限
 	 */
 	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+	// @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	@JoinTable(name = "sys_role_resources", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "RESOURCE_ID") })
 	private List<Resource> resource;

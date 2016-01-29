@@ -23,7 +23,7 @@ public class ResourceService {
         return resourceRepository.findAll();
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Resource> findTopList() {
         List<Resource> topResourceList = resourceRepository.findTopList();
         for (Resource resource : topResourceList) {
@@ -51,6 +51,19 @@ public class ResourceService {
 	public void save(Resource resource) {
 		resourceRepository.save(resource);
 	}
+	
+	public void update(Resource resource) {
+	    Resource temp = resourceRepository.findOne(resource.getId());
+	    temp.setParent(resource.getParent());
+	    temp.setResType(resource.getResType());
+	    temp.setName(resource.getName());
+	    temp.setPermission(resource.getPermission());
+	    temp.setHref(resource.getHref());
+	    temp.setOrderNo(resource.getOrderNo());
+	    temp.setIconCls(resource.getIconCls());
+	    temp.setDescription(resource.getDescription());
+	    resourceRepository.save(temp);
+	}
 
 	public Resource findOne(Long id) {
 		return resourceRepository.findOne(id);
@@ -63,6 +76,7 @@ public class ResourceService {
     public void refreshResourceCache() {
 	    ServletContext context = ContextLoader.getCurrentWebApplicationContext().getServletContext();
 	    context.setAttribute("topResourceList", findTopList());
+	    // TODO 现在是所有资源一起刷新，以后考虑只刷新单个
 		/*List<Resource> topResourceList = (List<Resource>) context.getAttribute("topResourceList");
 		for (Resource resource : topResourceList) {
 		    if (resource.getId() == id) {

@@ -57,8 +57,10 @@ public class ResourceController {
             model.addAllAttributes(bindingResult.getModel());
             return "/security/resource/form";
         }
-        Resource parent = new Resource(pId);
-        resource.setParent(parent);
+        if (pId != null) {
+            Resource parent = new Resource(pId);
+            resource.setParent(parent);
+        }
         resourceService.save(resource);
         resourceService.refreshResourceCache();
         return "redirect:/security/resource/list";
@@ -81,9 +83,11 @@ public class ResourceController {
             model.addAllAttributes(bindingResult.getModel());
             return "security/resource/form";
         }
-        Resource parent = new Resource(pId);
-        resource.setParent(parent);
-        resourceService.save(resource);
+        if (pId != null) {
+            Resource parent = new Resource(pId);
+            resource.setParent(parent);
+        }
+        resourceService.update(resource);
         resourceService.refreshResourceCache();
         return "redirect:/security/resource/list";
     }

@@ -83,6 +83,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
         	throw new AccountException("用户名状态不正常");
         }
 
+        // ShiroUser会保存用户Id，如果将来对用户实体进行缓存，会对使用findOne(Id)查找用户时有帮助，根据id查询才能使用缓存
         ShiroUser principal = new ShiroUser(user.getId(), user.getName(), user.getRealName(), user.getErrorNum());
         String hashedCredentials = user.getPasswordHash();
         ByteSource credentialsSalt = ByteSource.Util.bytes(user.getName() + new String(user.getPasswordSalt()));
@@ -106,6 +107,11 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
     @Override
     public void clearCache(PrincipalCollection principals) {
         super.clearCache(principals);
+    }
+    
+    @Override
+    public void onLogout(PrincipalCollection principals) {
+        // 覆盖父类的方法，防止退出时用户权限缓存authorizationCache被清除
     }
 
     public void clearAllCachedAuthorizationInfo() {
