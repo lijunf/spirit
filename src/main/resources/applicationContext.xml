@@ -64,5 +64,5 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<jpa:repositories base-package="com.lucien.spirit.**.repository" />
+	<jpa:repositories base-package="com.lucien.spirit.**.dao" />
 </beans>

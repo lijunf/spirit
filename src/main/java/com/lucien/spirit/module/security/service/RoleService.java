@@ -6,36 +6,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lucien.spirit.module.security.dao.RoleDao;
 import com.lucien.spirit.module.security.model.Role;
-import com.lucien.spirit.module.security.repository.RoleRepository;
 
 @Service
 public class RoleService {
     @Autowired
-    RoleRepository roleRepository;
+    RoleDao roleDao;
 
     @Transactional
     public void update(Role role) {
-        Role roleTemp = this.roleRepository.findOne(role.getId());
+        Role roleTemp = this.roleDao.findOne(role.getId());
         roleTemp.setDescription(role.getDescription());
         roleTemp.setName(role.getName());
         roleTemp.setResource(role.getResource());
-        this.roleRepository.save(roleTemp);
+        this.roleDao.save(roleTemp);
     }
 
 	public void save(Role role) {
-		roleRepository.save(role);
+		roleDao.save(role);
 	}
 
 	public Role findOne(long id) {
-		return roleRepository.findOne(id);
+		return roleDao.findOne(id);
 	}
 
 	public List<Role> findAll() {
-		return roleRepository.findAll();
+		return roleDao.findAll();
 	}
 
     public void delete(Long id) {
-        roleRepository.delete(id);
+        roleDao.delete(id);
     }
 }

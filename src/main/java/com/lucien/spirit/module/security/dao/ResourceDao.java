@@ -1,4 +1,4 @@
-package com.lucien.spirit.module.security.repository;
+package com.lucien.spirit.module.security.dao;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.lucien.spirit.module.security.model.Resource;
 
 @Repository
-public interface ResourceRepository extends JpaRepository<Resource, Long> {
+public interface ResourceDao extends JpaRepository<Resource, Long> {
 
     /**
      * 查询顶级菜单

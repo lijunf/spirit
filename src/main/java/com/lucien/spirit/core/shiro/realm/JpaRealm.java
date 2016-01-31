@@ -19,17 +19,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lucien.spirit.core.constants.UserConstants;
 import com.lucien.spirit.core.shiro.ShiroUser;
+import com.lucien.spirit.module.security.dao.UserDao;
 import com.lucien.spirit.module.security.model.Resource;
 import com.lucien.spirit.module.security.model.Role;
 import com.lucien.spirit.module.security.model.User;
-import com.lucien.spirit.module.security.repository.UserRepository;
 
 public class JpaRealm extends AuthorizingRealm implements Serializable {
 
     private static final long serialVersionUID = 2053039661926394526L;
 
     @Autowired
-    UserRepository userRepository;
+    UserDao userDao;
 
     /*
      * 授权信息处理
@@ -37,7 +37,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
     	ShiroUser principal = (ShiroUser) principals.getPrimaryPrincipal();
-        User user = this.userRepository.findOne(principal.getId());
+        User user = this.userDao.findOne(principal.getId());
 
         if (null != user) {
         	Set<String>  permissions = new HashSet<String>();
@@ -75,7 +75,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
             throw new AccountException("用户名不能为空");  
         }  
         
-        User user = this.userRepository.findUserByName(username);
+        User user = this.userDao.findUserByName(username);
         if (user == null) {
             throw new UnknownAccountException();
         }

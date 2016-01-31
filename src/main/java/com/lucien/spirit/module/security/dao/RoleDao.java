@@ -1,4 +1,4 @@
-package com.lucien.spirit.module.security.repository;
+package com.lucien.spirit.module.security.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.lucien.spirit.module.security.model.Role;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleDao extends JpaRepository<Role, Long> {
 
 }

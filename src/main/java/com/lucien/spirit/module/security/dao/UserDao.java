@@ -1,4 +1,4 @@
-package com.lucien.spirit.module.security.repository;
+package com.lucien.spirit.module.security.dao;
 
 
 import java.util.Date;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lucien.spirit.module.security.model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserDao extends JpaRepository<User, Long> {
 	
     /**
      * 根据用户名查询用户

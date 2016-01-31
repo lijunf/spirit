@@ -7,8 +7,8 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lucien.spirit.core.shiro.ShiroUser;
+import com.lucien.spirit.module.security.dao.UserDao;
 import com.lucien.spirit.module.security.model.User;
-import com.lucien.spirit.module.security.repository.UserRepository;
 
 /**
  * 验证密码服务,可以提供密码错误登录次数的限制
@@ -22,25 +22,25 @@ import com.lucien.spirit.module.security.repository.UserRepository;
 public class CustomCredentialsMatcher extends HashedCredentialsMatcher {
 	
 	@Autowired
-    UserRepository userRepository;
+    UserDao userDao;
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         boolean result = super.doCredentialsMatch(token, info);
         ShiroUser principal = (ShiroUser) info.getPrincipals().getPrimaryPrincipal();
         if (!result) {
-        	User user = userRepository.findOne(principal.getId());
+        	User user = userDao.findOne(principal.getId());
             if (user.getErrorNum() > 2) {	
             	throw new LockedAccountException();	// 密码输错3次
             } else {
             	user.setErrorNum(user.getErrorNum() + 1);
-            	userRepository.save(user);
+            	userDao.save(user);
             }
         } else {
         	if (principal.getErrorNo() != 0) {
-        		User user = userRepository.findOne(principal.getId());
+        		User user = userDao.findOne(principal.getId());
         		user.setErrorNum(0);
-        		userRepository.save(user);
+        		userDao.save(user);
         		principal.setErrorNo(0);
         	}
         }

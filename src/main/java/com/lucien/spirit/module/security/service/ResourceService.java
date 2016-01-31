@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
+import com.lucien.spirit.module.security.dao.ResourceDao;
 import com.lucien.spirit.module.security.model.Resource;
-import com.lucien.spirit.module.security.repository.ResourceRepository;
 
 @Service
 public class ResourceService {
     
     @Autowired
-    ResourceRepository resourceRepository;
+    ResourceDao resourceDao;
     
     public List<Resource> findAll() {
-        return resourceRepository.findAll();
+        return resourceDao.findAll();
     }
     
     @Transactional(readOnly = true)
     public List<Resource> findTopList() {
-        List<Resource> topResourceList = resourceRepository.findTopList();
+        List<Resource> topResourceList = resourceDao.findTopList();
         for (Resource resource : topResourceList) {
             List<Resource> subReses = resource.getSubResource();
             if (subReses != null) {
@@ -44,16 +44,16 @@ public class ResourceService {
 
     @Transactional
     public void delete(Long id) {
-        resourceRepository.deleteRoleById(id);
-        resourceRepository.delete(id);
+        resourceDao.deleteRoleById(id);
+        resourceDao.delete(id);
     }
 
 	public void save(Resource resource) {
-		resourceRepository.save(resource);
+		resourceDao.save(resource);
 	}
 	
 	public void update(Resource resource) {
-	    Resource temp = resourceRepository.findOne(resource.getId());
+	    Resource temp = resourceDao.findOne(resource.getId());
 	    temp.setParent(resource.getParent());
 	    temp.setResType(resource.getResType());
 	    temp.setName(resource.getName());
@@ -62,11 +62,11 @@ public class ResourceService {
 	    temp.setOrderNo(resource.getOrderNo());
 	    temp.setIconCls(resource.getIconCls());
 	    temp.setDescription(resource.getDescription());
-	    resourceRepository.save(temp);
+	    resourceDao.save(temp);
 	}
 
 	public Resource findOne(Long id) {
-		return resourceRepository.findOne(id);
+		return resourceDao.findOne(id);
 	}
 	
 	/**

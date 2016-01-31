@@ -13,47 +13,47 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lucien.spirit.core.shiro.authc.PasswordHelper;
+import com.lucien.spirit.module.security.dao.UserDao;
 import com.lucien.spirit.module.security.model.User;
-import com.lucien.spirit.module.security.repository.UserRepository;
 
 @Service
 public class UserService {
     
     @Autowired
-    UserRepository userRepository;
+    UserDao userDao;
 
     @Transactional(readOnly = true)
     public Page<User> findAllForPagination(int page, int size) {
         Pageable pageable = new PageRequest(page, size, new Sort(Direction.DESC, "id"));
-        Page<User> users = userRepository.findAll(pageable);
+        Page<User> users = userDao.findAll(pageable);
         return users;
     }
 
 	public void save(User user) {
-		userRepository.save(user);
+		userDao.save(user);
 	}
 	
 	public void update(User user) {
-		User userTemp = userRepository.findOne(user.getId());
+		User userTemp = userDao.findOne(user.getId());
 		userTemp.setEmployeeId(user.getEmployeeId());
 		userTemp.setMobile(user.getMobile());
 		userTemp.setName(user.getName());
 		userTemp.setRealName(user.getRealName());
 		userTemp.setPassword(user.getPassword());
 		userTemp = PasswordHelper.generatePassword(userTemp);
-		userRepository.save(userTemp);
+		userDao.save(userTemp);
 	}
 	
 	public User findOne(long id) {
-		return userRepository.findOne(id);
+		return userDao.findOne(id);
 	}
 	
 	public User findUserByName(String name) {
-		return userRepository.findUserByName(name);
+		return userDao.findUserByName(name);
 	}
 	
 	public void delete(long id) {
-		userRepository.delete(id);
+		userDao.delete(id);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class UserService {
 	 */
 	@Transactional
     public User findOneAndRole(Long id) {
-        User user = userRepository.findOne(id);
+        User user = userDao.findOne(id);
         Hibernate.initialize(user); // 强制加载用户角色列表
         return user;
     }
@@ -73,6 +73,6 @@ public class UserService {
 	 * @param id
 	 */
     public void updateLastLogin(Long id) {
-        userRepository.updateLastLogin(id, new Date());
+        userDao.updateLastLogin(id, new Date());
     }
 }

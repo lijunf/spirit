@@ -16,10 +16,10 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.lucien.spirit.core.constants.UserConstants;
 import com.lucien.spirit.module.person.model.Person;
 import com.lucien.spirit.module.person.service.PersonService;
+import com.lucien.spirit.module.security.dao.RoleDao;
 import com.lucien.spirit.module.security.model.Resource;
 import com.lucien.spirit.module.security.model.Role;
 import com.lucien.spirit.module.security.model.User;
-import com.lucien.spirit.module.security.repository.RoleRepository;
 import com.lucien.spirit.module.security.service.ResourceService;
 import com.lucien.spirit.module.security.service.UserService;
 
@@ -62,12 +62,12 @@ public class SysInitListener implements ServletContextListener {
         
         List<Resource> resources = resourceService.findAll();
 
-        RoleRepository roleRepository = webApplicationContext.getBean(RoleRepository.class);
+        RoleDao roleDao = webApplicationContext.getBean(RoleDao.class);
         Role role = new Role();
         role.setName("admin");
         role.setDescription("系统管理员");
         role.setResource(resources);
-        roleRepository.saveAndFlush(role);
+        roleDao.saveAndFlush(role);
         
         Set<Role> roles = new HashSet<Role>();
         roles.add(role);
