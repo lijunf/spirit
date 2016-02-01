@@ -8,6 +8,27 @@
 		<c:if test="${message!=null}">
 			<div class="alert alert-success" role="alert">${message}</div>
 		</c:if>
+		<div class="sb-search-header">
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="nameSearch">账号</label>
+					<input type="text" class="form-control input-sm" name="name" id="nameSearch" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="realNameSearch">姓名</label>
+					<input type="text" class="form-control input-sm" name="realName" id="realNameSearch" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="mobileSearch">手机</label>
+					<input type="text" class="form-control input-sm" name="mobile" id="mobileSearch" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="emailSearch">电子邮箱</label>
+					<input type="email" class="form-control input-sm" name="email" id="emailSearch" placeholder="">
+				</div>
+				<button type="submit" class="btn btn-primary btn-sm">Search</button>
+			</form>
+		</div>
 		<shiro:hasPermission name="user:add">
 		<p>
 			<button class="btn btn-info" data-toggle="modal" data-target="#createModal">新建用户</button>

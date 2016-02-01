@@ -47,7 +47,7 @@ public class UserController {
 
     @RequestMapping("/list")
     public String list(@RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "message", required = false) String message, Model model) {
+            @RequestParam(value = "message", required = false) String message, Model model, User user) {
         int pageNumber = page != null ? page : PageConstants.DEFAULT_PAGE_NUM;
         Page<User> paging = userService.findAllForPagination(pageNumber, PageConstants.DEFAULT_PAGE_SIZE);
         model.addAttribute("paging", paging);
@@ -61,7 +61,7 @@ public class UserController {
     public ModelAndView create(@Valid User user, BindingResult bindingResult, Model model) {
     	String message = null;
     	Map<String, String> map = new HashMap<>();
-    	User temp = userService.findUserByName(user.getName());
+    	User temp = userService.findByUserName(user.getName());
     	if (temp != null && temp.getId() != null) {
     		message = "用户 " + user.getName() + " 已经存在!";
     	} else {
@@ -87,7 +87,7 @@ public class UserController {
     public ModelAndView edit(@Valid User user) {
     	String message = null;
     	Map<String, String> map = new HashMap<>();
-    	User temp = userService.findUserByName(user.getName());
+    	User temp = userService.findByUserName(user.getName());
     	if (temp != null && temp.getId() != user.getId()) {
     		message = "用户 " + user.getName() + " 已经存在!";
     	} else {

@@ -6,4 +6,4 @@
 
 
 ## 简介
-Spirit是一块基于SpringMVC + Spring Data JPA + Hibernate + Shiro + Bootstrap的后台管理系统基础开发框架，实现了一条完整的用户权限管理功能，只需要基于此框架做相应的业务模块开发即可，而且所有基础管理页面支持PC+移动端访问。
+Spirit是一款基于SpringMVC + Spring Data JPA + Hibernate + Shiro + Bootstrap的后台管理系统基础开发框架，实现了一套完整的用户权限管理功能，只需要基于此框架做相应的业务模块开发即可，而且所有基础管理页面支持PC+移动端访问。

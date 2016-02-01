@@ -75,7 +75,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
             throw new AccountException("用户名不能为空");  
         }  
         
-        User user = this.userDao.findUserByName(username);
+        User user = this.userDao.findByUserName(username);
         if (user == null) {
             throw new UnknownAccountException();
         }

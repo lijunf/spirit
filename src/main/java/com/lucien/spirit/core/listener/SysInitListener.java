@@ -42,7 +42,7 @@ public class SysInitListener implements ServletContextListener {
         
         sce.getServletContext().setAttribute("topResourceList", topResourceList);
         
-        User user = userService.findUserByName("admin");
+        User user = userService.findByUserName("admin");
         if (user != null && user.getId() != null) {
         	return;
         }

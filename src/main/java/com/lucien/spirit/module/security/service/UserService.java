@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lucien.spirit.core.jpa.Criteria;
+import com.lucien.spirit.core.jpa.Restrictions;
 import com.lucien.spirit.core.shiro.authc.PasswordHelper;
 import com.lucien.spirit.module.security.dao.UserDao;
 import com.lucien.spirit.module.security.model.User;
@@ -26,6 +28,18 @@ public class UserService {
     public Page<User> findAllForPagination(int page, int size) {
         Pageable pageable = new PageRequest(page, size, new Sort(Direction.DESC, "id"));
         Page<User> users = userDao.findAll(pageable);
+        return users;
+    }
+    
+    @Transactional(readOnly = true)
+    public Page<User> findUserForPagination(int page, int size, User user) {
+        Pageable pageable = new PageRequest(page, size, new Sort(Direction.DESC, "id"));
+        Criteria<User> c = new Criteria<User>();  
+        c.add(Restrictions.like("name", user.getName(), true)); 
+        c.add(Restrictions.like("realName", user.getRealName(), true)); 
+        c.add(Restrictions.like("mobile", user.getMobile(), true)); 
+        c.add(Restrictions.like("email", user.getEmail(), true)); 
+        Page<User> users = userDao.findAll(c, pageable);
         return users;
     }
 
@@ -48,8 +62,8 @@ public class UserService {
 		return userDao.findOne(id);
 	}
 	
-	public User findUserByName(String name) {
-		return userDao.findUserByName(name);
+	public User findByUserName(String name) {
+		return userDao.findByUserName(name);
 	}
 	
 	public void delete(long id) {

@@ -4,6 +4,7 @@ package com.lucien.spirit.module.security.dao;
 import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lucien.spirit.module.security.model.User;
 
 @Repository
-public interface UserDao extends JpaRepository<User, Long> {
+public interface UserDao extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 	
     /**
      * 根据用户名查询用户
@@ -21,7 +22,15 @@ public interface UserDao extends JpaRepository<User, Long> {
      * @return
      */
 	@Query("SELECT u FROM User u WHERE u.name = :name)")
+	@Deprecated
 	public User findUserByName(@Param("name") String name);
+	
+	/**
+	 * 根据用户名查询用户
+	 * @param name
+	 * @return
+	 */
+	public User findByUserName(String name);
 	
 	/**
 	 * 修改最后登录时间

@@ -319,3 +319,7 @@ a:hover {
 	margin: 0 auto;
 	text-align: left;
 }
+
+.sb-search-header {
+    margin: 0 0 10px;
+}
