@@ -11,20 +11,20 @@
 		<div class="sb-search-header">
 			<form class="form-inline">
 				<div class="form-group">
-					<label for="nameSearch">账号</label>
-					<input type="text" class="form-control input-sm" name="name" id="nameSearch" placeholder="">
+					<label class="sr-only" for="nameSearch">账号</label>
+					<input type="text" class="form-control input-sm" name="name" id="nameSearch" value="${user.name }" placeholder="账号">
 				</div>
 				<div class="form-group">
-					<label for="realNameSearch">姓名</label>
-					<input type="text" class="form-control input-sm" name="realName" id="realNameSearch" placeholder="">
+					<label class="sr-only" for="realNameSearch">姓名</label>
+					<input type="text" class="form-control input-sm" name="realName" id="realNameSearch" value="${user.realName }" placeholder="姓名">
 				</div>
 				<div class="form-group">
-					<label for="mobileSearch">手机</label>
-					<input type="text" class="form-control input-sm" name="mobile" id="mobileSearch" placeholder="">
+					<label class="sr-only" for="mobileSearch">手机</label>
+					<input type="text" class="form-control input-sm" name="mobile" id="mobileSearch" value="${user.mobile }" placeholder="手机">
 				</div>
 				<div class="form-group">
-					<label for="emailSearch">电子邮箱</label>
-					<input type="email" class="form-control input-sm" name="email" id="emailSearch" placeholder="">
+					<label class="sr-only" for="emailSearch">电子邮箱</label>
+					<input type="email" class="form-control input-sm" name="email" id="emailSearch" value="${user.email }" placeholder="电子邮箱">
 				</div>
 				<button type="submit" class="btn btn-primary btn-sm">Search</button>
 			</form>
