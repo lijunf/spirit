@@ -1,7 +1,6 @@
 package com.lucien.spirit.core.shiro.spring;
 
 import java.text.MessageFormat;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,12 +37,6 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
      */
     @Override
     public Section getObject() throws Exception {
-        Map<String, String> map = new LinkedHashMap<String, String>();
-        map.put("/login", "anon");
-        map.put("/Kaptcha.jpg", "anon");
-        map.put("/resources/**", "anon");
-        map.put("/home", "authc");
-        
         Ini ini = new Ini();  
         //加载默认的url  
         ini.load(filterChainDefinitions);  
