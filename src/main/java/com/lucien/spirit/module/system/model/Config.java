@@ -11,7 +11,7 @@ import com.lucien.spirit.core.model.BaseModel;
 
 /**
  * 系统参数实体
- * @Title: SysParam.java 
+ * @Title: Config.java 
  * @Package com.lucien.spirit.module.system.model 
  * @Description: TODO 
  * @author lucien   
@@ -19,8 +19,8 @@ import com.lucien.spirit.core.model.BaseModel;
  * @version V1.0
  */
 @Entity
-@Table(name = "sys_params")
-public class SysParam extends BaseModel {
+@Table(name = "sys_config")
+public class Config extends BaseModel {
 
 	private static final long serialVersionUID = -1674759655161039983L;
 
