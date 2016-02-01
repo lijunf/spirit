@@ -1,6 +1,6 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
 	<c:param name="title" value="资源管理" />
-	<c:param name="permission" value="system:manage" />
+	<c:param name="permission" value="permission:manage" />
 	<c:param name="url" value="/security/resource/list" />
 	<c:param name="navigation" value="资源管理" />
 	<c:param name="body">

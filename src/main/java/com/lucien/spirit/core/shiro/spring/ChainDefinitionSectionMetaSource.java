@@ -74,10 +74,10 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
      */
     private void initResource() {
         Resource resource = null;
-        Resource sysRes = new Resource("system:manage", "权限管理", "/", null, Resource.TYPE_MENU, 1, "glyphicon-cog");
-        resourceDao.saveAndFlush(sysRes);
+        Resource permRes = new Resource("permission:manage", "权限管理", "/", null, Resource.TYPE_MENU, 1, "glyphicon-cog");
+        resourceDao.saveAndFlush(permRes);
         
-        Resource userResource = new Resource("user:query", "用户管理", "/security/user/list", sysRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-user");
+        Resource userResource = new Resource("user:query", "用户管理", "/security/user/list", permRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-user");
         resourceDao.saveAndFlush(userResource);
         resource = new Resource("user:add", "添加用户", "/security/user/create", userResource.getId(), Resource.TYPE_BTN, 1);
         resourceDao.save(resource);
@@ -86,7 +86,7 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
         resource = new Resource("user:delete", "删除用户", "/security/user/delete/**", userResource.getId(), Resource.TYPE_BTN, 3);
         resourceDao.save(resource);
         
-        Resource roleResource = new Resource("role:query", "角色管理", "/security/role/list", sysRes.getId(), Resource.TYPE_MENU, 2, "glyphicon-asterisk");
+        Resource roleResource = new Resource("role:query", "角色管理", "/security/role/list", permRes.getId(), Resource.TYPE_MENU, 2, "glyphicon-asterisk");
         resourceDao.saveAndFlush(roleResource);
         resource = new Resource("role:add", "添加角色", "/security/role/create", roleResource.getId(), Resource.TYPE_BTN, 1);
         resourceDao.save(resource);
@@ -95,7 +95,7 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
         resource = new Resource("role:delete", "删除角色", "/security/role/delete/**", roleResource.getId(), Resource.TYPE_BTN, 3);
         resourceDao.save(resource);
         
-        Resource resourceResource = new Resource("resource:query", "资源管理", "/security/resource/list", sysRes.getId(), Resource.TYPE_MENU, 3, "glyphicon-th-list");
+        Resource resourceResource = new Resource("resource:query", "资源管理", "/security/resource/list", permRes.getId(), Resource.TYPE_MENU, 3, "glyphicon-th-list");
         resourceDao.saveAndFlush(resourceResource);
         resource = new Resource("resource:add", "添加资源", "/security/resource/create", resourceResource.getId(), Resource.TYPE_BTN, 1);
         resourceDao.save(resource);
@@ -104,8 +104,30 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
         resource = new Resource("resource:delete", "删除资源", "/security/resource/delete/**", resourceResource.getId(), Resource.TYPE_BTN, 3);
         resourceDao.save(resource);
         
-        Resource cusRes = new Resource("person:manage", "客户关系", "/", null, Resource.TYPE_MENU, 2, "glyphicon-star");
+        Resource sysRes = new Resource("system:manage", "系统管理", "/", null, Resource.TYPE_MENU, 2, "glyphicon-wrench");
+        resourceDao.saveAndFlush(sysRes);
+        
+        Resource configResource = new Resource("config:query", "系统参数", "/system/config/list", sysRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-glass");
+        resourceDao.saveAndFlush(configResource);
+        resource = new Resource("config:add", "添加参数", "/system/config/create", configResource.getId(), Resource.TYPE_BTN, 1);
+        resourceDao.save(resource);
+        resource = new Resource("config:edit", "编辑参数", "/system/config/edit/**", configResource.getId(), Resource.TYPE_BTN, 2);
+        resourceDao.save(resource);
+        resource = new Resource("config:delete", "删除参数", "/system/config/delete/**", configResource.getId(), Resource.TYPE_BTN, 3);
+        resourceDao.save(resource);
+        
+        Resource dictResource = new Resource("dict:query", "字典管理", "/system/dict/list", sysRes.getId(), Resource.TYPE_MENU, 2, "glyphicon-hdd");
+        resourceDao.saveAndFlush(dictResource);
+        resource = new Resource("dict:add", "添加字典", "/system/dict/create", dictResource.getId(), Resource.TYPE_BTN, 1);
+        resourceDao.save(resource);
+        resource = new Resource("dict:edit", "编辑字典", "/system/dict/edit/**", dictResource.getId(), Resource.TYPE_BTN, 2);
+        resourceDao.save(resource);
+        resource = new Resource("dict:delete", "删除字典", "/system/dict/delete/**", dictResource.getId(), Resource.TYPE_BTN, 3);
+        resourceDao.save(resource);
+        
+        Resource cusRes = new Resource("person:manage", "客户关系", "/", null, Resource.TYPE_MENU, 3, "glyphicon-star");
         resourceDao.saveAndFlush(cusRes);
+        
         Resource personResource = new Resource("person:query", "客户管理", "/person/list", cusRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-user");
         resourceDao.saveAndFlush(personResource);
         resource = new Resource("person:add", "添加客户", "/person/create", personResource.getId(), Resource.TYPE_BTN, 1);
@@ -115,25 +137,7 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
         resource = new Resource("person:delete", "删除客户", "/person/delete/**", personResource.getId(), Resource.TYPE_BTN, 3);
         resourceDao.save(resource);
         
-        Resource testRes = new Resource("test:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 3, "glyphicon-remove");
-        resourceDao.saveAndFlush(testRes);
-        Resource testResource = new Resource("test:query", "测试权限", "/test/list", testRes.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
-        resourceDao.saveAndFlush(testResource);
         
-        Resource test2Res = new Resource("test2:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 4, "glyphicon-remove");
-        resourceDao.saveAndFlush(test2Res);
-        Resource test2Resource = new Resource("test2:query", "测试权限", "/test2/list", test2Res.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
-        resourceDao.saveAndFlush(test2Resource);
-        
-        Resource test3Res = new Resource("test3:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 5, "glyphicon-remove");
-        resourceDao.saveAndFlush(test3Res);
-        Resource test3Resource = new Resource("test3:query", "测试权限", "/test3/list", test3Res.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
-        resourceDao.saveAndFlush(test3Resource);
-        
-        Resource test4Res = new Resource("test4:manage", "测试菜单", "/", null, Resource.TYPE_MENU, 5, "glyphicon-remove");
-        resourceDao.saveAndFlush(test4Res);
-        Resource test4Resource = new Resource("test4:query", "测试权限", "/test4/list", test4Res.getId(), Resource.TYPE_MENU, 1, "glyphicon-trash");
-        resourceDao.saveAndFlush(test4Resource);
     }
     
     /** 

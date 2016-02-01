@@ -1,6 +1,6 @@
 <c:import url="/WEB-INF/template/layout.jsp" charEncoding="UTF-8">
 	<c:param name="title" value="用户授权" />
-	<c:param name="permission" value="system:manage" />
+	<c:param name="permission" value="permission:manage" />
 	<c:param name="url" value="/security/user/list" />
 	<c:param name="navigation" value="用户管理" />
 	<c:param name="body">

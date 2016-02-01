@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.lucien.spirit.core.model.BaseModel;
 
@@ -19,7 +22,7 @@ import com.lucien.spirit.core.model.BaseModel;
  * @version V1.0
  */
 @Entity
-@Table(name = "sys_config")
+@Table(name = "sys_config", uniqueConstraints = { @UniqueConstraint(columnNames = { "PKEY" }) })
 public class Config extends BaseModel {
 
 	private static final long serialVersionUID = -1674759655161039983L;
@@ -29,10 +32,12 @@ public class Config extends BaseModel {
 	@Column(name = "ID")
 	private Long id;
 	
-	@Column(name = "PKEY")
+	@Column(name = "PKEY", unique = true)
+	@NotEmpty
 	private String key;
 	
 	@Column(name = "PVALUE")
+	@NotEmpty
 	private String value;
 	
 	@Column(name = "DESCRIPTION")

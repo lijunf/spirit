@@ -8,4 +8,9 @@ import com.lucien.spirit.module.system.model.Config;
 @Repository
 public interface ConfigDao extends JpaRepository<Config, Long> {
 
+	/**
+	 * 根据key查找config
+	 * @return
+	 */
+	public Config findByKey(String key);
 }

@@ -23,14 +23,14 @@ import com.lucien.spirit.module.person.service.PersonService;
 public class PersonController {
 
     @Autowired
-    PersonService psersonService;
+    PersonService personService;
 
     protected static final Logger log = LoggerFactory.getLogger(PersonController.class);
 
     @RequestMapping("/list")
     public String list(@RequestParam(value = "page", required = false) Integer page, Model model) {
         int pageNumber = page != null ? page : PageConstants.DEFAULT_PAGE_NUM;
-        Page<Person> paging = psersonService.findAllForPagination(pageNumber, PageConstants.DEFAULT_PAGE_SIZE);
+        Page<Person> paging = personService.findAllForPagination(pageNumber, PageConstants.DEFAULT_PAGE_SIZE);
         model.addAttribute("paging", paging);
         return "/person/list";
     }
@@ -50,13 +50,13 @@ public class PersonController {
             model.addAllAttributes(bindingResult.getModel());
             return "/person/form";
         }
-        psersonService.save(person);
+        personService.save(person);
         return "redirect:/person/list";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable("id") String id, Model model) {
-        Person person = psersonService.findOne(id);
+        Person person = personService.findOne(id);
         model.addAttribute(person);
         return "/person/form";
     }
@@ -67,16 +67,16 @@ public class PersonController {
         if (bindingResult.hasErrors()) {
             log.warn("validation error={}", bindingResult.getModel());
             model.addAllAttributes(bindingResult.getModel());
-            return "person/form";
+            return "/person/form";
         }
-        this.psersonService.save(person);
+        this.personService.save(person);
         return "redirect:/person/list";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") String id) {
 
-        this.psersonService.delete(id);
+        this.personService.delete(id);
         return "redirect:/person/list";
     }
 
