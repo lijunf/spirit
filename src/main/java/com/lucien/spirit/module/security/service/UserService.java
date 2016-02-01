@@ -32,7 +32,7 @@ public class UserService {
     }
     
     @Transactional(readOnly = true)
-    public Page<User> findUserForPagination(int page, int size, User user) {
+    public Page<User> findForPagination(int page, int size, User user) {
         Pageable pageable = new PageRequest(page, size, new Sort(Direction.DESC, "id"));
         Criteria<User> c = new Criteria<User>();  
         c.add(Restrictions.like("name", user.getName(), true)); 
@@ -62,8 +62,8 @@ public class UserService {
 		return userDao.findOne(id);
 	}
 	
-	public User findByUserName(String name) {
-		return userDao.findByUserName(name);
+	public User findByName(String name) {
+		return userDao.findByName(name);
 	}
 	
 	public void delete(long id) {
