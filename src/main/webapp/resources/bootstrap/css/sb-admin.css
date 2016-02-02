@@ -321,7 +321,10 @@ a:hover {
 }
 
 .sb-search-header {
-    /* margin: 0 0 10px; */
+    border: 1px solid #ccc;
+    padding: 10px 10px 0 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 .sb-search-header .form-group, .sb-search-header .btn {
