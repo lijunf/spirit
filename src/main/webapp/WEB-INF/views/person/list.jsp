@@ -9,12 +9,12 @@
 				<shiro:hasPermission name="person:add">
 					<a href='${pageContext.request.contextPath}/person/create' class="btn btn-info btn-sm">CREATE</a>
 				</shiro:hasPermission>
-				<a role="button" class="collapsed pull-right" data-toggle="collapse" href="#searchForm" aria-expanded="true" aria-controls="collapseSearch">
+				<a role="button" class="pull-right" data-toggle="collapse" href="#searchForm" aria-expanded="true" aria-controls="collapseSearch">
 					<span class="caret-lg"></span>
 				</a>
 			</div>
 			<div class="panel-body sb-search">
-				<form class="form-inline collapse" id="searchForm">
+				<form class="form-inline collapse in" id="searchForm" aria-expanded="true">
 					<div class="form-group">
 						<label class="sr-only" for="nameSearch">NAME</label>
 						<input type="text" class="form-control input-sm" name="name" id="nameSearch" value="${person.name }" placeholder="NAME">
