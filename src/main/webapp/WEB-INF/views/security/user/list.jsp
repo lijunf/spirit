@@ -9,7 +9,7 @@
 			<div class="alert alert-success" role="alert">${message}</div>
 		</c:if>
 		<div class="sb-search-header">
-			<form class="form-inline">
+			<form class="form-inline" id="searchForm">
 				<div class="form-group">
 					<label class="sr-only" for="nameSearch">账号</label>
 					<input type="text" class="form-control input-sm" name="name" id="nameSearch" value="${user.name }" placeholder="账号">
@@ -26,6 +26,7 @@
 					<label class="sr-only" for="emailSearch">电子邮箱</label>
 					<input type="email" class="form-control input-sm" name="email" id="emailSearch" value="${user.email }" placeholder="电子邮箱">
 				</div>
+				<input type="hidden" name="page" value="${paging.number }">
 				<button type="submit" class="btn btn-primary btn-sm">Search</button>
 			</form>
 		</div>
@@ -64,7 +65,7 @@
 			</table>
 		</div>
 		<div style="text-align:right;padding: 0 5px 0 0;">
-			<jsp:include page="/WEB-INF/template/pagination.jsp"/>
+			<jsp:include page="/WEB-INF/template/pagination-search.jsp"/>
 		</div>
 		
 		<script type="text/javascript">

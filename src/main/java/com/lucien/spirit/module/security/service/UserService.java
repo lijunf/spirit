@@ -34,12 +34,12 @@ public class UserService {
     @Transactional(readOnly = true)
     public Page<User> findForPagination(int page, int size, User user) {
         Pageable pageable = new PageRequest(page, size, new Sort(Direction.DESC, "id"));
-        Criteria<User> c = new Criteria<User>();  
-        c.add(Restrictions.like("name", user.getName(), true)); 
-        c.add(Restrictions.like("realName", user.getRealName(), true)); 
-        c.add(Restrictions.like("mobile", user.getMobile(), true)); 
-        c.add(Restrictions.like("email", user.getEmail(), true)); 
-        Page<User> users = userDao.findAll(c, pageable);
+        Criteria<User> criteria = new Criteria<User>();  
+        criteria.add(Restrictions.like("name", user.getName(), true)); 
+        criteria.add(Restrictions.like("realName", user.getRealName(), true)); 
+        criteria.add(Restrictions.like("mobile", user.getMobile(), true)); 
+        criteria.add(Restrictions.like("email", user.getEmail(), true)); 
+        Page<User> users = userDao.findAll(criteria, pageable);
         return users;
     }
 

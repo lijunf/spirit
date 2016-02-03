@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<label for="age" class="col-sm-2 control-label">年龄</label>
 					<div class="col-sm-10">
-						<form:input path="age" cssClass="form-control" />
+						<form:input path="age" cssClass="form-control" type="number"/>
 						<form:errors path="age" element="text" cssStyle="color:red;" />
 					</div>
 				</div>

@@ -27,6 +27,21 @@ a:focus { outline:none; }
     body {
         margin-top: 50px;
     }
+    
+    li.active:after {
+	    content: "";
+	    display: block;
+	    float: right;
+	    position: absolute;
+	    right: 0;
+	    top: 8px;
+	    background: 0 0;
+	    width: 0;
+	    height: 0;
+	    border-top: 12px solid transparent;
+	    border-bottom: 12px solid transparent;
+	    border-right: 12px solid #fff;
+	}
 }
 
 #wrapper {
@@ -245,7 +260,7 @@ ul.alert-dropdown {
     border-bottom: 1px solid #403B3B;
 }
 
-.panel-default>.panel-heading {
+.side-nav .panel-default>.panel-heading {
 	border-radius: 0;
     background-color: #222/* #31c7b2 */;
     border: 0;
@@ -329,4 +344,29 @@ a:hover {
 
 .sb-search-header .form-group, .sb-search-header .btn {
 	margin-bottom: 10px;
+}
+
+.sb-search {
+	padding: 10px 10px 0 10px;
+}
+
+.sb-search .form-group, .sb-search .btn {
+	margin-bottom: 10px;
+}
+
+.collapsed .caret-lg {
+	border-top: 0;
+    border-bottom: 8px dashed;
+}
+
+.caret-lg {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 8px dashed;
+    border-top: 8px solid\9;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent
 }

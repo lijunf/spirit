@@ -224,6 +224,6 @@
 	
 	</div>
 	<!-- /#wrapper -->
-	
+	<script type="text/javascript" src="<c:url value="/resources/js/common.js" />"></script>
 </body>
 </html>

@@ -28,10 +28,11 @@ public class PersonController {
     protected static final Logger log = LoggerFactory.getLogger(PersonController.class);
 
     @RequestMapping("/list")
-    public String list(@RequestParam(value = "page", required = false) Integer page, Model model) {
+    public String list(@RequestParam(value = "page", required = false) Integer page, Model model, Person person) {
         int pageNumber = page != null ? page : PageConstants.DEFAULT_PAGE_NUM;
-        Page<Person> paging = personService.findAllForPagination(pageNumber, PageConstants.DEFAULT_PAGE_SIZE);
+        Page<Person> paging = personService.findAllForPagination(pageNumber, PageConstants.DEFAULT_PAGE_SIZE, person);
         model.addAttribute("paging", paging);
+        model.addAttribute("person", person);
         return "/person/list";
     }
 
