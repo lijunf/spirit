@@ -27,6 +27,21 @@ a:focus { outline:none; }
     body {
         margin-top: 50px;
     }
+    
+    li.active:after {
+	    content: "";
+	    display: block;
+	    float: right;
+	    position: absolute;
+	    right: 0;
+	    top: 8px;
+	    background: 0 0;
+	    width: 0;
+	    height: 0;
+	    border-top: 12px solid transparent;
+	    border-bottom: 12px solid transparent;
+	    border-right: 12px solid #fff;
+	}
 }
 
 #wrapper {
