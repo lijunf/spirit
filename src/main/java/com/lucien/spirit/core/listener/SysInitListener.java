@@ -33,13 +33,14 @@ import com.lucien.spirit.module.security.service.UserService;
  * @CreateDate : 2016年1月21日
  */
 public class SysInitListener implements ServletContextListener {
+    
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
         ResourceService resourceService = webApplicationContext.getBean(ResourceService.class);
         UserService userService = webApplicationContext.getBean(UserService.class);
         List<Resource> topResourceList = resourceService.findTopList();
-        
+        // TODO 考虑采用ehcache缓存
         sce.getServletContext().setAttribute("topResourceList", topResourceList);
         
         User user = userService.findByName("admin");

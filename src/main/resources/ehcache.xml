@@ -40,4 +40,6 @@
 		timeToLiveSeconds="0" overflowToDisk="false" statistics="true">
 	</cache>
 
+	<cache name="dict" maxElementsInMemory="5000" eternal="false"  timeToLiveSeconds="28800" overflowToDisk="true" />
+	<cache name="config" maxElementsInMemory="5000" eternal="false" timeToLiveSeconds="28800" overflowToDisk="true" />
 </ehcache>

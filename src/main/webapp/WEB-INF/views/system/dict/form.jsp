@@ -17,7 +17,7 @@
 					</div>
 				</c:if>
 				<div class="form-group">
-					<label for="dictTypeId" class="col-sm-2 control-label">ID</label>
+					<label for="dictTypeId" class="col-sm-2 control-label">代码</label>
 					<div class="col-sm-10">
 						<form:input path="dictTypeId" cssClass="form-control" />
 						<form:errors path="dictTypeId" element="span" cssStyle="color:red;" />

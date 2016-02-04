@@ -347,7 +347,11 @@ a:hover {
 }
 
 .sb-search {
-	padding: 10px 10px 0 10px;
+	padding: 0 10px;
+}
+
+#searchForm {
+    margin-top: 10px;
 }
 
 .sb-search .form-group, .sb-search .btn {

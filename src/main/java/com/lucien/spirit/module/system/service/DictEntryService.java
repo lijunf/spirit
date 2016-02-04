@@ -21,4 +21,8 @@ public class DictEntryService {
 	public List<DictEntry> findByDictTypeId(String dictTypeId) {
 		return dictEntryDao.findByDictTypeId(dictTypeId);
 	}
+
+    public DictEntry findOne(String dictTypeId, String dictId) {
+        return dictEntryDao.findOne(dictTypeId, dictId);
+    }
 }

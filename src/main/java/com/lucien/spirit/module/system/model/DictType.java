@@ -2,6 +2,7 @@ package com.lucien.spirit.module.system.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +29,7 @@ public class DictType extends BaseModel {
 	private static final long serialVersionUID = -8251831648431817959L;
 
 	@Id
-	@Column(name = "DICTTYPEID")
+	@Column(name = "DICTTYPEID", length = 128)
 	private String dictTypeId;
 	
 	@Column(name = "DICTTYPENAME")
@@ -43,9 +44,9 @@ public class DictType extends BaseModel {
 	@Column(name = "CREATOR")
 	private String creator;
 	
-	@OneToMany(mappedBy = "dictType", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "dictType", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("orderNo")
-	private List<DictEntry> dicts;
+	private List<DictEntry> dictEntrys;
 
 	public String getDictTypeId() {
 		return dictTypeId;
@@ -79,15 +80,15 @@ public class DictType extends BaseModel {
 		this.orderNo = orderNo;
 	}
 
-	public List<DictEntry> getDicts() {
-		return dicts;
-	}
+	public List<DictEntry> getDictEntrys() {
+        return dictEntrys;
+    }
 
-	public void setDicts(List<DictEntry> dicts) {
-		this.dicts = dicts;
-	}
+    public void setDictEntrys(List<DictEntry> dictEntrys) {
+        this.dictEntrys = dictEntrys;
+    }
 
-	public String getCreator() {
+    public String getCreator() {
 		return creator;
 	}
 

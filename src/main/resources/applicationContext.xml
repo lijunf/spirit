@@ -3,12 +3,14 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/cache  http://www.springframework.org/schema/cache/spring-cache.xsd">
 
 	<!-- 加载src/main/resources下的属性文件 -->
 	<context:property-placeholder location="classpath*:jdbc.properties" />
@@ -65,4 +67,23 @@
 	</bean>
 
 	<jpa:repositories base-package="com.lucien.spirit.**.dao" />
+	
+	
+	<!-- spring 上下文工具类 -->
+	<bean name="webContextUtil" class="com.lucien.spirit.core.util.WebContextUtil" />
+	
+	<cache:annotation-driven/>
+	
+	 <!-- spring对ehcache的缓存工厂支持 -->
+    <bean id="ehCacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache.xml" />
+        <property name="shared" value="false" />
+    </bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehCacheManagerFactory" />
+    </bean>
+	
+	<bean id="cacheLoader" class="com.lucien.spirit.core.cache.CacheLoader"/>
+	<bean id="cacheEvictor" class="com.lucien.spirit.core.cache.CacheEvictor"/>
+	
 </beans>

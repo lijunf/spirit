@@ -7,6 +7,7 @@
 		<shiro:hasPermission name="config:add">
 		<p>
 			<a href='${pageContext.request.contextPath}/system/config/create' class="btn btn-info">CREATE</a>
+			<a href="javascript:get('${pageContext.request.contextPath}/system/cache/refresh/config')" class="btn btn-info">刷新缓存</a>
 		</p>
 		</shiro:hasPermission>
 		<div class="table-responsive">

@@ -13,7 +13,7 @@
 			<table class="table table-hover table-condensed table-bordered" style="margin-bottom: 0px;">
 				<tr>
 					<th>操作</th>
-					<th>ID</th>
+					<th>代码</th>
 					<th>名称</th>
 					<th>描述</th>
 					<th>创建者</th>
@@ -25,8 +25,9 @@
 								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/system/dict/edit/${dict.dictTypeId}'>edit</a>&nbsp; 
 							</shiro:hasPermission>
 							<shiro:hasPermission name="dict:delete">
-								<button onclick="deleteconfig('${dict.dictTypeId}', '${dict.dictTypeName}')" class="btn btn-primary btn-xs">delete</button>
+								<button onclick="deleteconfig('${dict.dictTypeId}', '${dict.dictTypeName}')" class="btn btn-primary btn-xs">delete</button>&nbsp;
 							</shiro:hasPermission>
+							<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/system/dict/entry/list/${dict.dictTypeId}'>常量维护</a>
 						</td>
 						<td>${dict.dictTypeId}</td>
 						<td>${dict.dictTypeName}</td>

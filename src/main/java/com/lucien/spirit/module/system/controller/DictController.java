@@ -13,7 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.lucien.spirit.module.system.model.DictEntry;
 import com.lucien.spirit.module.system.model.DictType;
 import com.lucien.spirit.module.system.service.DictEntryService;
@@ -37,13 +39,6 @@ public class DictController {
         return "/system/dict/list";
     }
     
-    @RequestMapping("/list/entry")
-    public String list(Model model, String dictTypeId) {
-    	List<DictEntry> dictEntryList = dictEntryService.findByDictTypeId(dictTypeId);
-        model.addAttribute("dictEntryList", dictEntryList);
-        return "/system/dict/list";
-    }
-
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model) {
     	DictType dictType = new DictType();
@@ -93,5 +88,36 @@ public class DictController {
     	dictTypeService.delete(id);
         return "redirect:/system/dict/list";
     }
+    
+    @RequestMapping("/entry/list/{dictTypeId}")
+    public String list(Model model, @PathVariable("dictTypeId") String dictTypeId) {
+        List<DictEntry> dictEntryList = dictEntryService.findByDictTypeId(dictTypeId);
+        model.addAttribute("dictEntryList", dictEntryList);
+        model.addAttribute("dictTypeId", dictTypeId);
+        return "/system/dict/entry/list";
+    }
 
+    @RequestMapping(value = "/entry/create", method = RequestMethod.POST)
+    public String saveEntry(@Valid DictEntry dictEntry, String dictTypeId, BindingResult bindingResult, Model model) {
+        dictEntry.setDictType(dictTypeService.findOne(dictTypeId));
+        dictEntry.setStatus(1);
+        dictEntryService.save(dictEntry);
+        return "redirect:/system/dict/entry/list";
+    }
+    
+    @RequestMapping(value = "/entry/edit/{dictTypeId}/{dictId}", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String editEntry(@PathVariable("dictTypeId") String dictTypeId, @PathVariable("dictId") String dictId) {
+        DictEntry dictEntry = dictEntryService.findOne(dictTypeId, dictId);
+        String json = JSON.toJSONString(dictEntry);
+        return json;
+    }
+    
+    @RequestMapping(value = "/entry/edit", method = RequestMethod.POST)
+    public String update(@Valid DictEntry dictEntry, String dictTypeId, BindingResult bindingResult, Model model) {
+        dictEntry.setDictType(dictTypeService.findOne(dictTypeId));
+        dictEntry.setStatus(1);
+        dictEntryService.save(dictEntry);
+        return "redirect:/system/dict/entry/list";
+    }
 }

@@ -1,10 +1,9 @@
 package com.lucien.spirit.module.system.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,15 +27,12 @@ public class DictEntry extends BaseModel {
 	private static final long serialVersionUID = -458427357935608210L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private Long id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "DICTTYPEID")
 	private DictType dictType;
 	
-	@Column(name = "DICTID")
+	@Id
+	@Column(name = "DICTID", length = 128)
 	private String dictId;
 	
 	@Column(name = "DICTNAME")
@@ -47,14 +43,6 @@ public class DictEntry extends BaseModel {
 	
 	@Column(name = "ORDERNO")
 	private int orderNo;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public DictType getDictType() {
 		return dictType;

@@ -4,11 +4,11 @@
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-
-	<!-- 缓存管理器 使用Ehcache实现 -->
-	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
-	</bean>
+       
+    <!-- 缓存管理器 使用Ehcache实现 -->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehCacheManagerFactory" />
+    </bean>
 
 	<!-- 凭证匹配器 -->
 	<bean id="credentialsMatcher" class="com.lucien.spirit.core.shiro.authc.credential.CustomCredentialsMatcher">
@@ -68,7 +68,7 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="jpaRealm" />
 		<property name="sessionManager" ref="sessionManager" />
-		<property name="cacheManager" ref="cacheManager" />
+		<property name="cacheManager" ref="shiroCacheManager" />
 	</bean>
 
 	<!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->

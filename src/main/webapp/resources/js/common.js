@@ -12,3 +12,13 @@ function toPage(number) {
 		window.location.href = "?page=" + number;
 	}
 }
+
+/**
+ * 发送get请求
+ * @param url
+ */
+function get(url) {
+	$.get(url, function(data) {
+		bootbox.alert(data);
+	});
+}
