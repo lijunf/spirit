@@ -7,7 +7,11 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-		        
+				var roleCheckbox = $(".sb-form input[type='checkbox']");
+				$(".sb-form .toggle").on("click", function(a) {
+					a.preventDefault();
+					roleCheckbox.prop("checked", !roleCheckbox.is(":checked"));
+				});
 			});
 		</script>
 		<h3 class="page-header sb-form-header">给用户 ${user.name} 分配角色</h3>
@@ -28,6 +32,11 @@
 					</div>
 				</div>
 				<input type="text" name="id" hidden="true" value="${user.id}"/>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button class="btn btn-success toggle btn-xs" type="button">全选/全部取消</button>
+					</div>
+				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="submit" value="提交" class="btn btn-primary" /> &nbsp;
