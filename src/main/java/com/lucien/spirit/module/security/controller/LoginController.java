@@ -67,19 +67,19 @@ public class LoginController {
             return "redirect:/home";
         } catch (UnknownAccountException uae) {
             model.addAttribute("message", "用户不存在");
-            logger.info("Unknown User!");
+            logger.info("{} Unknown User!", username);
         } catch (IncorrectCredentialsException ice) {
             model.addAttribute("message", "密码不正确");
-            logger.info("Incorrect Password!");
+            logger.info("{} Incorrect Password!", username);
         } catch (LockedAccountException lae) {
             model.addAttribute("message", "用户被锁定");
-            logger.info("User Locked!");
+            logger.info("{} User Locked!", username);
         } catch (AccountException ae) {
         	model.addAttribute("message", ae.getMessage());
-            logger.info(ae.getMessage());
+            logger.info("{} {}", username, ae.getMessage());
 		} catch (AuthenticationException ae) {
             model.addAttribute("message", "登录失败");
-            logger.info("Authentication Failed!");
+            logger.info("{} Authentication Failed!", username);
         }
         return "/login";
     }
