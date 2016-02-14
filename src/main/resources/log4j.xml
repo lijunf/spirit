@@ -10,8 +10,8 @@
 		</layout>
 	</appender>
 	
-	<appender name="db" class="org.apache.log4j.jdbc.JDBCAppender">
-		<param name="BufferSize" value="1" />
+	<appender name="jdbc" class="org.apache.log4j.jdbc.JDBCAppender">
+		<param name="BufferSize" value="100" />
 		<param name="URL" value="jdbc:mysql://localhost:3306/spirit?useUnicode=true&amp;characterEncoding=utf-8" />
 		<param name="driver" value="com.mysql.jdbc.Driver" />
 		<param name="user" value="root" />
@@ -39,7 +39,7 @@
 	<logger name="com.lucien" additivity="false">
 		<level value="debug" />
 		<appender-ref ref="console" />
-		<appender-ref ref="db" />
+		<appender-ref ref="jdbc" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
