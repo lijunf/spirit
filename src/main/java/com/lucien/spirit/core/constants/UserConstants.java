@@ -6,4 +6,7 @@ public interface UserConstants {
 	 * 用户当前状态：正常
 	 */
 	public static final int STATUS_ENABLE = 1;
+	
+	
+	public static final String DEFAULT_USERNAME = "anonymous";
 }

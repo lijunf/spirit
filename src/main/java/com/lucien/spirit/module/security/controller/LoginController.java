@@ -62,7 +62,8 @@ public class LoginController {
             subject.login(token);
             ShiroUser principal = (ShiroUser) subject.getPrincipal();
             userService.updateLastLogin(principal.getId());
-
+            
+            log.info("Login successful!");
             return "redirect:/home";
         } catch (UnknownAccountException uae) {
             model.addAttribute("message", "用户不存在");

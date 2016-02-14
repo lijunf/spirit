@@ -36,6 +36,7 @@ import com.lucien.spirit.module.security.service.UserService;
 @Controller
 @RequestMapping("/security/user")
 public class UserController {
+    
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired

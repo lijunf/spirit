@@ -3,4 +3,6 @@
 3、log4j配置持久化，记录用户操作日志
 4、增加查询功能demo
 5、引入activiti工作流
-6、增加websoket聊天
+6、增加websoket聊天，同一个用户只能在一个地方登陆
+7、增加token防csrf攻击和重复提交
+8、quartz定时器集成
