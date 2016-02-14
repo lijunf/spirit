@@ -8,63 +8,68 @@
 		<c:if test="${message!=null}">
 			<div class="alert alert-success" role="alert">${message}</div>
 		</c:if>
-		<div class="sb-search-header">
-			<form class="form-inline" id="searchForm">
-				<div class="form-group">
-					<label class="sr-only" for="nameSearch">账号</label>
-					<input type="text" class="form-control input-sm" name="name" id="nameSearch" value="${user.name }" placeholder="账号">
-				</div>
-				<div class="form-group">
-					<label class="sr-only" for="realNameSearch">姓名</label>
-					<input type="text" class="form-control input-sm" name="realName" id="realNameSearch" value="${user.realName }" placeholder="姓名">
-				</div>
-				<div class="form-group">
-					<label class="sr-only" for="mobileSearch">手机</label>
-					<input type="text" class="form-control input-sm" name="mobile" id="mobileSearch" value="${user.mobile }" placeholder="手机">
-				</div>
-				<div class="form-group">
-					<label class="sr-only" for="emailSearch">电子邮箱</label>
-					<input type="email" class="form-control input-sm" name="email" id="emailSearch" value="${user.email }" placeholder="电子邮箱">
-				</div>
-				<input type="hidden" name="page" value="${paging.number }">
-				<button type="submit" class="btn btn-primary btn-sm">Search</button>
-			</form>
-		</div>
-		<shiro:hasPermission name="user:add">
-		<p>
-			<button class="btn btn-info" data-toggle="modal" data-target="#createModal">新建用户</button>
-		</p>
-		</shiro:hasPermission>
-		<div class="table-responsive">
-			<table class="table table-hover table-bordered" style="margin-bottom: 0px;">
-				<tr>
-					<th>帐号</th>
-					<th>操作</th>
-					<th>姓名</th>
-					<th>手机</th>
-					<th>最后登录时间</th>
-				</tr>
-				<c:forEach items="${paging.content}" var="user">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<shiro:hasPermission name="user:add">
+					<a href='#createModal' data-toggle="modal" class="glyphicon glyphicon-plus"></a>
+				</shiro:hasPermission>
+				<a role="button" class="pull-right" data-toggle="collapse" href="#searchForm" aria-expanded="true" aria-controls="collapseSearch">
+					<span class="caret-lg"></span>
+				</a>
+			</div>
+			<div class="panel-body sb-search">
+				<form class="form-inline collapse in" id="searchForm">
+					<div class="form-group">
+						<label class="sr-only" for="nameSearch">账号</label>
+						<input type="text" class="form-control input-sm" name="name" id="nameSearch" value="${user.name }" placeholder="账号">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="realNameSearch">姓名</label>
+						<input type="text" class="form-control input-sm" name="realName" id="realNameSearch" value="${user.realName }" placeholder="姓名">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="mobileSearch">手机</label>
+						<input type="text" class="form-control input-sm" name="mobile" id="mobileSearch" value="${user.mobile }" placeholder="手机">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="emailSearch">电子邮箱</label>
+						<input type="email" class="form-control input-sm" name="email" id="emailSearch" value="${user.email }" placeholder="电子邮箱">
+					</div>
+					<input type="hidden" name="page" value="${paging.number }">
+					<button type="submit" class="btn btn-primary btn-sm">Search</button>
+				</form>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered" style="margin-bottom: 0px;">
 					<tr>
-						<td>${user.name}</td>
-						<td nowrap>
-							<shiro:hasPermission name="user:edit">
-								<button onclick="editUser('${pageContext.request.contextPath}/security/user/edit/${user.id}')" 
-									class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp; 
-								<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/grant/${user.id}'>grant</a>&nbsp;
-							</shiro:hasPermission>
-							<shiro:hasPermission name="user:delete">
-								<button onclick="deleteUser('${user.id}', '${user.name}')" class="btn btn-primary btn-xs">delete</button>
-							</shiro:hasPermission>
-						</td>
-						<td>${user.realName}</td>
-						<td>${user.mobile}</td>
-						<td>${user.lastLogin}</td>
-					<tr>
-				</c:forEach>
-			</table>
+						<th>帐号</th>
+						<th>操作</th>
+						<th>姓名</th>
+						<th>手机</th>
+						<th>最后登录时间</th>
+					</tr>
+					<c:forEach items="${paging.content}" var="user">
+						<tr>
+							<td>${user.name}</td>
+							<td nowrap>
+								<shiro:hasPermission name="user:edit">
+									<button onclick="editUser('${pageContext.request.contextPath}/security/user/edit/${user.id}')" 
+										class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>&nbsp; 
+									<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/security/user/grant/${user.id}'>grant</a>&nbsp;
+								</shiro:hasPermission>
+								<shiro:hasPermission name="user:delete">
+									<button onclick="deleteUser('${user.id}', '${user.name}')" class="btn btn-primary btn-xs">delete</button>
+								</shiro:hasPermission>
+							</td>
+							<td>${user.realName}</td>
+							<td>${user.mobile}</td>
+							<td>${user.lastLogin}</td>
+						<tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
-		<div style="text-align:right;padding: 0 5px 0 0;">
+		<div class="pagination-search-wrapper">
 			<jsp:include page="/WEB-INF/template/pagination-search.jsp"/>
 		</div>
 		

@@ -38,10 +38,10 @@
 						<tr>
 							<td>
 								<shiro:hasPermission name="person:edit">
-									<a class="glyphicon glyphicon-pencil" href='${pageContext.request.contextPath}/person/edit/${person.id}'></a>&nbsp;&nbsp; 
+									<a class="btn btn-primary btn-xs" href='${pageContext.request.contextPath}/person/edit/${person.id}'>edit</a>&nbsp;&nbsp; 
 								</shiro:hasPermission>
 								<shiro:hasPermission name="person:delete">
-									<a class="glyphicon glyphicon-remove" href="javascript:deletePerson('${person.id}', '${person.name}')"></a>
+									<a class="btn btn-primary btn-xs" href="javascript:deletePerson('${person.id}', '${person.name}')">delete</a>
 								</shiro:hasPermission>
 							</td>
 							<td>${person.name}</td>
@@ -51,7 +51,7 @@
 				</table>
 			</div>
 		</div>
-		<div style="text-align: right;padding: 0 5px 0 0;margin-top: -20px;">
+		<div class="pagination-search-wrapper">
 			<jsp:include page="/WEB-INF/template/pagination-search.jsp"/>
 		</div>
 		
