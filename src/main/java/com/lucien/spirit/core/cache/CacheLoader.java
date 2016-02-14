@@ -40,7 +40,7 @@ public class CacheLoader {
     @Cacheable("dict")
     public Map<String, Map<String, String>> getDict() throws Exception {
         DictTypeDao dictTypeDao = WebContextUtil.getBean(DictTypeDao.class);
-        logger.info("正在初始化缓存: dict");
+        logger.debug("正在初始化缓存: dict");
 
         List<DictType> types = dictTypeDao.findAll();
         Map<String, Map<String, String>> map = new LinkedHashMap<String, Map<String, String>>();
@@ -72,7 +72,7 @@ public class CacheLoader {
     @Cacheable("config")
     public Map<String, String> getConfig() throws Exception {
         ConfigDao configDao = WebContextUtil.getBean(ConfigDao.class);
-        logger.info("正在初始化缓存: config");
+        logger.debug("正在初始化缓存: config");
 
         List<Config> list = configDao.findAll();
         Map<String, String> map = new LinkedHashMap<String, String>();

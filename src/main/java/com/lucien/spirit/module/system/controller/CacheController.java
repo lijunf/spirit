@@ -50,7 +50,7 @@ public class CacheController {
             }
             return "刷新缓存成功";
         } catch (Exception e) {
-            logger.error(e.getMessage(), e, false);
+            logger.warn(e.getMessage(), e, false);
             return "刷新缓存失败";
         }
     }

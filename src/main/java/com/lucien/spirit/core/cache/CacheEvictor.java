@@ -18,12 +18,12 @@ public class CacheEvictor {
 
     @CacheEvict(value="dict", allEntries=true)
     public void clearDict() {
-        logger.info("清除字典缓存成功！");
+        logger.debug("清除字典缓存成功！");
     }
     
     @CacheEvict(value="config", allEntries=true)
     public void clearConfig() {
-        logger.info("清除系统参数缓存成功！");
+        logger.debug("清除系统参数缓存成功！");
     }
     
 }

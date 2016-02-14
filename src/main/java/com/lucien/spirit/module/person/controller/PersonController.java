@@ -45,9 +45,9 @@ public class PersonController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String save(@Valid Person person, BindingResult bindingResult, Model model) {
-        logger.info("create person {}", person);
+        logger.debug("create person {}", person);
         if (bindingResult.hasErrors()) {
-            logger.info("Error:{}", bindingResult.getModel());
+            logger.warn("Error:{}", bindingResult.getModel());
             model.addAllAttributes(bindingResult.getModel());
             return "/person/form";
         }

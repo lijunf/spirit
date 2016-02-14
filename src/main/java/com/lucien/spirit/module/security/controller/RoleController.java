@@ -98,7 +98,7 @@ public class RoleController {
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, Model model) {
-        logger.info("delete successful!");
+        logger.debug("delete successful!");
         roleService.delete(id);
         return "redirect:/security/role/list";
     }

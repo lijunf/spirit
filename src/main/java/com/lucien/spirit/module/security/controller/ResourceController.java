@@ -51,9 +51,9 @@ public class ResourceController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String save(@Valid Resource resource, Long pId, BindingResult bindingResult, Model model) {
-        logger.info("create resource {}", resource);
+        logger.debug("create resource {}", resource);
         if (bindingResult.hasErrors()) {
-            logger.info("Error:{}", bindingResult.getModel());
+            logger.warn("Error:{}", bindingResult.getModel());
             model.addAllAttributes(bindingResult.getModel());
             return "/security/resource/form";
         }
@@ -94,7 +94,7 @@ public class ResourceController {
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, Model model) {
-		logger.info("delete resource");
+		logger.debug("delete resource");
         resourceService.delete(id);
         resourceService.refreshResourceCache();
         return "redirect:/security/resource/list";

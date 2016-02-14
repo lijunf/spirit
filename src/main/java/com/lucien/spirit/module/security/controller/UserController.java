@@ -81,7 +81,7 @@ public class UserController {
     public String edit(@PathVariable("id") Long id) {
         User user = userService.findOne(id);
         String json = JSON.toJSONString(user);
-        logger.info("{}", json);
+        logger.debug("{}", json);
         return json;
     }
 
