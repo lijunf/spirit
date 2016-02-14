@@ -25,7 +25,7 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
-    protected static final Logger log = LoggerFactory.getLogger(PersonController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     @RequestMapping("/list")
     public String list(@RequestParam(value = "page", required = false) Integer page, Model model, Person person) {
@@ -45,9 +45,9 @@ public class PersonController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String save(@Valid Person person, BindingResult bindingResult, Model model) {
-        log.info("create person {}", person);
+        logger.info("create person {}", person);
         if (bindingResult.hasErrors()) {
-            log.info("Error:{}", bindingResult.getModel());
+            logger.info("Error:{}", bindingResult.getModel());
             model.addAllAttributes(bindingResult.getModel());
             return "/person/form";
         }
@@ -64,9 +64,9 @@ public class PersonController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String update(@Valid Person person, BindingResult bindingResult, Model model) {
-        log.debug("edit person={}", person);
+        logger.debug("edit person={}", person);
         if (bindingResult.hasErrors()) {
-            log.warn("validation error={}", bindingResult.getModel());
+            logger.warn("validation error={}", bindingResult.getModel());
             model.addAllAttributes(bindingResult.getModel());
             return "/person/form";
         }

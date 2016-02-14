@@ -26,7 +26,7 @@ import com.lucien.spirit.module.security.service.UserService;
 @Controller
 public class LoginController {
     
-    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     UserService userService;
@@ -62,23 +62,24 @@ public class LoginController {
             subject.login(token);
             ShiroUser principal = (ShiroUser) subject.getPrincipal();
             userService.updateLastLogin(principal.getId());
-
+            
+            logger.info("Login successful!");
             return "redirect:/home";
         } catch (UnknownAccountException uae) {
             model.addAttribute("message", "用户不存在");
-            log.info("Unknown User!");
+            logger.info("Unknown User!");
         } catch (IncorrectCredentialsException ice) {
             model.addAttribute("message", "密码不正确");
-            log.info("Incorrect Password!");
+            logger.info("Incorrect Password!");
         } catch (LockedAccountException lae) {
             model.addAttribute("message", "用户被锁定");
-            log.info("User Locked!");
+            logger.info("User Locked!");
         } catch (AccountException ae) {
         	model.addAttribute("message", ae.getMessage());
-            log.info(ae.getMessage());
+            logger.info(ae.getMessage());
 		} catch (AuthenticationException ae) {
             model.addAttribute("message", "登录失败");
-            log.info("Authentication Failed!");
+            logger.info("Authentication Failed!");
         }
         return "/login";
     }

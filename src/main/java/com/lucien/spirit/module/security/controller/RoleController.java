@@ -24,7 +24,7 @@ import com.lucien.spirit.module.security.service.RoleService;
 @RequestMapping("/security/role")
 public class RoleController {
 
-    private static final Logger log = LoggerFactory.getLogger(RoleController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
     
     @Autowired
     RoleService roleService;
@@ -98,7 +98,7 @@ public class RoleController {
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, Model model) {
-        log.info("delete successful!");
+        logger.info("delete successful!");
         roleService.delete(id);
         return "redirect:/security/role/list";
     }

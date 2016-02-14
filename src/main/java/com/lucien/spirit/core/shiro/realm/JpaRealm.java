@@ -15,6 +15,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lucien.spirit.core.constants.UserConstants;
@@ -25,6 +27,8 @@ import com.lucien.spirit.module.security.model.Role;
 import com.lucien.spirit.module.security.model.User;
 
 public class JpaRealm extends AuthorizingRealm implements Serializable {
+    
+    private static final Logger logger = LoggerFactory.getLogger(JpaRealm.class);
 
     private static final long serialVersionUID = 2053039661926394526L;
 
@@ -112,6 +116,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
     @Override
     public void onLogout(PrincipalCollection principals) {
         // 覆盖父类的方法，防止退出时用户权限缓存authorizationCache被清除
+        logger.info("Logout successful!");
     }
 
     public void clearAllCachedAuthorizationInfo() {

@@ -6,4 +6,5 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro"%>
+<%@ taglib uri="/WEB-INF/tlds/spirit.tld" prefix="spirit" %>
 <fmt:requestEncoding value="UTF-8" />

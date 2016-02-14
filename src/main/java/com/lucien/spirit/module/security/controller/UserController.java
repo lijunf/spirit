@@ -36,7 +36,8 @@ import com.lucien.spirit.module.security.service.UserService;
 @Controller
 @RequestMapping("/security/user")
 public class UserController {
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
@@ -80,7 +81,7 @@ public class UserController {
     public String edit(@PathVariable("id") Long id) {
         User user = userService.findOne(id);
         String json = JSON.toJSONString(user);
-        log.info("{}", json);
+        logger.info("{}", json);
         return json;
     }
 

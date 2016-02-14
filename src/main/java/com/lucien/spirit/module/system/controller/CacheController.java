@@ -18,7 +18,7 @@ import com.lucien.spirit.core.cache.CacheEvictor;
 @RequestMapping("/system/cache")
 public class CacheController {
     
-    protected static final Logger log = LoggerFactory.getLogger(CacheController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(CacheController.class);
     
     @Autowired
     private CacheEvictor cacheEvictor;
@@ -50,7 +50,7 @@ public class CacheController {
             }
             return "刷新缓存成功";
         } catch (Exception e) {
-            log.error(e.getMessage(), e, false);
+            logger.error(e.getMessage(), e, false);
             return "刷新缓存失败";
         }
     }

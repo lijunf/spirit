@@ -19,7 +19,7 @@ import com.lucien.spirit.module.security.service.ResourceService;
 @RequestMapping("/security/resource")
 public class ResourceController {
     
-    private static final Logger log = LoggerFactory.getLogger(ResourceController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ResourceController.class);
     
     @Autowired
     ResourceService resourceService;
@@ -51,9 +51,9 @@ public class ResourceController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String save(@Valid Resource resource, Long pId, BindingResult bindingResult, Model model) {
-        log.info("create resource {}", resource);
+        logger.info("create resource {}", resource);
         if (bindingResult.hasErrors()) {
-            log.info("Error:{}", bindingResult.getModel());
+            logger.info("Error:{}", bindingResult.getModel());
             model.addAllAttributes(bindingResult.getModel());
             return "/security/resource/form";
         }
@@ -77,9 +77,9 @@ public class ResourceController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String update(@Valid Resource resource, Long pId, BindingResult bindingResult, Model model) {
-        log.debug("edit resource={}", resource);
+        logger.debug("edit resource={}", resource);
         if (bindingResult.hasErrors()) {
-            log.warn("validation error={}", bindingResult.getModel());
+            logger.warn("validation error={}", bindingResult.getModel());
             model.addAllAttributes(bindingResult.getModel());
             return "security/resource/form";
         }
@@ -94,7 +94,7 @@ public class ResourceController {
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, Model model) {
-		log.info("delete resource");
+		logger.info("delete resource");
         resourceService.delete(id);
         resourceService.refreshResourceCache();
         return "redirect:/security/resource/list";

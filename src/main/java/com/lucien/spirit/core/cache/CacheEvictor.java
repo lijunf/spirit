@@ -14,16 +14,16 @@ import org.springframework.cache.annotation.CacheEvict;
  */
 public class CacheEvictor {
     
-    private static final Logger log = LoggerFactory.getLogger(CacheLoader.class);
+    private static final Logger logger = LoggerFactory.getLogger(CacheLoader.class);
 
     @CacheEvict(value="dict", allEntries=true)
     public void clearDict() {
-        log.info("清除字典缓存成功！");
+        logger.info("清除字典缓存成功！");
     }
     
     @CacheEvict(value="config", allEntries=true)
     public void clearConfig() {
-        log.info("清除系统参数缓存成功！");
+        logger.info("清除系统参数缓存成功！");
     }
     
 }

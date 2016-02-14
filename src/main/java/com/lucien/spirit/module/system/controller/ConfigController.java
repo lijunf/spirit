@@ -24,7 +24,7 @@ public class ConfigController {
     @Autowired
     ConfigService configService;
 
-    protected static final Logger log = LoggerFactory.getLogger(ConfigController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(ConfigController.class);
 
     @RequestMapping("/list")
     public String list(Model model) {

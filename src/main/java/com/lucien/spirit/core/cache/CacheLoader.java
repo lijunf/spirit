@@ -28,7 +28,7 @@ import com.lucien.spirit.module.system.model.DictType;
  */
 public class CacheLoader {
     
-    private static final Logger log = LoggerFactory.getLogger(CacheLoader.class);
+    private static final Logger logger = LoggerFactory.getLogger(CacheLoader.class);
 
     /**
      * 获取系统的字典常量,如果缓存中不存在，则从数据库中读取，并在读取后保存在缓存中。 该方法受ehcache的缓存配置文件管理。
@@ -40,7 +40,7 @@ public class CacheLoader {
     @Cacheable("dict")
     public Map<String, Map<String, String>> getDict() throws Exception {
         DictTypeDao dictTypeDao = WebContextUtil.getBean(DictTypeDao.class);
-        log.info("正在初始化缓存: dict");
+        logger.info("正在初始化缓存: dict");
 
         List<DictType> types = dictTypeDao.findAll();
         Map<String, Map<String, String>> map = new LinkedHashMap<String, Map<String, String>>();
@@ -72,7 +72,7 @@ public class CacheLoader {
     @Cacheable("config")
     public Map<String, String> getConfig() throws Exception {
         ConfigDao configDao = WebContextUtil.getBean(ConfigDao.class);
-        log.info("正在初始化缓存: config");
+        logger.info("正在初始化缓存: config");
 
         List<Config> list = configDao.findAll();
         Map<String, String> map = new LinkedHashMap<String, String>();

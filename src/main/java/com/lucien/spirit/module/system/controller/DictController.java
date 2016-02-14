@@ -31,7 +31,7 @@ public class DictController {
     @Autowired
     DictEntryService dictEntryService;
 
-    protected static final Logger log = LoggerFactory.getLogger(DictController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(DictController.class);
 
     @RequestMapping("/list")
     public String list(Model model) {
