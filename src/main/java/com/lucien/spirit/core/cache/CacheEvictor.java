@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.CacheEvict;
  * 缓存清理帮助类，注意方法命名规范
  * @Filename : CacheEvictor.java
  * @Package : com.lucien.spirit.core.cache
- * @Description : Lucien基础服务平台
+ * @Description : TODO
  * @author : lijunf
  * @CreateDate : 2016年2月5日
  */

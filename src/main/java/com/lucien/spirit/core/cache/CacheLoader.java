@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 
+import com.lucien.spirit.core.constants.DictConstants;
 import com.lucien.spirit.core.util.WebContextUtil;
 import com.lucien.spirit.module.system.dao.ConfigDao;
 import com.lucien.spirit.module.system.dao.DictTypeDao;
@@ -17,12 +18,11 @@ import com.lucien.spirit.module.system.model.DictType;
 
 
 /**
- * 缓存加载类，该类为缓存加载的基类，实现了字典与配置缓存<br>
- * 如需要额外的缓存，则继承并扩展该类,并在spring中更改配置
+ * 缓存加载类
  * 
  * @Filename : CacheLoader.java
  * @Package : com.lucien.spirit.core.cache
- * @Description : Lucien基础服务平台
+ * @Description : TODO
  * @author : lijunf
  * @CreateDate : 2016年2月5日
  */
@@ -54,7 +54,9 @@ public class CacheLoader {
             }
             List<DictEntry> entrys = type.getDictEntrys();
             for (DictEntry entry : entrys) {
-                value.put(entry.getDictId(), entry.getDictName());
+                if (entry.getStatus() == DictConstants.STATUS_ENABLE) {
+                    value.put(entry.getDictId(), entry.getDictName());
+                }
             }
         }
         return map;

@@ -10,7 +10,7 @@ import javax.persistence.criteria.Root;
  * 
  * @Filename : Criterion.java
  * @Package : com.lucien.spirit.core.jpa
- * @Description : Lucien基础服务平台
+ * @Description : TODO
  * @author : lijunf
  * @CreateDate : 2016年2月1日
  */

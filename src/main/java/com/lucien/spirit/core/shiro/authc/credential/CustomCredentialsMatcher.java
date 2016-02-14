@@ -15,7 +15,7 @@ import com.lucien.spirit.module.security.model.User;
  * 
  * @Filename : CustomCredentialsMatcher.java
  * @Package : com.lucien.spirit.security.shiro.authc.credential
- * @Description : Lucien基础服务平台
+ * @Description : TODO
  * @author : lijunf
  * @CreateDate : 2016年1月21日
  */

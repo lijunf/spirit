@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.lucien.spirit.core.constants.DictConstants;
 import com.lucien.spirit.module.system.model.DictEntry;
 import com.lucien.spirit.module.system.model.DictType;
 import com.lucien.spirit.module.system.service.DictEntryService;
@@ -90,7 +91,7 @@ public class DictController {
     }
     
     @RequestMapping("/entry/list/{dictTypeId}")
-    public String list(Model model, @PathVariable("dictTypeId") String dictTypeId) {
+    public String listEntry(Model model, @PathVariable("dictTypeId") String dictTypeId) {
         List<DictEntry> dictEntryList = dictEntryService.findByDictTypeId(dictTypeId);
         model.addAttribute("dictEntryList", dictEntryList);
         model.addAttribute("dictTypeId", dictTypeId);
@@ -99,10 +100,15 @@ public class DictController {
 
     @RequestMapping(value = "/entry/create", method = RequestMethod.POST)
     public String saveEntry(@Valid DictEntry dictEntry, String dictTypeId, BindingResult bindingResult, Model model) {
-        dictEntry.setDictType(dictTypeService.findOne(dictTypeId));
-        dictEntry.setStatus(1);
-        dictEntryService.save(dictEntry);
-        return "redirect:/system/dict/entry/list";
+        DictEntry dictEntryTemp = dictEntryService.findOne(dictTypeId, dictEntry.getDictId());
+        if (dictEntryTemp != null && dictEntryTemp.getId() != null) {
+            // TODO 字典常量已经存在，给用户提示信息
+        } else {
+            dictEntry.setDictType(dictTypeService.findOne(dictTypeId));
+            dictEntry.setStatus(DictConstants.STATUS_ENABLE);
+            dictEntryService.save(dictEntry);
+        }
+        return "redirect:/system/dict/entry/list/" + dictTypeId;
     }
     
     @RequestMapping(value = "/entry/edit/{dictTypeId}/{dictId}", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
@@ -114,10 +120,16 @@ public class DictController {
     }
     
     @RequestMapping(value = "/entry/edit", method = RequestMethod.POST)
-    public String update(@Valid DictEntry dictEntry, String dictTypeId, BindingResult bindingResult, Model model) {
+    public String updateEntry(@Valid DictEntry dictEntry, String dictTypeId, BindingResult bindingResult, Model model) {
         dictEntry.setDictType(dictTypeService.findOne(dictTypeId));
-        dictEntry.setStatus(1);
+        dictEntry.setStatus(DictConstants.STATUS_ENABLE);
         dictEntryService.save(dictEntry);
-        return "redirect:/system/dict/entry/list";
+        return "redirect:/system/dict/entry/list/" + dictTypeId;
+    }
+    
+    @RequestMapping(value = "/entry/delete/{dictTypeId}/{id}", method = RequestMethod.GET)
+    public String deleteEntry(@PathVariable("dictTypeId") String dictTypeId, @PathVariable("id") Long id) {
+        dictEntryService.delete(id);
+        return "redirect:/system/dict/entry/list/" + dictTypeId;
     }
 }

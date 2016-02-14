@@ -25,4 +25,8 @@ public class DictEntryService {
     public DictEntry findOne(String dictTypeId, String dictId) {
         return dictEntryDao.findOne(dictTypeId, dictId);
     }
+
+    public void delete(Long id) {
+        dictEntryDao.delete(id);
+    }
 }

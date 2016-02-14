@@ -19,7 +19,7 @@ import com.lucien.spirit.core.model.BaseModel;
  * 
  * @Filename : Person.java
  * @Package : com.lucien.spirit.model
- * @Description : Lucien基础服务平台
+ * @Description : TODO
  * @author : lijunf
  * @CreateDate : 2016年1月21日
  */

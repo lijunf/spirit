@@ -21,7 +21,7 @@
 						<td nowrap>
 							<button onclick="editDictEntry('${pageContext.request.contextPath}/system/dict/entry/edit/${dictTypeId}/${dict.dictId}')" 
 									class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">edit</button>
-							<button onclick="deleteconfig('${dict.dictId}', '${dict.dictName}')" class="btn btn-primary btn-xs">delete</button>
+							<button onclick="deleteconfig('${dict.id}', '${dict.dictName}')" class="btn btn-primary btn-xs">delete</button>
 						</td>
 						<td>${dict.dictId}</td>
 						<td>${dict.dictName}</td>
@@ -81,6 +81,7 @@
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
+								<input type="hidden" name="id" id="id">
 								<input class="form-control" type="text" name="dictTypeId" value="${dictTypeId}" readOnly autocomplete="off" required>
 							</div>
 							<div class="form-group">
@@ -106,7 +107,7 @@
 			function deleteconfig(id, name) {
 				bootbox.confirm("确定删除字典常量<font color='red'>" + name + "</font>?", function(result) {
 					if (result == true) {
-						window.location.href = '${pageContext.request.contextPath}/system/dict/entry/delete/' + id;
+						window.location.href = '${pageContext.request.contextPath}/system/dict/entry/delete/${dictTypeId}/' + id;
 					}
 				});
 			}
@@ -119,6 +120,7 @@
 					async : true,
 					dataType: "json",
 					success: function(entry) {
+						$('#id').val(entry.id);
 						$('#dictId').val(entry.dictId);
                         $('#dictName').val(entry.dictName);
                         $('#orderNo').val(entry.orderNo);

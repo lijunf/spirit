@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.lucien.spirit.module.system.model.DictEntry;
 
 @Repository
-public interface DictEntryDao extends JpaRepository<DictEntry, String> {
+public interface DictEntryDao extends JpaRepository<DictEntry, Long> {
 
-	@Query("SELECT e FROM DictEntry e WHERE e.dictType.dictTypeId = :dictTypeId AND e.status = 1 ORDER BY e.orderNo ")
+	@Query("SELECT e FROM DictEntry e WHERE e.dictType.dictTypeId = :dictTypeId ORDER BY e.orderNo ")
 	public List<DictEntry> findByDictTypeId(@Param("dictTypeId") String dictTypeId);
 	
 	@Query("SELECT e FROM DictEntry e WHERE e.dictType.dictTypeId = :dictTypeId AND e.dictId = :dictId")

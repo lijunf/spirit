@@ -6,7 +6,7 @@ import com.lucien.spirit.core.cache.CacheLoader;
  * 系统参数帮助类
  * @Filename : ConfigUtil.java
  * @Package : com.lucien.spirit.core.util
- * @Description : Lucien基础服务平台
+ * @Description : TODO
  * @author : lijunf
  * @CreateDate : 2016年2月5日
  */
