@@ -10,6 +10,7 @@
 		</layout>
 	</appender>
 	
+
 	<appender name="jdbc" class="org.apache.log4j.jdbc.JDBCAppender">
 		<param name="BufferSize" value="100" />
 		<param name="URL" value="jdbc:mysql://localhost:3306/spirit?useUnicode=true&amp;characterEncoding=utf-8" />
