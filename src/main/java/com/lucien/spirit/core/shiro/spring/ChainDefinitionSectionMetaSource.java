@@ -30,7 +30,7 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
     /** 
      * 默认premission字符串 
      */  
-    public static final String PREMISSION_STRING="perms[\"{0}\"]";  
+    public static final String PREMISSION_STRING = "perms[\"{0}\"]";  
 
     /**
      * 权限map

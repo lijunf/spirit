@@ -41,7 +41,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(Model model, HttpServletRequest request, String username, String password) {
+    public String login(Model model, HttpServletRequest request, String username, String password, boolean rememberMe) {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated() || subject.isRemembered()) {
             return "redirect:/home";
@@ -57,7 +57,7 @@ public class LoginController {
             return "/login";
         }
 
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password, false, request.getRemoteHost());
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe, request.getRemoteHost());
         try {
             subject.login(token);
             ShiroUser principal = (ShiroUser) subject.getPrincipal();
