@@ -126,13 +126,10 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+							<a href="javascript:viewUserInfo()"><i class="fa fa-fw fa-user"></i> 个人信息</a>
 						</li>
 						<li>
-							<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-						</li>
-						<li>
-							<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+							<a href="javascript:updatePassWord()"><i class="fa fa-fw fa-gear"></i> 修改密码</a>
 						</li>
 						<li class="divider"></li>
 						<li>
@@ -222,6 +219,82 @@
 		</div>
 		<!-- /#page-wrapper -->
 	
+		<script type="text/javascript">
+		
+			/**
+			 *	查询用户信息
+			 */
+			function viewUserInfo() {
+				bootbox.dialog({
+			        title: "个人信息",
+			        message: '<div class="row">  ' +
+			          '<div class="col-xs-10 col-xs-offset-1"> ' +
+			          '<form class="form-horizontal"> ' +
+			          '<div class="form-group"> ' +
+			          '用户名：<shiro:principal property="name" />' +
+			          '</div> ' +
+			          '<div class="form-group"> ' +
+			          '真实姓名：<shiro:principal property="realName" />' +
+			          '</div> ' +
+			          '<div class="form-group"> ' +
+			          '手机号码：TODO' +
+			          '</div> ' +
+			          '<div class="form-group"> ' +
+			          '邮箱地址：TODO' +
+			          '</div> ' +
+			          '</form> </div>  </div>',
+			        buttons: {
+			          success: {
+			            label: "Close",
+			            className: "btn-primary",
+			            callback: function () {
+			            }
+			          }
+			        }
+				});
+			}
+			
+			/**
+			 *	修改用户密码
+			 */
+			function updatePassWord() {
+				bootbox.dialog({
+			        title: "修改密码",
+			        message: '<div class="row">  ' +
+			          '<div class="col-xs-10 col-xs-offset-1"> ' +
+			          '<form id="updatePassWordForm" class="form-horizontal"> ' +
+			          '<div class="form-group"> ' +
+			          '<input id="password" name="password" type="password" placeholder="原密码" class="form-control" autocomplete="off" required> ' +
+			          '</div> ' +
+			          '<div class="form-group"> ' +
+			          '<input id="newpassword" name="newpassword" type="password" placeholder="新密码" class="form-control" autocomplete="off" required> ' +
+			          '</div> ' +
+			          '<div class="form-group"> ' +
+			          '<input id="newpassword2" name="newpassword2" type="password" placeholder="重复密码" class="form-control" autocomplete="off" required> ' +
+			          '</div> ' +
+			          '</form> </div>  </div>',
+			        buttons: {
+			          success: {
+			            label: "Save",
+			            className: "btn-primary",
+			            callback: function () {
+			              // TODO 待完成
+			              var password = $('#password').val();
+			              var newpassword = $('#newpassword').val();
+			              var newpassword2 = $('#newpassword2').val();
+			              if (!password) {
+			            	  return false;
+			              }
+			              if (!newpassword || !newpassword2 || newpassword != newpassword2) {
+			            	  return false;
+			              }
+			            }
+			          }
+			        }
+				});
+			}
+		
+		</script>
 	</div>
 	<!-- /#wrapper -->
 	<script type="text/javascript" src="<c:url value="/resources/js/common.js" />"></script>
