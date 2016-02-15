@@ -118,6 +118,9 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
         resource = new Resource("dict:delete", "删除字典", "/system/dict/delete/**", dictResource.getId(), Resource.TYPE_BTN, 3);
         resourceDao.save(resource);
         
+        Resource logResource = new Resource("log:query", "系统日志", "/system/log/list", sysRes.getId(), Resource.TYPE_MENU, 3, "glyphicon-italic");
+        resourceDao.save(logResource);
+        
         Resource cusRes = new Resource("person:manage", "客户关系", "/", null, Resource.TYPE_MENU, 3, "glyphicon-star");
         resourceDao.saveAndFlush(cusRes);
         

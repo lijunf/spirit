@@ -375,6 +375,12 @@ a:hover {
     border-left: 8px solid transparent
 }
 
+.pagination-wrapper {
+	text-align: right;
+    padding: 0 5px 0 0;
+    margin-top: -10px;
+}
+
 .pagination-search-wrapper {
 	text-align: right;
 	padding: 0 5px 0 0;

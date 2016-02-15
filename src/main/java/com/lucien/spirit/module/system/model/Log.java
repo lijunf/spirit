@@ -40,7 +40,7 @@ public class Log extends BaseModel {
     private String priority;
 
     @Column(name = "LOGDATE")
-    private Date LOGDATE;
+    private Date logDate;
     
     @Column(name = "CLASS")
     private String clazz;
@@ -83,12 +83,12 @@ public class Log extends BaseModel {
         this.priority = priority;
     }
 
-    public Date getLOGDATE() {
-        return LOGDATE;
+    public Date getLogDate() {
+        return logDate;
     }
 
-    public void setLOGDATE(Date lOGDATE) {
-        LOGDATE = lOGDATE;
+    public void setLogDate(Date logDate) {
+        this.logDate = logDate;
     }
 
     public String getClazz() {
