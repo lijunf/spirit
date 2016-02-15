@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro"%>
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
@@ -61,10 +62,10 @@
 					<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/login">
 						<h2 class="form-signin-heading">Please sign in</h2>
 						<div class="form-group">
-							<input class="form-control" type="text" name="username" placeholder="Login UserName" required autofocus> 
+							<input class="form-control" type="text" name="username" value="<shiro:principal property="name"/>" placeholder="Login UserName" required autofocus> 
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="password" name="password" placeholder="Password" required> 
+							<input class="form-control" type="password" name="password" placeholder="Password" autocomplete="off" required> 
 						</div>
 						<div class="form-group">
 							<input class="form-control" type="text" name="code"	autocomplete="off" placeholder="Verification code" required>
@@ -72,7 +73,7 @@
 						<div class="form-group">
 							<div style="float: left; margin-top: 5px;">
 								<label class="checkbox" style="margin-left: 20px;"> 
-									<input type="checkbox" value="remember-me"> Remember me
+									<input type="checkbox" name="rememberMe" value="true"> Remember me
 								</label>
 							</div>
 							<div style="float: right">
