@@ -40,7 +40,7 @@
 				</form>
 			</div>
 			<div class="table-responsive">
-				<table class="table table-hover table-bordered" style="margin-bottom: 0px;">
+				<table class="table table-hover table-condensed table-bordered" style="margin-bottom: 0px;">
 					<tr>
 						<th>帐号</th>
 						<th>操作</th>

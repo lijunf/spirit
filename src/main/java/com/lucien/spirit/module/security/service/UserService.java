@@ -25,13 +25,6 @@ public class UserService {
     UserDao userDao;
 
     @Transactional(readOnly = true)
-    public Page<User> findAllForPagination(int page, int size) {
-        Pageable pageable = new PageRequest(page, size, new Sort(Direction.DESC, "id"));
-        Page<User> users = userDao.findAll(pageable);
-        return users;
-    }
-    
-    @Transactional(readOnly = true)
     public Page<User> findForPagination(int page, int size, User user) {
         Pageable pageable = new PageRequest(page, size, new Sort(Direction.DESC, "id"));
         Criteria<User> criteria = new Criteria<User>();  

@@ -28,6 +28,8 @@ public class Restrictions {
     public static SimpleExpression eq(String fieldName, Object value, boolean ignoreNull) {
         if (ignoreNull && value == null)
             return null;
+        if (ignoreNull && value instanceof String && ((String) value).trim().length() == 0) 
+            return null;
         return new SimpleExpression(fieldName, value, Operator.EQ);
     }
 
@@ -41,6 +43,8 @@ public class Restrictions {
      */
     public static SimpleExpression ne(String fieldName, Object value, boolean ignoreNull) {
         if (ignoreNull && value == null)
+            return null;
+        if (ignoreNull && value instanceof String && ((String) value).trim().length() == 0) 
             return null;
         return new SimpleExpression(fieldName, value, Operator.NE);
     }
@@ -113,7 +117,7 @@ public class Restrictions {
      * @param ignoreNull
      * @return
      */
-    public static SimpleExpression lte(String fieldName, Object value, boolean ignoreNull) {
+    public static SimpleExpression gte(String fieldName, Object value, boolean ignoreNull) {
         if (ignoreNull && value == null)
             return null;
         if (ignoreNull && value instanceof String && ((String) value).trim().length() == 0) 
@@ -129,7 +133,7 @@ public class Restrictions {
      * @param ignoreNull
      * @return
      */
-    public static SimpleExpression gte(String fieldName, Object value, boolean ignoreNull) {
+    public static SimpleExpression lte(String fieldName, Object value, boolean ignoreNull) {
         if (ignoreNull && value == null)
             return null;
         if (ignoreNull && value instanceof String && ((String) value).trim().length() == 0) 

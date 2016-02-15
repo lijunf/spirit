@@ -6,7 +6,8 @@
 	<c:param name="body">
 		<shiro:hasPermission name="dict:add">
 		<p>
-			<a href='${pageContext.request.contextPath}/system/dict/create' class="btn btn-info">CREATE</a>
+			<a href='${pageContext.request.contextPath}/system/dict/create' class="btn btn-info">添加</a>
+			<a href="javascript:get('${pageContext.request.contextPath}/system/cache/refresh/dict')" class="btn btn-info">刷新缓存</a>
 		</p>
 		</shiro:hasPermission>
 		<div class="table-responsive">
