@@ -1,34 +1,19 @@
 package com.lucien.spirit.module.security.dao;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.lucien.spirit.module.security.model.Resource;
+import com.lucien.spirit.test.AbstractDaoTest;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:applicationContext.xml")
-@Transactional
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
-public class ResourceDaoTest {
+public class ResourceDaoTest extends AbstractDaoTest {
 	
 	@Autowired
 	ResourceDao resourceDao;
 
 	@Before
 	public void setUp() throws Exception {
-	}
-
-	@Test
-	public void testSaveIterableOfS() {
-		fail("Not yet implemented");
 	}
 
 	@Test

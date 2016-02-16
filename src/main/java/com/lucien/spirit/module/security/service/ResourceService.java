@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.lucien.spirit.module.security.dao.ResourceDao;
 import com.lucien.spirit.module.security.model.Resource;
@@ -74,8 +75,11 @@ public class ResourceService {
 	 * @param context
 	 */
     public void refreshResourceCache() {
-	    ServletContext context = ContextLoader.getCurrentWebApplicationContext().getServletContext();
-	    context.setAttribute("topResourceList", findTopList());
+        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        if (webApplicationContext != null) {
+            ServletContext context = webApplicationContext.getServletContext();
+            context.setAttribute("topResourceList", findTopList());
+        }
 	    // TODO 现在是所有资源一起刷新，以后考虑只刷新单个
 		/*List<Resource> topResourceList = (List<Resource>) context.getAttribute("topResourceList");
 		for (Resource resource : topResourceList) {
