@@ -253,7 +253,7 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-servlet-api</artifactId>
 			<version>7.0.54</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<!-- shiro -->
 		<dependency>

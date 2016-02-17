@@ -1,0 +1,26 @@
+language: java
+
+env:
+  - DB=mysql
+
+jdk:
+  - openjdk7
+
+mysql:
+  database: spirit
+  username: root
+  password : 123456
+  encoding: utf8
+
+install:
+  - mvn install -Dmaven.test.skip=true
+
+before_script:
+  - mysql -e 'create database IF NOT EXISTS spirit
+
+script:
+  - mvn test
+
+notifications:
+  email:
+    - lijunf@163.com
