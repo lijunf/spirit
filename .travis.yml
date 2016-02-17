@@ -16,7 +16,7 @@ install:
   - mvn install -Dmaven.test.skip=true
 
 before_script:
-  - mysql -e 'create database IF NOT EXISTS spirit
+  - mysql -e 'create database IF NOT EXISTS spirit'
 
 script:
   - mvn test
