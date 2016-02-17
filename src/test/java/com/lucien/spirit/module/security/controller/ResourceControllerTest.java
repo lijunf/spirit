@@ -45,6 +45,7 @@ public class ResourceControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
+	@Ignore
 	public void testEdit() throws Exception {
 		mockMvc.perform((get("/security/resource/edit/1")))
 		.andExpect(status().isOk())
