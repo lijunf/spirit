@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
@@ -51,6 +52,7 @@ public class ResourceControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
+	@Ignore
 	public void testUpdate() throws Exception {
 		mockMvc.perform((post("/security/resource/edit/1")
 				.param("id", "" + 1)
@@ -66,6 +68,7 @@ public class ResourceControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
+	@Ignore
 	public void testDelete() throws Exception {
 		mockMvc.perform((get("/security/resource/delete/1")))
 		.andExpect(status().is3xxRedirection())
