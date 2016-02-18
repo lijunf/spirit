@@ -52,7 +52,7 @@ public class LoginController {
         Session shiroSession = subject.getSession();
         Object kaptchaCode = shiroSession.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 
-        if (kaptchaCode != null && !StringUtils.equalsIgnoreCase(loginKaptchaCode, kaptchaCode.toString())) {
+        if (kaptchaCode == null || !StringUtils.equalsIgnoreCase(loginKaptchaCode, kaptchaCode.toString())) {
             model.addAttribute("message", "验证码错误!");
             return "/login";
         }
