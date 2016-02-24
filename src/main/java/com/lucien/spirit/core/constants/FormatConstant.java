@@ -1,18 +1,20 @@
 package com.lucien.spirit.core.constants;
 
 /**
- * 格式化常量
- * @Filename : FormatConstant.java
- * @Package : com.lucien.spirit.core.constants
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年2月15日
+ * 格式化常量.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:01:48
+ * <p>Version: 1.0
  */
-public class FormatConstant {
-    /** 日期格式 ** */
-    public final static String DEFALUT_DATE_PATTERN = "yyyy-MM-dd";
+public interface FormatConstant {
 
-    /** 日期格式 ** */
-    public final static String DEFALUT_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    /**
+     * 日期格式 .
+     */
+    String DEFALUT_DATE_PATTERN = "yyyy-MM-dd";
 
+    /**
+     * 时间格式 .
+     */
+    String DEFALUT_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 }

@@ -18,6 +18,12 @@ import com.lucien.spirit.core.constants.PageConstants;
 import com.lucien.spirit.module.person.model.Person;
 import com.lucien.spirit.module.person.service.PersonService;
 
+/**
+ * 客户管理.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:48:09
+ * <p>Version: 1.0
+ */
 @Controller
 @RequestMapping("/person")
 public class PersonController {

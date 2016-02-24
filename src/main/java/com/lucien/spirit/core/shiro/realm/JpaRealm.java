@@ -26,16 +26,31 @@ import com.lucien.spirit.module.security.model.Resource;
 import com.lucien.spirit.module.security.model.Role;
 import com.lucien.spirit.module.security.model.User;
 
+/**
+ * Jpa实现的Shiro授权与认证类.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:35:49
+ * <p>Version: 1.0
+ */
 public class JpaRealm extends AuthorizingRealm implements Serializable {
-    
-    private static final Logger logger = LoggerFactory.getLogger(JpaRealm.class);
 
+    /**
+     * 日志对象.
+     */
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    /**
+     * 自动生成的序列号.
+     */
     private static final long serialVersionUID = 2053039661926394526L;
 
+    /**
+     * 用户Dao.
+     */
     @Autowired
     UserDao userDao;
 
-    /*
+    /**
      * 授权信息处理
      */
     @Override
@@ -59,7 +74,12 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
 
         return null;
     }
-    
+
+    /**
+     * 递归设置资源权限.
+     * @param permissions
+     * @param resource
+     */
 	private void setMenuPerms(Set<String> permissions, Resource resource) {
 		if (resource != null) {
 			permissions.add(resource.getPermission());
@@ -69,7 +89,7 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
 		}
 	}
 
-    /*
+    /**
      * 认证信息处理
      */
     @Override
@@ -131,5 +151,4 @@ public class JpaRealm extends AuthorizingRealm implements Serializable {
         clearAllCachedAuthenticationInfo();
         clearAllCachedAuthorizationInfo();
     }
-
 }

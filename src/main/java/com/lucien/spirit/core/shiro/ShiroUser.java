@@ -3,29 +3,30 @@ package com.lucien.spirit.core.shiro;
 import java.io.Serializable;
 
 /**
- * @Title: ShiroUser.java 
- * @Package com.lucien.spirit.core.shiro 
- * @Description: TODO 
- * @author lucien   
- * @date 2016年1月28日 下午11:17:52 
- * @version V1.0
+ * 自定义Shiro用户类.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:40:51
+ * <p>Version: 1.0
  */
 public class ShiroUser implements Serializable {
 
+    /**
+     * 自动生成的序列号.
+     */
 	private static final long serialVersionUID = 844463378615021620L;
 
 	/**
-	 * 用户id
+	 * 用户id.
 	 */
 	private Long id;
 	
 	/**
-	 * 用户名
+	 * 用户名.
 	 */
 	private String name;
 	
 	/**
-	 * 密码错误次数
+	 * 密码错误次数.
 	 */
 	private int errorNo;
 	
@@ -34,10 +35,20 @@ public class ShiroUser implements Serializable {
 	 */
 	private String realName;
 	
+	/**
+	 * 默认构造函数.
+	 */
 	public ShiroUser() {
 		
 	}
 
+	/**
+	 * 自定义构造函数
+	 * @param id
+	 * @param name
+	 * @param realName
+	 * @param errorNo
+	 */
 	public ShiroUser(Long id, String name, String realName, int errorNo) {
 		super();
 		this.id = id;
@@ -102,5 +113,4 @@ public class ShiroUser implements Serializable {
             return false;
         return true;
     }
-	
 }

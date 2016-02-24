@@ -9,19 +9,20 @@ import org.slf4j.LoggerFactory;
 import com.lucien.spirit.core.constants.TokenConstants;
 
 /**
- * Token处理类
- * @Filename : TokenHandler.java
- * @Package : com.lucien.spirit.core.security
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年2月14日
+ * 防重复提交Token处理类.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:32:42
+ * <p>Version: 1.0
  */
 public class TokenHandler {
 
+    /**
+     * 日志对象.
+     */
     private static final Logger logger = LoggerFactory.getLogger(TokenHandler.class);
 
     /**
-     * 验证表单中的token是否合法
+     * 验证表单中的token是否合法.
      * @return  合法返回null
      */
     public static String validToken(HttpServletRequest request) {
@@ -43,9 +44,9 @@ public class TokenHandler {
         }
         return null;
     }
-    
+
     /**
-     * 重新设置token
+     * 重新设置token.
      * @param token
      */
     public static void resetToken(HttpServletRequest request) {

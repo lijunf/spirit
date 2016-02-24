@@ -3,17 +3,15 @@ package com.lucien.spirit.core.util;
 import com.lucien.spirit.core.cache.CacheLoader;
 
 /**
- * 系统参数帮助类
- * @Filename : ConfigUtil.java
- * @Package : com.lucien.spirit.core.util
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年2月5日
+ * 系统参数帮助类.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:43:26
+ * <p>Version: 1.0
  */
 public class ConfigUtil {
     
     /**
-     * 获取系统参数值
+     * 获取系统参数值.
      * @param key
      * @return
      */

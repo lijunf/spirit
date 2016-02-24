@@ -16,26 +16,23 @@ import com.lucien.spirit.module.system.model.Config;
 import com.lucien.spirit.module.system.model.DictEntry;
 import com.lucien.spirit.module.system.model.DictType;
 
-
 /**
- * 缓存加载类
- * 
- * @Filename : CacheLoader.java
- * @Package : com.lucien.spirit.core.cache
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年2月5日
+ * 缓存加载类.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午3:43:33
+ * <p>Version: 1.0
  */
 public class CacheLoader {
-    
-    private static final Logger logger = LoggerFactory.getLogger(CacheLoader.class);
 
     /**
-     * 获取系统的字典常量,如果缓存中不存在，则从数据库中读取，并在读取后保存在缓存中。 该方法受ehcache的缓存配置文件管理。
-     * 字典常量缓存名:"dict"
-     * 
-     * @return Map<String, Map<String,String>>,key:缓存类型,value:字典常量bean
-     * @throws Exception
+     * 日志对象.
+     */
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    /**
+     * 字典缓存.
+     * @return Map<String, Map<String,String>>  key:缓存类型,value:字典常量bean
+     * @throws Exception if has error(系统异常)
      */
     @Cacheable("dict")
     public Map<String, Map<String, String>> getDict() throws Exception {
@@ -62,12 +59,10 @@ public class CacheLoader {
         return map;
     }
 
-
     /**
-     * 参数配置缓存
-     * 
-     * @return
-     * @throws Exception
+     * 参数配置缓存.
+     * @return Map<String, String>
+     * @throws Exception if has error(系统异常)
      */
     @Cacheable("config")
     public Map<String, String> getConfig() throws Exception {
@@ -82,5 +77,5 @@ public class CacheLoader {
         }
         return map;
     }
-    
+
 }
