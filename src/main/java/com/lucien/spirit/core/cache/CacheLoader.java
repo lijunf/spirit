@@ -31,7 +31,7 @@ public class CacheLoader {
 
     /**
      * 字典缓存.
-     * @return Map<String, Map<String,String>>  key:缓存类型,value:字典常量bean
+     * @return key:缓存类型,value:字典常量bean
      * @throws Exception if has error(系统异常)
      */
     @Cacheable("dict")
