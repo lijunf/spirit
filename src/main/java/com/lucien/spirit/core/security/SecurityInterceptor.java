@@ -17,17 +17,22 @@ import com.lucien.spirit.core.shiro.ShiroUser;
 import com.lucien.spirit.core.util.HttpUtil;
 
 /**
- * 访问拦截器，验证token、记录访问日志
- * @Filename : SecurityInterceptor.java
- * @Package : com.lucien.spirit.core.security
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年2月14日
+ * 访问拦截器，验证token、记录访问日志.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:31:48
+ * <p>Version: 1.0
  */
 public class SecurityInterceptor extends HandlerInterceptorAdapter {
     
+    /**
+     * 日志对象
+     */
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.web.servlet.handler.HandlerInterceptorAdapter#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
+     */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String servletPath = request.getServletPath();
         if (servletPath != null && servletPath.startsWith("/resources")) {
@@ -63,6 +68,10 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 		return true;
 	}
 
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.web.servlet.handler.HandlerInterceptorAdapter#afterCompletion(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, java.lang.Exception)
+     */
 	public void afterCompletion(HttpServletRequest httpservletrequest,
 			HttpServletResponse httpservletresponse, Object obj,
 			Exception exception) throws Exception {

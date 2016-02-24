@@ -11,19 +11,22 @@ import com.lucien.spirit.module.security.dao.UserDao;
 import com.lucien.spirit.module.security.model.User;
 
 /**
- * 验证密码服务,可以提供密码错误登录次数的限制
- * 
- * @Filename : CustomCredentialsMatcher.java
- * @Package : com.lucien.spirit.security.shiro.authc.credential
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年1月21日
+ * 验证密码服务,可以提供密码错误登录次数的限制.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:33:44
+ * <p>Version: 1.0
  */
 public class CustomCredentialsMatcher extends HashedCredentialsMatcher {
 	
+    /**
+     * 用户Dao.
+     */
 	@Autowired
     UserDao userDao;
 
+	/**
+	 * 验证密码不能出错3次.
+	 */
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         boolean result = super.doCredentialsMatch(token, info);
@@ -46,5 +49,4 @@ public class CustomCredentialsMatcher extends HashedCredentialsMatcher {
         }
         return result;
     }
-
 }

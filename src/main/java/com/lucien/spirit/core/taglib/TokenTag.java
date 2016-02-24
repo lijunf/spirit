@@ -11,17 +11,22 @@ import javax.servlet.jsp.tagext.TagSupport;
 import com.lucien.spirit.core.constants.TokenConstants;
 
 /**
- * @Filename : TokenTag.java
- * @Package : com.lucien.spirit.core.taglib
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年2月14日
+ * 表单防重复提交Token标签.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:42:14
+ * <p>Version: 1.0
  */
 public class TokenTag extends TagSupport {
 
+    /**
+     * 序列号.
+     */
     private static final long serialVersionUID = -5060882405545964960L;
     
-    public String INPUT_TEXT = "<input type=\"hidden\" name=\"{0}\" value=\"{1}\">";
+    /**
+     * 文本框模板.
+     */
+    public static String INPUT_TEXT = "<input type=\"hidden\" name=\"{0}\" value=\"{1}\">";
 
     public int doStartTag() throws JspException {
         String tokenValue = UUID.randomUUID().toString();

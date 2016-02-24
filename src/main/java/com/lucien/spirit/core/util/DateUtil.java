@@ -6,10 +6,16 @@ import java.util.Date;
 
 import com.lucien.spirit.core.constants.FormatConstant;
 
+/**
+ * 日期对象处理帮助类.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:44:00
+ * <p>Version: 1.0
+ */
 public class DateUtil {
-    
+
     /**
-     * 格式化日期
+     * 格式化日期.
      * @param date
      * @param pattern
      * @return
@@ -27,16 +33,16 @@ public class DateUtil {
     }
 
     /**
-     * 根据默认日期格式yyyy-MM-dd格式化
+     * 根据默认日期格式yyyy-MM-dd格式化.
      * @param date
      * @return
      */
     public static String formatDate(Date date) {
         return formatDate(date, FormatConstant.DEFALUT_DATE_PATTERN);
     }
-    
+
     /**
-     * 将字符串转化为日期
+     * 将字符串转化为日期.
      * @param dateStr
      * @param pattern
      * @return
@@ -53,9 +59,9 @@ public class DateUtil {
         }
         return null;
     }
-    
+
     /**
-     * 将字符串转化为日期，默认日期格式yyyy-MM-dd
+     * 将字符串转化为日期，默认日期格式yyyy-MM-dd.
      * @param dateStr
      * @return
      */

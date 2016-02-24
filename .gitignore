@@ -1,2 +1,5 @@
 /.settings/
 /target/
+/.externalToolBuilders/
+/.project
+/.gitignore

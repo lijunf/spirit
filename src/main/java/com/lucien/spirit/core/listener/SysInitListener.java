@@ -24,16 +24,17 @@ import com.lucien.spirit.module.security.service.ResourceService;
 import com.lucien.spirit.module.security.service.UserService;
 
 /**
- * 系统初始化数据,数据库不限.登录账户为 admin 密码admin
- * 
- * @Filename : SysInitListener.java
- * @Package : com.lucien.spirit.core.listener
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年1月21日
+ * 系统初始化数据,数据库不限.登录账户为 admin 密码admin.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:27:33
+ * <p>Version: 1.0
  */
 public class SysInitListener implements ServletContextListener {
     
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
+     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
@@ -60,7 +61,7 @@ public class SysInitListener implements ServletContextListener {
             personList.add(person);
         }
         personService.save(personList);
-        
+
         List<Resource> resources = resourceService.findAll();
 
         RoleDao roleDao = webApplicationContext.getBean(RoleDao.class);
@@ -69,10 +70,10 @@ public class SysInitListener implements ServletContextListener {
         role.setDescription("系统管理员");
         role.setResource(resources);
         roleDao.saveAndFlush(role);
-        
+
         Set<Role> roles = new HashSet<Role>();
         roles.add(role);
-        
+
         byte[] passwordSalt = UUID.randomUUID().toString().getBytes();
         user = new User();
         // TODO 改到配置文件中去
@@ -90,8 +91,11 @@ public class SysInitListener implements ServletContextListener {
         userService.save(user);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
+     */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
     }
-
 }

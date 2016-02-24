@@ -13,18 +13,22 @@ import com.lucien.spirit.module.security.dao.ResourceDao;
 import com.lucien.spirit.module.security.model.Resource;
 
 /**
- * @Title: ChainDefinitionSectionMetaSource.java 
- * @Package com.lucien.spirit.core.shiro.spring 
- * @Description: 动态创建filterchaindefinitions 
- * @author lucien   
- * @date 2016年1月28日 下午10:43:04 
- * @version V1.0
+ * 动态创建shiro filterchaindefinitions.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:39:07
+ * <p>Version: 1.0
  */
 public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section> {
 
+    /**
+     * 资源Dao
+     */
     @Autowired
     ResourceDao resourceDao;
     
+    /**
+     * 参数配置的shiro权限规则
+     */
     private String filterChainDefinitions;
     
     /** 
@@ -153,5 +157,4 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
     public boolean isSingleton() {
         return true;
     }
-
 }

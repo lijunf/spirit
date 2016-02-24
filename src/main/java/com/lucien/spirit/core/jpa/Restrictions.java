@@ -7,19 +7,15 @@ import org.hibernate.criterion.MatchMode;
 import com.lucien.spirit.core.jpa.Criterion.Operator;
 
 /**
- * 条件构造器 用于创建条件表达式
- * 
- * @Filename : Restrictions.java
- * @Package : com.lucien.spirit.core.jpa
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年2月1日
+ * 条件构造器 用于创建条件表达式.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:23:50
+ * <p>Version: 1.0
  */
 public class Restrictions {
 
     /**
-     * 等于
-     * 
+     * 等于.
      * @param fieldName
      * @param value
      * @param ignoreNull
@@ -34,8 +30,7 @@ public class Restrictions {
     }
 
     /**
-     * 不等于
-     * 
+     * 不等于.
      * @param fieldName
      * @param value
      * @param ignoreNull
@@ -50,8 +45,7 @@ public class Restrictions {
     }
 
     /**
-     * 模糊匹配
-     * 
+     * 模糊匹配.
      * @param fieldName
      * @param value
      * @param ignoreNull
@@ -64,6 +58,7 @@ public class Restrictions {
     }
 
     /**
+     * TODO 
      * @param fieldName
      * @param value
      * @param matchMode
@@ -77,8 +72,7 @@ public class Restrictions {
     }
 
     /**
-     * 大于
-     * 
+     * 大于.
      * @param fieldName
      * @param value
      * @param ignoreNull
@@ -94,8 +88,7 @@ public class Restrictions {
     }
 
     /**
-     * 小于
-     * 
+     * 小于.
      * @param fieldName
      * @param value
      * @param ignoreNull
@@ -110,8 +103,7 @@ public class Restrictions {
     }
 
     /**
-     * 大于等于
-     * 
+     * 大于等于.
      * @param fieldName
      * @param value
      * @param ignoreNull
@@ -126,8 +118,7 @@ public class Restrictions {
     }
 
     /**
-     * 小于等于
-     * 
+     * 小于等于.
      * @param fieldName
      * @param value
      * @param ignoreNull
@@ -142,8 +133,7 @@ public class Restrictions {
     }
 
     /**
-     * 并且
-     * 
+     * 并且.
      * @param criterions
      * @return
      */
@@ -152,8 +142,7 @@ public class Restrictions {
     }
 
     /**
-     * 或者
-     * 
+     * 或者.
      * @param criterions
      * @return
      */
@@ -162,8 +151,7 @@ public class Restrictions {
     }
 
     /**
-     * 包含于
-     * 
+     * 包含于.
      * @param fieldName
      * @param value
      * @return

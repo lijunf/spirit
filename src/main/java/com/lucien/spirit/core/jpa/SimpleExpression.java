@@ -10,38 +10,68 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 简单条件表达式
- * 
- * @Filename : SimpleExpression.java
- * @Package : com.lucien.spirit.core.jpa
- * @Description : TODO
- * @author : lijunf
- * @CreateDate : 2016年2月1日
+ * 简单条件表达式.
+ * <p>User: lijunf
+ * <p>Date: 2016年2月24日 下午4:25:45
+ * <p>Version: 1.0
  */
 public class SimpleExpression implements Criterion {
 
-    private String fieldName; // 属性名
-    private Object value; // 对应值
-    private Operator operator; // 计算符
+    /**
+     * 属性名.
+     */
+    private String fieldName;
+    
+    /**
+     * 对应值.
+     */
+    private Object value;
+    
+    /**
+     * 计算符.
+     */
+    private Operator operator;
 
+    /**
+     * 构造函数.
+     * @param fieldName
+     * @param value
+     * @param operator
+     */
     protected SimpleExpression(String fieldName, Object value, Operator operator) {
         this.fieldName = fieldName;
         this.value = value;
         this.operator = operator;
     }
 
+    /**
+     * 获取属性名.
+     * @return
+     */
     public String getFieldName() {
         return fieldName;
     }
 
+    /**
+     * 获取对应的值.
+     * @return
+     */
     public Object getValue() {
         return value;
     }
 
+    /**
+     * 获取操作符.
+     * @return
+     */
     public Operator getOperator() {
         return operator;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see com.lucien.spirit.core.jpa.Criterion#toPredicate(javax.persistence.criteria.Root, javax.persistence.criteria.CriteriaQuery, javax.persistence.criteria.CriteriaBuilder)
+     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Predicate toPredicate(Root<?> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         Path expression = null;
@@ -74,5 +104,4 @@ public class SimpleExpression implements Criterion {
             return null;
         }
     }
-
 }
